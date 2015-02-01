@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestSettings name="Local" id="c30e1522-50fd-489a-9a11-693e8fca057c" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Description>Настройки тестирования клиента Феникс</Description>
+  <Deployment enabled="false" />
+  <NamingScheme baseName="Phoenix.Local" appendTimeStamp="false" useDefault="false" />
+  <Execution>
+    <TestTypeSpecific>
+      <UnitTestRunConfig testTypeId="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b">
+        <AssemblyResolution>
+          <TestDirectory useLoadContext="true" />
+        </AssemblyResolution>
+      </UnitTestRunConfig>
+    </TestTypeSpecific>
+    <AgentRule name="Execution Agents">
+    </AgentRule>
+  </Execution>
+</TestSettings>
