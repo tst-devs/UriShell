@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Text;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using NSubstitute;
 
-using UriShell.Logging;
 using UriShell.Shell.Registration;
 
 namespace UriShell.Shell.Resolution
@@ -16,14 +17,16 @@ namespace UriShell.Shell.Resolution
 	{
 		private Uri _uri;
 		private IShellResolveOpen _resolveOpen;
-		private ILogSession _logSession;
+		private TraceListener _traceListener;
 		
 		[TestInitialize]
 		public void Initialize()
 		{
 			this._uri = new Uri("tst://placement/module/item");
-			this._logSession = Substitute.For<ILogSession>();
             this._resolveOpen = Substitute.For<IShellResolveOpen>();
+			this._traceListener = Substitute.For<TraceListener>();
+
+			Trace.Listeners.Add(this._traceListener);
 		}
 
 		[TestMethod]
@@ -84,7 +87,7 @@ namespace UriShell.Shell.Resolution
 				});
 			var setup = new ResolveSetup<object>(new ResolveSetupArgs(
 				this._resolveOpen,
-				p => p(this._uri, passedToPlayer, this._logSession)));
+				p => p(this._uri, passedToPlayer)));
 
 			setup.OnReady(action).Open();
 
@@ -108,7 +111,7 @@ namespace UriShell.Shell.Resolution
 				});
 			var setup = new ResolveSetup<object>(new ResolveSetupArgs(
 				this._resolveOpen,
-				p => p(this._uri, passedToPlayer, this._logSession)));
+				p => p(this._uri, passedToPlayer)));
 
 			setup.OnReady(action).OpenOrThrow();
 
@@ -119,20 +122,11 @@ namespace UriShell.Shell.Resolution
 		[TestMethod]
 		public void DoesntInvokeOnFinishedWhenOpen()
 		{
-			// По непонятным причинам, после VS2012 Update2, при запуске тестов скопом,
-			// вызов LogMessage не детектируется. Поэтому тест не проходит. Запуск
-			// теста в индивидуальном порядке дает положительный результат. Следующие
-			// две строки позволяют исправить проблему для скопа тестов.
-			this._logSession.LogMessage(string.Empty, LogCategory.Warning);
-			this._logSession.ClearReceivedCalls();
-	
 			var wasCalled = false;
 
 			var action = new Action<object>(o => wasCalled = true);
 			var setup = new ResolveSetup<object>(
-				new ResolveSetupArgs(
-					this._resolveOpen,
-					p => p(this._uri, new object(), this._logSession)));
+				new ResolveSetupArgs(this._resolveOpen, p => p(this._uri, new object())));
 
 			setup.OnFinished(action).Open();
 
@@ -146,9 +140,7 @@ namespace UriShell.Shell.Resolution
 
 			var action = new Action<object>(o => wasCalled = true);
 			var setup = new ResolveSetup<object>(
-				new ResolveSetupArgs(
-					this._resolveOpen,
-					p => p(this._uri, new object(), this._logSession)));
+				new ResolveSetupArgs(this._resolveOpen, p => p(this._uri, new object())));
 
 			setup.OnFinished(action).OpenOrThrow();
 
@@ -173,7 +165,7 @@ namespace UriShell.Shell.Resolution
 				this._resolveOpen,
 				p =>
 				{
-					var disposable = p(this._uri, passedToPlayer, this._logSession);
+					var disposable = p(this._uri, passedToPlayer);
 					disposable.Dispose();
 				}));
 
@@ -201,7 +193,7 @@ namespace UriShell.Shell.Resolution
 				this._resolveOpen,
 				p =>
 				{
-					var disposable = p(this._uri, passedToPlayer, this._logSession);
+					var disposable = p(this._uri, passedToPlayer);
 					disposable.Dispose();
 				}));
 
@@ -217,14 +209,22 @@ namespace UriShell.Shell.Resolution
 			var resolved = new List<int>();
 
 			var setup = new ResolveSetup<StringBuilder>(new ResolveSetupArgs(
-				this._resolveOpen,
-				p => p(this._uri, resolved, this._logSession)));
+				this._resolveOpen, p => p(this._uri, resolved)));
+
+			var expectedTypeName = typeof(StringBuilder).Name;
+			var resolvedTypeName = resolved.GetType().Name;
 
 			setup.OnReady(_ => { }).Open();
 
-			this._logSession.Received(1).LogMessage(
-				Arg.Is<string>(s => s.Contains(typeof(StringBuilder).Name) && s.Contains(resolved.GetType().Name)),
-				LogCategory.Warning);
+			var calls = this._traceListener.ReceivedCalls();
+
+			this._traceListener.Received(1).TraceEvent(
+				Arg.Any<TraceEventCache>(),
+				Arg.Any<string>(),
+				TraceEventType.Warning,
+				Arg.Any<int>(),
+				Arg.Any<string>(),
+				Arg.Is<object[]>(ps => ps.Contains(expectedTypeName) && ps.Contains(resolvedTypeName)));
 		}
 
 		[TestMethod]
@@ -233,14 +233,20 @@ namespace UriShell.Shell.Resolution
 			var resolved = new List<int>();
 
 			var setup = new ResolveSetup<StringBuilder>(new ResolveSetupArgs(
-				this._resolveOpen,
-				p => p(this._uri, resolved, this._logSession)));
+				this._resolveOpen, p => p(this._uri, resolved)));
+
+			var expectedTypeName = typeof(StringBuilder).Name;
+			var resolvedTypeName = resolved.GetType().Name;
 
 			setup.OnReady(_ => { }).OpenOrThrow();
 
-			this._logSession.Received(1).LogMessage(
-				Arg.Is<string>(s => s.Contains(typeof(StringBuilder).Name) && s.Contains(resolved.GetType().Name)),
-				LogCategory.Warning);
+			this._traceListener.Received(1).TraceEvent(
+				Arg.Any<TraceEventCache>(),
+				Arg.Any<string>(),
+				TraceEventType.Warning,
+				Arg.Any<int>(),
+				Arg.Any<string>(),
+				Arg.Is<object[]>(ps => ps.Contains(expectedTypeName) && ps.Contains(resolvedTypeName)));
 		}
 	}
 }

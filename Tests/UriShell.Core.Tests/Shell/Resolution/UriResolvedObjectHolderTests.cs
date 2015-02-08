@@ -103,7 +103,7 @@ namespace UriShell.Shell.Resolution
 		}
 
 		[TestMethod]
-		[Timeout(300)]
+		[Timeout(500)]
 		public void GeneratesUniqueIds()
 		{
 			var objects = Enumerable

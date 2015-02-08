@@ -1,8 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Reactive.Disposables;
-
-using UriShell.Logging;
 using UriShell.Shell.Registration;
 
 namespace UriShell.Shell.Resolution
@@ -126,19 +125,17 @@ namespace UriShell.Shell.Resolution
 				return null;
 			}
 
-			return (uri, resolved, logSession) =>
+			return (uri, resolved) =>
 				{
 					// Если тип объекта, полученного через URI, отличается от
 					// заданного, логируем этот факт, и отменяем вызов настроек.
 					if (!typeof(TResolved).IsInstanceOfType(resolved))
 					{
-						logSession.LogMessage(
-							string.Format(
-								Properties.Resources.ShellResolveSetupAbortedDueToIncompatibility,
-								uri,
-								typeof(TResolved).Name,
-								resolved != null ? resolved.GetType().Name : "(null)"),
-							LogCategory.Warning);
+						Trace.TraceWarning(
+							Properties.Resources.ShellResolveSetupAbortedDueToIncompatibility,
+							uri,
+							typeof(TResolved).Name,
+							resolved != null ? resolved.GetType().Name : "(null)");
 
 						return Disposable.Empty;
 					}

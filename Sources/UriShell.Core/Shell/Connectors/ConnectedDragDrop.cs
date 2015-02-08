@@ -10,7 +10,7 @@ namespace UriShell.Shell.Connectors
 	/// <summary>
 	/// Реализует сервис перетаскивания объектов, присоединенных к пользовательскому интерфейсу.
 	/// </summary>
-	public sealed class ConnectedDragDrop : IConnectedDragDrop, IUriPlacementConnector
+	internal sealed class ConnectedDragDrop : IConnectedDragDrop, IUriPlacementConnector
 	{
 		/// <summary>
 		/// Таблица отсоединения объектов от пользовательского интерфейса.

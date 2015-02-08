@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Reactive.Disposables;
-
 using UriShell.Extensions;
-using UriShell.Logging;
 using UriShell.Shell.Events;
 using UriShell.Shell.Registration;
 
@@ -42,11 +41,6 @@ namespace UriShell.Shell.Resolution
 		private readonly IUriResolutionCustomization _uriResolutionCustomization;
 
 		/// <summary>
-		/// Объект для записи в лог.
-		/// </summary>
-		private readonly ILogSession _logSession;
-
-		/// <summary>
 		/// Функция для вызова настройки объекта, полученного через URI.
 		/// </summary>
 		private ResolveSetupPlayer _resolveSetupPlayer;
@@ -71,7 +65,6 @@ namespace UriShell.Shell.Resolution
 		/// <param name="uriDisconnectTable">Таблица отсоединения объектов от пользовательского интерфейса.</param>
 		/// <param name="uriResolutionCustomization">Объект, предоставляющий настраиваемые компоненты процесса открытия URI.</param>
 		/// <param name="eventBroadcaster">Сервис рассылки событий.</param>
-		/// <param name="logSession">Объект для записи в лог.</param>
 		public ResolveOpen(
 			Uri uri,
 			object[] attachments,
@@ -79,8 +72,7 @@ namespace UriShell.Shell.Resolution
 			IUriResolvedObjectHolder uriResolvedObjectHolder,
 			IUriDisconnectTable uriDisconnectTable,
 			IUriResolutionCustomization uriResolutionCustomization,
-			IEventBroadcaster eventBroadcaster,
-			ILogSession logSession)
+			IEventBroadcaster eventBroadcaster)
 		{
 			Contract.Requires<ArgumentNullException>(uri != null);
 			Contract.Requires<ArgumentNullException>(attachments != null);
@@ -89,7 +81,6 @@ namespace UriShell.Shell.Resolution
 			Contract.Requires<ArgumentNullException>(uriDisconnectTable != null);
 			Contract.Requires<ArgumentNullException>(uriResolutionCustomization != null);
 			Contract.Requires<ArgumentNullException>(eventBroadcaster != null);
-			Contract.Requires<ArgumentNullException>(logSession != null);
 
 			this._unresolvedUri = uri;
 			this._attachments = attachments;
@@ -97,7 +88,6 @@ namespace UriShell.Shell.Resolution
 			this._uriResolvedObjectHolder = uriResolvedObjectHolder;
 			this._uriResolutionCustomization = uriResolutionCustomization;
 			this._eventBroadcaster = eventBroadcaster;
-			this._logSession = logSession;
 			this._uriDisconnectTable = uriDisconnectTable;
 		}
 
@@ -291,7 +281,7 @@ namespace UriShell.Shell.Resolution
 			{
 				try
 				{
-					return this._resolveSetupPlayer(uri, resolved, this._logSession);
+					return this._resolveSetupPlayer(uri, resolved);
 				}
 				catch (Exception ex)
 				{
@@ -301,7 +291,7 @@ namespace UriShell.Shell.Resolution
 					}
 
 					// Успешность вызова настроек не должна влиять на вызывающий код.
-					this._logSession.LogException(ex.Message, ex);
+					Trace.TraceError(ex.ToString());
 				}
 			}
 
@@ -314,13 +304,11 @@ namespace UriShell.Shell.Resolution
 		/// <param name="resolved">Объект, полученный через URI.</param>
 		/// <param name="uriResolvedObjectHolder">Холдер объектов, открытых оболочкой через URI.</param>
 		/// <param name="uriDisconnectTable">Таблица отсоединения объектов от пользовательского интерфейса.</param>
-		/// <param name="logSession">Объект для записи в лог.</param>
 		/// <returns><see cref="IDisposable"/> для закрытия объекта.</returns>
 		private static IDisposable CreateCloseDisposable(
 			object resolved,
 			IUriResolvedObjectHolder uriResolvedObjectHolder,
-			IUriDisconnectTable uriDisconnectTable,
-			ILogSession logSession)
+			IUriDisconnectTable uriDisconnectTable)
 		{
 			return Disposable.Create(() =>
 			{
@@ -344,7 +332,7 @@ namespace UriShell.Shell.Resolution
 						throw;
 					}
 
-					logSession.LogException(ex.Message, ex);
+					Trace.TraceError(ex.ToString());
 				}
 			});
 		}
@@ -384,7 +372,7 @@ namespace UriShell.Shell.Resolution
 					throw;
 				}
 
-				this._logSession.LogException(ex.Message, ex);
+				Trace.TraceError(ex.ToString());
 			}
 
 			return Disposable.Empty;
@@ -412,10 +400,9 @@ namespace UriShell.Shell.Resolution
 			appendToDisposable(ResolveOpen.CreateCloseDisposable(
 				resolved,
 				this._uriResolvedObjectHolder,
-				this._uriDisconnectTable,
-				this._logSession));
+				this._uriDisconnectTable));
 
-			this._logSession.LogMessage(string.Format(Properties.Resources.ShellResolveOpenComplete, uri));
+			Trace.TraceInformation(Properties.Resources.ShellResolveOpenComplete, uri);
 			this.SendRefresh(resolved, placementConnector);
 
 			return disposable;

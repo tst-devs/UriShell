@@ -148,10 +148,7 @@
     <Compile Include="Shell\ShellEventKeys.cs" />
     <Compile Include="Shell\IShell.Contract.cs" />
     <Compile Include="Shell\IShell.cs" />
-    <Compile Include="Logging\LogCategory.cs" />
-    <Compile Include="Logging\ILogSession.Contract.cs" />
     <Compile Include="NotificationPack.cs" />
-    <Compile Include="Logging\ILogSession.cs" />
     <Compile Include="PhoenixXmlNamespace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WeakDelegateReference.cs" />
