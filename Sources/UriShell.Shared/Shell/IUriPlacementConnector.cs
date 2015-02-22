@@ -6,26 +6,25 @@ using System.Linq;
 namespace UriShell.Shell
 {
 	/// <summary>
-	/// Интерфейс объекта, присоединяющего объект к пользовательскому интерфейсу.
+	/// Interface of a service that connects a resolved object to the user interface.
 	/// </summary>
 	[ContractClass(typeof(IUriPlacementConnectorContract))]
 	public interface IUriPlacementConnector
 	{
 		/// <summary>
-		/// Присоединяет заданный объект к пользовательскому интерфейсу.
+		/// Connects the given object to the user interface. 
 		/// </summary>
-		/// <param name="resolved">Объект для присоединения к UI.</param>
+		/// <param name="resolved">The object to be connected to the UI.</param>
 		void Connect(object resolved);
 
 		/// <summary>
-		/// Отсоединяет заданный объект от пользовательского интерфейса.
+		/// Disconnects the given object from the user interface. 
 		/// </summary>
-		/// <param name="resolved">Объект для отсоединения от UI.</param>
+		/// <param name="resolved">The object to be disconnected from the given UI.</param>
 		void Disconnect(object resolved);
 
 		/// <summary>
-		/// Возвращает признак того, что данный коннектор сам отвечает за 
-		/// обновление данных в присоединенных объектах.
+		/// Returns the flag that this connector is responsible for data refresh in connected objects.
 		/// </summary>
 		bool IsResponsibleForRefresh
 		{

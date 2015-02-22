@@ -7,16 +7,17 @@ using System.Text;
 namespace UriShell.Shell.Registration
 {
 	/// <summary>
-	/// Позволяет использовать объект, полученный через URI.
+	/// Allows to use an object resolved from a URI.
 	/// </summary>
 	[ContractClass(typeof(IShellResolveContract))]
 	public interface IShellResolve : IShellResolveOpen
 	{
 		/// <summary>
-		/// Позволяет настроить объект, полученный через URI, если его тип совместим с заданным.
+		/// Allows to setup an object resolved from a URI 
+		/// if its type is compatible with <typeparamref name="T"/>.
 		/// </summary>
-		/// <typeparam name="TResolved">Тип объекта, который ожидается от URI.</typeparam>
-		/// <returns>Сервис для настройки объекта.</returns>
+		/// <typeparam name="TResolved">Object's type expected from a URI.</typeparam>
+		/// <returns>Service for object's setup.</returns>
 		IShellResolveSetup<TResolved> Setup<TResolved>();
 	}
 }

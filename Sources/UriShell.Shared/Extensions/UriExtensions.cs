@@ -6,17 +6,18 @@ using UriShell.Shell;
 namespace UriShell.Extensions
 {
 	/// <summary>
-	/// Методы расширения для <see cref="Uri"/>.
+	/// Extension methods for <see cref="Uri"/>.
 	/// </summary>
 	public static class UriExtensions
 	{
 		/// <summary>
-		/// Возвращает значение, позволяющее определить, что заданный <see cref="Uri" /> представляет
-		/// URI для открытия представлений в АРМ Феникс
+		/// Gets a value indicating that the given <see cref="Uri" /> is used 
+		/// for a view of the Phoenix application.
 		/// </summary>
-		/// <param name="uri"><see cref="Uri"/> для проверки отношения к АРМ Феникс.</param>
-		/// <returns>true, если заданный <see cref="Uri" /> представляет URI для открытия представлений
-		/// в АРМ Феникс; иначе false.</returns>
+		/// <param name="uri"><see cref="Uri"/> to be checked.</param>
+		/// <returns>true, if the given <see cref="Uri" /> represents a URI 
+		/// for a view of the Phoenix application; otherwise false. 
+		/// </returns>
 		[Pure]
 		public static bool IsPhoenix(this Uri uri)
 		{

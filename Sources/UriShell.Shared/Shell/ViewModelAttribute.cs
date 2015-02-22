@@ -6,7 +6,7 @@ using System.Text;
 namespace UriShell.Shell
 {
 	/// <summary>
-	/// Связывает представление с его моделью через параметр конструктора или свойство.
+	/// Links a view with its view model via a constructor parameter or a property.
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property)]
 	public class ViewModelAttribute : Attribute

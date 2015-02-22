@@ -6,9 +6,9 @@ using System.Text;
 namespace UriShell.Shell
 {
 	/// <summary>
-	/// Представляет метод, позволяющий получить объект, прикрепеленный к URI через параметры.
+	/// Represents a method that allows to get an object attached to the URI. 
 	/// </summary>
-	/// <param name="id">Идентификатор прикрепленного объекта, переданный в параметре URI.</param>
-	/// <returns>Объект, прикрепленный к URI, если его идентификатор был найден; иначе null.</returns>
+	/// <param name="id">The identifier of an attached object.</param>
+	/// <returns>The object attached to the URI, if the identifier was found; otherwise null.</returns>
 	public delegate object UriAttachmentSelector(string id);
 }

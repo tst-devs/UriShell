@@ -4,28 +4,24 @@ using System.Diagnostics.Contracts;
 namespace UriShell.Shell.Registration
 {
 	/// <summary>
-	/// Позволяет настроить объект заданного типа, полученный через URI.
+	/// Allows to setup an object of the given type resolved from a URI
 	/// </summary>
-	/// <typeparam name="TResolved">Тип объекта, который ожидается от URI.</typeparam>
+	/// <typeparam name="TResolved">Object's type expected from URI.</typeparam>
 	[ContractClass(typeof(IShellResolveSetupContract<>))]
 	public interface IShellResolveSetup<TResolved> : IShellResolveOpen
 	{
 		/// <summary>
-		/// Позволяет задать действие, вызываемое с объектом, полученным через URI,
-		/// перед открытием.
+		/// Allows to assign an action invoked before object's opening.
 		/// </summary>
-		/// <param name="action">Действие, вызываемое с объектом, полученным через URI,
-		/// перед открытием.</param>
-		/// <returns>Сервис, позволяющий настроить и открыть объект, полученный через URI.</returns>
+		/// <param name="action">Action invoked with a resolved object before object's opening.</param>
+		/// <returns>Service that allows to setup or open an object resolved from a URI.</returns>
 		IShellResolveSetup<TResolved> OnReady(Action<TResolved> action);
 
 		/// <summary>
-		/// Позволяет задать действие, вызываемое с объектом, полученным через URI,
-		/// когда в нем больше нет необходимости.
+		/// Allows to assign an action invoked when a resolved object is being closed. 
 		/// </summary>
-		/// <param name="action">Действие, вызываемое с объектом, полученным через URI,
-		/// когда в нем больше нет необходимости.</param>
-		/// <returns>Сервис, позволяющий настроить и открыть объект, полученный через URI.</returns>
+		/// <param name="action">Action invoked with a resolved object when the latter is being closed.</param>
+		/// <returns>Service that allows to setup or open an object resolved from a URI.</returns>
 		IShellResolveSetup<TResolved> OnFinished(Action<TResolved> action);
 	}
 }

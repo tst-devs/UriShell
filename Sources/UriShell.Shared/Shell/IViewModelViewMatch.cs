@@ -3,13 +3,13 @@
 namespace UriShell.Shell
 {
 	/// <summary>
-	/// Результат поиска объекта, реализующего представление по заданной модели.
+	/// Represents a search result of an object that implements a view for a view model.
 	/// </summary>
 	[ContractClass(typeof(IViewModelViewMatchContract))]
 	public interface IViewModelViewMatch
 	{
 		/// <summary>
-		/// Возвращает найденное представление.
+		/// Gets the found view.
 		/// </summary>
 		[Pure]
 		object View
@@ -18,8 +18,7 @@ namespace UriShell.Shell
 		}
 
 		/// <summary>
-		/// Указывает, что найденное представление поддерживает присваивание
-		/// другой модели.
+		/// Gets whether a found view supports view model's change.
 		/// </summary>
 		[Pure]
 		bool SupportsModelChange
@@ -28,18 +27,18 @@ namespace UriShell.Shell
 		}
 
 		/// <summary>
-		/// Проверяет, реализует ли объект представление по заданной модели.
+		/// Gets whether the object implements a view for the given model.
 		/// </summary>
-		/// <param name="viewModel">Модель представления для проверки.</param>
-		/// <returns>true, если объект реализует представление по заданной модели;
-		/// иначе false.</returns>
+		/// <param name="viewModel">The view model to be checked.</param>
+		/// <returns>true, if the given object implements a view for the given model;
+		/// otherwise false.</returns>
 		[Pure]
 		bool IsMatchToModel(object viewModel);
 
 		/// <summary>
-		/// Присваивает представлению заданную модель.
+		/// Changes a view model of a view.
 		/// </summary>
-		/// <param name="viewModel">Модель представления для присваивания.</param>
+		/// <param name="viewModel">The new view model for a view.</param>
 		void ChangeModel(object viewModel);
 	}
 }

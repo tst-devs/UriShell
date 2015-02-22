@@ -4,18 +4,17 @@ using System.Diagnostics.Contracts;
 namespace UriShell.Shell
 {
 	/// <summary>
-	/// Интерфейс сервиса, умеющего создавать объект по заданному URI.
+	/// Interface of a service that is responsible for object creation from the given URI.
 	/// </summary>
 	[ContractClass(typeof(IUriModuleItemResolverContract))]
 	public interface IUriModuleItemResolver
 	{
 		/// <summary>
-		/// Создает объект по заданному URI.
+		/// Creates an object from the given URI.
 		/// </summary>
-		/// <param name="uri">URI, по которому требуется создать объект.</param>
-		/// <param name="attachmentSelector">Селектор, предоставляющий доступ к объектам,
-		/// прикрепленным к URI через параметры.</param>
-		/// <returns>Объект, созданный по заданному URI.</returns>
+		/// <param name="uri">The URI that describes an object to be created.</param>
+		/// <param name="attachmentSelector">The selector for acccess to attached to the given URI objects.</param>
+		/// <returns>The object created from the given URI.</returns>
 		object Resolve(Uri uri, UriAttachmentSelector attachmentSelector);
 	}
 }

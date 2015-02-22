@@ -4,50 +4,50 @@ using System.Diagnostics.Contracts;
 namespace UriShell.Shell
 {
 	/// <summary>
-	/// Представляет собой гиперссылку для открытия URI из пользовательского интерфейса.
+	/// Describes a hyperlink for opening the URI from UI.
 	/// </summary>
 	public class PhoenixHyperlink
 	{
 		/// <summary>
-		/// URI, который открывает гиперссылка.
+		/// The URI which is opened by the hyperlink.
 		/// </summary>
 		private readonly Uri _uri; 
 
 		/// <summary>
-		/// Текст, показываемый в гиперссылке.
+		/// The text of the hyperlink.
 		/// </summary>
 		private readonly string _text;
 
 		/// <summary>
-		/// URI иконки, показываемой в гиперссылке.
+		/// The URI of an icon displayed in the hyperlink.
 		/// </summary>
 		private readonly Uri _icon;
 
 		/// <summary>
-		/// Инициализирует новый объект <see cref="PhoenixHyperlink"/>
+		/// Initializes a new instance of the  class <see cref="PhoenixHyperlink"/>.
 		/// </summary>
-		/// <param name="uri">URI, который открывает гиперссылка.</param>
+		/// <param name="uri">The URI which is opened by the hyperlink.</param>
 		public PhoenixHyperlink(Uri uri)
 			: this(uri, null, null)
 		{
 		}
 
 		/// <summary>
-		/// Инициализирует новый объект <see cref="PhoenixHyperlink"/>
+		/// Initializes a new instance of the  class <see cref="PhoenixHyperlink"/>.
 		/// </summary>
-		/// <param name="uri">URI, который открывает гиперссылка.</param>
-		/// <param name="text">Текст, показываемый в гиперссылке.</param>
+		/// <param name="uri">The URI which is opened by the hyperlink.</param>
+		/// <param name="text">The text of the hyperlink.</param>
 		public PhoenixHyperlink(Uri uri, string text)
 			: this(uri, text, null)
 		{
 		}
 
 		/// <summary>
-		/// Инициализирует новый объект <see cref="PhoenixHyperlink"/>
+		/// Initializes a new instance of the  class <see cref="PhoenixHyperlink"/>.
 		/// </summary>
-		/// <param name="uri">URI, который открывает гиперссылка.</param>
-		/// <param name="text">Текст, показываемый в гиперссылке.</param>
-		/// <param name="icon">URI иконки, показываемой в гиперссылке.</param>
+		/// <param name="uri">The URI which is opened by the hyperlink.</param>
+		/// <param name="text">The text of the hyperlink.</param>
+		/// <param name="icon">The URI of an icon displayed in the hyperlink.</param>
 		public PhoenixHyperlink(Uri uri, string text, Uri icon)
 		{
 			this._uri = uri;
@@ -56,7 +56,7 @@ namespace UriShell.Shell
 		}
 
 		/// <summary>
-		/// Задает инвариант класса.
+		/// Describes the invariant of the class.
 		/// </summary>
 		[ContractInvariantMethod]
 		private void ContractInvariant()
@@ -66,7 +66,7 @@ namespace UriShell.Shell
 		}
 
 		/// <summary>
-		/// Возвращает URI, который открывает гиперссылка.
+		/// Gets the URI which is opened by the hyperlink.
 		/// </summary>
 		public Uri Uri
 		{
@@ -77,7 +77,7 @@ namespace UriShell.Shell
 		}
 
 		/// <summary>
-		/// Возвращает текст, показываемый в гиперссылке.
+		/// Gets the text of the hyperlink.
 		/// </summary>
 		public string Text
 		{
@@ -93,7 +93,7 @@ namespace UriShell.Shell
 		}
 
 		/// <summary>
-		/// Возвращает URI иконки, показываемой в гиперссылке.
+		/// Gets the URI of an icon displayed in the hyperlink.
 		/// </summary>
 		public Uri Icon
 		{

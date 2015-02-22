@@ -9,10 +9,10 @@ namespace UriShell.Extensions
 	public static class ExceptionExtensions
 	{
 		/// <summary>
-		/// Определяет, является ли исключение критическим для дальнейшего исполнения.
+		/// Determines whether the exception is critical for running the program.
 		/// </summary>
-		/// <param name="exception">Исключение, для которого определяется критичность.</param>
-		/// <returns><see langword="true"/>, если исключение является критическим; иначе, <see langword="false"/>.</returns>
+		/// <param name="exception">Exception that is used for check.</param>
+		/// <returns><see langword="true"/>, if the exception is critical; otherwise, <see langword="false"/>.</returns>
 		public static bool IsCritical(this Exception exception)
 		{
 			if (exception is StackOverflowException
