@@ -6,22 +6,22 @@ using System.Text;
 namespace UriShell.Shell.Connectors
 {
 	/// <summary>
-	/// Задает список действий, вызывающих событие <see cref="IItemsPlacementConnector.ConnectedChanged"/>.
+	/// Decribe the list of actions that invoke the event <see cref="IItemsPlacementConnector.ConnectedChanged"/>.
 	/// </summary>
 	public enum ConnectedChangedAction
 	{
 		/// <summary>
-		/// Объект был присоединен к пользовательскому интерфейсу.
+		/// An object was connected to thes UI.
 		/// </summary>
 		Connect,
 
 		/// <summary>
-		/// Объект был отсоединен от пользовательского интерфейса.
+		/// An object was disconnected from the UI.
 		/// </summary>
 		Disconnect,
 
 		/// <summary>
-		/// Объект изменил свой индекс в пользовательском интерфейсе.
+		/// An object changed its index in the UI. 
 		/// </summary>
 		Move,
 	}

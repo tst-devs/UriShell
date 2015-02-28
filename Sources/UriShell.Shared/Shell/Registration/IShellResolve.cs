@@ -16,8 +16,8 @@ namespace UriShell.Shell.Registration
 		/// Allows to setup an object resolved from a URI 
 		/// if its type is compatible with <typeparamref name="T"/>.
 		/// </summary>
-		/// <typeparam name="TResolved">Object's type expected from a URI.</typeparam>
-		/// <returns>Service for object's setup.</returns>
+		/// <typeparam name="TResolved">The object's type expected from a URI.</typeparam>
+		/// <returns>The service for object's setup.</returns>
 		IShellResolveSetup<TResolved> Setup<TResolved>();
 	}
 }

@@ -11,10 +11,10 @@ namespace UriShell.Extensions
 	public static class UriExtensions
 	{
 		/// <summary>
-		/// Gets a value indicating that the given <see cref="Uri" /> is used 
+		/// Gets the value indicating that the given <see cref="Uri" /> is used 
 		/// for a view of the Phoenix application.
 		/// </summary>
-		/// <param name="uri"><see cref="Uri"/> to be checked.</param>
+		/// <param name="uri">The <see cref="Uri"/> to be checked.</param>
 		/// <returns>true, if the given <see cref="Uri" /> represents a URI 
 		/// for a view of the Phoenix application; otherwise false. 
 		/// </returns>

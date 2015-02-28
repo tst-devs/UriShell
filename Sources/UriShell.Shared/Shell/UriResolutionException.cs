@@ -11,7 +11,7 @@ namespace UriShell.Shell
 	public class UriResolutionException : Exception
 	{
 		/// <summary>
-		/// Наименование значения, содержащего <see cref="Uri"/> в сериализованных данных.
+		/// The key for storing <see cref="Uri"/> in the serialized data.
 		/// </summary>
 		private const string UriSerializationName = "URI";
 

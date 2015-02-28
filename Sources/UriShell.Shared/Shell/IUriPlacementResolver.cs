@@ -15,7 +15,7 @@ namespace UriShell.Shell
 		/// <param name="resolved">The object to be placed with the given URI.</param>
 		/// <param name="uri">The URI used to determine an object's placement.</param>
 		/// <param name="attachmentSelector">The selector for acccess to attached to the given URI objects.</param>
-		/// <returns><see cref="IUriPlacementConnector"/> that allows to connect the given object to the 
+		/// <returns>The <see cref="IUriPlacementConnector"/> that allows to connect the given object to the 
 		/// user interface, if the placement was determined successfully; otherwise null.</returns>
 		IUriPlacementConnector Resolve(object resolved, Uri uri, UriAttachmentSelector attachmentSelector);
 	}

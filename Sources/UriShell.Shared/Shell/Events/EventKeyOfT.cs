@@ -6,9 +6,9 @@ using System.Text;
 namespace UriShell.Shell.Events
 {
 	/// <summary>
-	/// Идентификатор события с аргументами, рассылаемого при помощи <see cref="IEventBroadcaster"/>.
+	/// The identifier of an event with arguments, sent with <see cref="IEventBroadcaster"/>.
 	/// </summary>
-	/// <typeparam name="TEventArgs">Тип объекта, содержащего аргументы события.</typeparam>
+	/// <typeparam name="TEventArgs">The type of an object with event arguments.</typeparam>
 	public class EventKey<TEventArgs>
 	{
 

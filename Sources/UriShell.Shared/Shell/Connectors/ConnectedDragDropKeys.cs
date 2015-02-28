@@ -4,12 +4,12 @@ using System.Diagnostics.Contracts;
 namespace UriShell.Shell.Connectors
 {
 	/// <summary>
-	/// Типовые ключи для передачи данных при перетаскивании.
+	/// Predefined keys for data transfer during dragging.
 	/// </summary>
 	public static class ConnectedDragDropKeys
 	{
 		/// <summary>
-		/// Ключ для передачи представления объекта, открытого через URI.
+		/// The key for transferring an object opened via an URI.
 		/// </summary>
 		public static readonly ConnectedDragDropKey<object> UriConnectedView = new ConnectedDragDropKey<object>();
 	}

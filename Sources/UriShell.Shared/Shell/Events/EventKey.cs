@@ -6,7 +6,7 @@ using System.Text;
 namespace UriShell.Shell.Events
 {
 	/// <summary>
-	/// Идентификатор события без аргументов, рассылаемого при помощи <see cref="IEventBroadcaster"/>.
+	/// The identifier of an argumentless event, sent with <see cref="IEventBroadcaster"/>.
 	/// </summary>
 	public class EventKey
 	{

@@ -18,7 +18,7 @@ namespace UriShell.Shell
 		}
 
 		/// <summary>
-		/// Gets whether a found view supports view model's change.
+		/// Gets whether the found view supports view model's change.
 		/// </summary>
 		[Pure]
 		bool SupportsModelChange
