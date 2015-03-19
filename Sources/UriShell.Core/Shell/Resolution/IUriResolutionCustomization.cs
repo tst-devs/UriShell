@@ -6,14 +6,14 @@ using Autofac.Features.Indexed;
 namespace UriShell.Shell.Resolution
 {
 	/// <summary>
-	/// Предоставляет настраиваемые компоненты, участвующие в процессе открытия URI.
+	/// Provides custom components of the URI resolution process.
 	/// </summary>
 	[ContractClass(typeof(IUriResolutionCustomizationContract))]
 	internal interface IUriResolutionCustomization
 	{
 		/// <summary>
-		/// Возвращает список сервисов, умеющих создавать объекты по заданному URI,
-		/// зарегистрированные через <see cref="UriModuleItemResolverKey"/>.
+		/// Gets the list of services capable of creating objects by an URI 
+		/// and registered with <see cref="UriModuleItemResolverKey"/>.
 		/// </summary>
 		IIndex<UriModuleItemResolverKey, IUriModuleItemResolver> ModuleItemResolvers
 		{
@@ -21,7 +21,7 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Возвращает список сервисов, определяющих размещение объектов по заданному URI.
+		/// Gets the list of services capable of objects placement by an URI.
 		/// </summary>
 		IEnumerable<IUriPlacementResolver> PlacementResolvers
 		{

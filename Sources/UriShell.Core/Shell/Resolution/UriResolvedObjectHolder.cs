@@ -7,29 +7,29 @@ using System.Windows;
 namespace UriShell.Shell.Resolution
 {
 	/// <summary>
-	/// Содержит объекты, открытые оболочкой через URI, и их метаданные.
+	/// Holds objects opened via an URI and their metadata.
 	/// </summary>
 	internal sealed class UriResolvedObjectHolder : IUriResolvedObjectHolder
 	{
 		/// <summary>
-		/// Объекты, открытые оболочкой через URI, и их метаданными.
+		/// The dictionaty containing objects, resolved via an URI, along with their metadata.
 		/// </summary>
 		private readonly Dictionary<object, UriResolvedMetadata> _data = new Dictionary<object, UriResolvedMetadata>();
 
 		/// <summary>
-		/// Содержит идентификаторы объектов, используемые в настоящий момент.
+		/// Contains identifiers that are in use currently.
 		/// </summary>
 		private readonly HashSet<int> _usedIds = new HashSet<int>();
 
 		/// <summary>
-		/// Генератор идентификаторов объектов.
+		/// The object's identifier generator.
 		/// </summary>
 		private readonly Random _random = new Random(PhoenixUriBuilder.MinResolvedId);
 
 		/// <summary>
-		/// Генерирует новый уникальный идентификатор объекта.
+		/// Generates a new unique identifier of an object.
 		/// </summary>
-		/// <returns>Значение сгенерированного идентификатора.</returns>
+		/// <returns>The newly generated identifier.</returns>
 		private int GenerateNewId()
 		{
 			if (this._usedIds.Count > PhoenixUriBuilder.MaxResolvedId - PhoenixUriBuilder.MinResolvedId)
@@ -48,10 +48,10 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Добавляет объект, открытый оболочкой через URI.
+		/// Adds the new object opened via an URI. 
 		/// </summary>
-		/// <param name="resolved">Объект для добавления.</param>
-		/// <param name="metadata">Метаданные добавляемого объекта.</param>
+		/// <param name="resolved">The added object.</param>
+		/// <param name="metadata">The metadata of the added object.</param>
 		public void Add(object resolved, UriResolvedMetadata metadata)
 		{
 			try
@@ -67,9 +67,9 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Удаляет объект, открытый оболочкой через URI.
+		/// Removes the object opened via an URI previously. 
 		/// </summary>
-		/// <param name="resolved">Объект для удаления.</param>
+		/// <param name="resolved">The removed object.</param>
 		public void Remove(object resolved)
 		{
 			UriResolvedMetadata metadata;
@@ -82,10 +82,10 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Проверяет наличие объекта в холдере.
+		/// Checks whether the object is present in the holder.
 		/// </summary>
-		/// <param name="resolved">Объект, проверяемый на наличие в холдере.</param>
-		/// <returns>true, если объект содержится в холдере; иначе false.</returns>
+		/// <param name="resolved">The object whose presence in the holder is checked.</param>
+		/// <returns>true, if the holder contains the object; false otherwise.</returns>
 		public bool Contains(object resolved)
 		{
 			if (resolved == null)
@@ -102,10 +102,10 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Возвращает заданный объект, находящийся в холдере, по его идентификатору.
+		/// Gets an object stored in the holder by its identifier.
 		/// </summary>
-		/// <param name="id">Идентификатор запрашиваемого объекта.</param>
-		/// <returns>Объект с заданным идентификатором.</returns>
+		/// <param name="id">The identifier of a requested object.</param>
+		/// <returns>The object with the given identifier.</returns>
 		public object Get(int id)
 		{
 			foreach (var item in this._data)
@@ -122,10 +122,10 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Возвращает метаданные заданного объекта, находящегося в холдере.
+		/// Get the metadata of the given object stored in the holder.
 		/// </summary>
-		/// <param name="resolved">Объект, для которого запрашиваются метаданные.</param>
-		/// <returns>Метаданные заданного объекта.</returns>
+		/// <param name="resolved">The object whose metadata is requested.</param>
+		/// <returns>The metadata of the given object.</returns>
 		public UriResolvedMetadata GetMetadata(object resolved)
 		{
 			UriResolvedMetadata metadata;
@@ -141,10 +141,10 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Записывает новые метаданные заданного объекта, полученные путем замены URI.
+		/// Replace the metadata of the given object with a new metadata based on the given URI.
 		/// </summary>
-		/// <param name="resolved">Объект, для которого записываются метаданные.</param>
-		/// <param name="overrideUri">Новый URI для записи в метаданные.</param>
+		/// <param name="resolved">The objec whose metadata are replaced.</param>
+		/// <param name="overrideUri">The URI for the new metadata.</param>
 		public void ModifyMetadata(object resolved, Uri overrideUri)
 		{
 			throw new NotImplementedException();
@@ -153,9 +153,9 @@ namespace UriShell.Shell.Resolution
 		#region IEnumerable<object> Members
 
 		/// <summary>
-		/// Возвращает итератор для обхода объектов, открытых оболочкой через URI.
+		/// Gets the iterator for iterating through objects held in the holder.
 		/// </summary>
-		/// <returns>Итератор для обхода объектов, открытых оболочкой через URI.</returns>
+		/// <returns>The iterator for iterating through objects held in the holder.</returns>
 		public IEnumerator<object> GetEnumerator()
 		{
 			return this._data.Keys.GetEnumerator();
@@ -166,9 +166,9 @@ namespace UriShell.Shell.Resolution
 		#region IEnumerable Members
 
 		/// <summary>
-		/// Возвращает итератор для обхода объектов, открытых оболочкой через URI.
+		/// Gets the iterator for iterating through objects held in the holder.
 		/// </summary>
-		/// <returns>Итератор для обхода объектов, открытых оболочкой через URI.</returns>
+		/// <returns>The iterator for iterating through objects held in the holder.</returns>
 		IEnumerator IEnumerable.GetEnumerator()
 		{
 			return this.GetEnumerator();

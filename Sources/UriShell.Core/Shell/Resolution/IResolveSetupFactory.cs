@@ -6,17 +6,17 @@ using UriShell.Shell.Registration;
 namespace UriShell.Shell.Resolution
 {
 	/// <summary>
-	/// Фабрика сервиса, реализующего настройку объектов, полученных через URI.
+	/// A factory of a service that implements setup of objects resolved via an URI. 
 	/// </summary>
 	[ContractClass(typeof(IResolveSetupFactoryContract))]
 	internal interface IResolveSetupFactory
 	{
 		/// <summary>
-		/// Создает сервис, реализующий настройку объектов, полученных через URI.
+		/// Creates the service that implements setup of objects resolved via an URI. 
 		/// </summary>
-		/// <typeparam name="TResolved">Тип объекта, который ожидается от URI.</typeparam>
-		/// <param name="args">Аргументы, необходимые для инициализации <see cref="ResolveSetup{TResolved}"/>.</param>
-		/// <returns>Сервис, позволяющий настроить и открыть объект, полученный через URI.</returns>
+		/// <typeparam name="TResolved">The object's type expected from URI's resolution.</typeparam>
+		/// <param name="args">Arguments for initialization <see cref="ResolveSetup{TResolved}"/>.</param>
+		/// <returns>The service that allows to setup and open an object resolved via an URI.</returns>
 		IShellResolveSetup<TResolved> Create<TResolved>(ResolveSetupArgs args);
 	}
 }

@@ -3,10 +3,10 @@
 namespace UriShell.Shell.Resolution
 {
 	/// <summary>
-	/// Представляет собой функцию для вызова настройки объекта, полученного через URI.
+	/// A function for calling setup of the object resolved via the URI.
 	/// </summary>
-	/// <param name="uri">URI из которого был получен объект.</param>
-	/// <param name="resolved">Объект, полученный через URI.</param>
-	/// <returns>Сервис, вызываемый, когда в объекте больше нет необходимости.</returns>
+	/// <param name="uri">The URI of the resolved object.</param>
+	/// <param name="resolved">The object resolved via the URI.</param>
+	/// <returns>The service for object's disposal.</returns>
 	internal delegate IDisposable ResolveSetupPlayer(Uri uri, object resolved);
 }

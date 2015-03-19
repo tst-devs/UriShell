@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Reactive.Disposables;
+
 using UriShell.Extensions;
 using UriShell.Shell.Events;
 using UriShell.Shell.Registration;
@@ -11,60 +12,61 @@ using UriShell.Shell.Registration;
 namespace UriShell.Shell.Resolution
 {
 	/// <summary>
-	/// Позволяет использовать объект, полученный через URI.
+	/// Allows to use an object resolved via an URI.
 	/// </summary>
 	internal sealed partial class ResolveOpen : IShellResolve
 	{
 		/// <summary>
-		/// URI, который требуется разрешить.
+		/// URI to be resolved.
 		/// </summary>
 		private readonly Uri _unresolvedUri;
 
 		/// <summary>
-		/// Список объектов, прикрепляемых к URI с помощью идентификаторов.
+		/// The list of attached to an URI objects with identifiers.
 		/// </summary>
 		private readonly object[] _attachments;
 
 		/// <summary>
-		/// Фабрика сервиса, реализующего настройку объектов, полученных через URI.
+		/// The factory of a service for setup of objects resolved via an URI.
 		/// </summary>
 		private readonly IResolveSetupFactory _resolveSetupFactory;
 
 		/// <summary>
-		/// Холдер объектов, открытых оболочкой через URI.
+		/// The holder of objects resolved via an URI.
 		/// </summary>
 		private readonly IUriResolvedObjectHolder _uriResolvedObjectHolder;
 
 		/// <summary>
-		/// Объект, предоставляющий настраиваемые компоненты процесса открытия URI.
+		/// The object that provides custom components of the URI resolution process.
 		/// </summary>
 		private readonly IUriResolutionCustomization _uriResolutionCustomization;
 
 		/// <summary>
+		/// The function for calling setup for an object resolved via an URI.
 		/// Функция для вызова настройки объекта, полученного через URI.
 		/// </summary>
 		private ResolveSetupPlayer _resolveSetupPlayer;
 
 		/// <summary>
-		/// Сервис рассылки событий.
+		/// The service for event broadcasting.
 		/// </summary>
 		private readonly IEventBroadcaster _eventBroadcaster;
 
 		/// <summary>
-		/// Таблица отсоединения объектов от пользовательского интерфейса.
+		/// The table for disconnecting objects from an user interface.
 		/// </summary>
 		private readonly IUriDisconnectTable _uriDisconnectTable;
 
 		/// <summary>
-		/// Инициализирует новый объект класса <see cref="ResolveOpen"/>.
+		/// Initializes a new instance of the class <see cref="ResolveOpen"/>.
 		/// </summary>
-		/// <param name="uri">URI, который требуется разрешить.</param>
-		/// <param name="attachments">Список объектов, прикрепляемых к URI с помощью идентификаторов.</param>
-		/// <param name="resolveSetupFactory">Фабрика сервиса, реализующего настройку объектов, полученных через URI.</param>
-		/// <param name="uriResolvedObjectHolder">Холдер объектов, открытых оболочкой через URI.</param>
-		/// <param name="uriDisconnectTable">Таблица отсоединения объектов от пользовательского интерфейса.</param>
-		/// <param name="uriResolutionCustomization">Объект, предоставляющий настраиваемые компоненты процесса открытия URI.</param>
-		/// <param name="eventBroadcaster">Сервис рассылки событий.</param>
+		/// <param name="uri">URI to be resolved.</param>
+		/// <param name="attachments">The list of attached to an URI objects with identifiers..</param>
+		/// <param name="resolveSetupFactory">The factory of a service for setup of objects resolved via an URI.</param>
+		/// <param name="uriResolvedObjectHolder">The holder of objects resolved via an URI.</param>
+		/// <param name="uriDisconnectTable">The table for disconnecting objects from an user interface.</param>
+		/// <param name="uriResolutionCustomization">The object that provides custom components of the URI resolution process.</param>
+		/// <param name="eventBroadcaster">The service for event broadcasting.</param>
 		public ResolveOpen(
 			Uri uri,
 			object[] attachments,
@@ -92,19 +94,20 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Позволяет настроить объект, полученный через URI, если его тип совместим с заданным.
+		/// Allows to setup an object resolved from a URI 
+		/// if its type is compatible with <typeparamref name="T"/>.
 		/// </summary>
-		/// <typeparam name="TResolved">Тип объекта, который ожидается от URI.</typeparam>
-		/// <returns>Сервис для настройки объекта.</returns>
+		/// <typeparam name="TResolved">The object's type expected from a URI.</typeparam>
+		/// <returns>The service for object's setup.</returns>
 		public IShellResolveSetup<TResolved> Setup<TResolved>()
 		{
 			return this._resolveSetupFactory.Create<TResolved>(new ResolveSetupArgs(this, this.ReceiveResolveSetupPlayer));
 		}
 
 		/// <summary>
-		/// Получает функцию для вызова настройки объекта, полученного через URI.
+		/// Receives the function for calling setup for an object resolved via an URI.
 		/// </summary>
-		/// <param name="player">Функция для вызова настройки объекта, полученного через URI.</param>
+		/// <param name="player">The function for calling setup for an object resolved via an URI.</param>
 		private void ReceiveResolveSetupPlayer(ResolveSetupPlayer player)
 		{
 			if (player == null)
@@ -123,13 +126,13 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Формирует URI, в котором соответствующие значения параметров заменены сгенерированными
-		/// идентификаторами прикрепляемых объектов, и предоставляет селектор для получения этих объектов.
+		/// Builds an URI, where parameter's values are replaced with generated identifiers of attached objects 
+		/// and provides a selector for getting this objects.
 		/// </summary>
-		/// <param name="uri">На выходе из метода содержит URI, в котором соответствующие параметры значения
-		/// заменены сгенерированными идентификаторами прикрепляемых объектов.</param>
-		/// <param name="attachmentSelector">На выходе из метода содержит селектор, предоставляющий доступ к
-		/// объектам, прикрепленным к URI с помощью идентификаторов.</param>
+		/// <param name="uri">When this method returns, contains the URI, where parameter's values are replaced 
+		/// with generated identifiers of attached objects </param>
+		/// <param name="attachmentSelector">When this method returns, contains the selector for getting objects 
+		/// attached to the URI with identifiers.</param>
 		private void EmbedAttachments(out Uri uri, out UriAttachmentSelector attachmentSelector)
 		{
 			if (this._attachments.Length == 0)
@@ -143,14 +146,14 @@ namespace UriShell.Shell.Resolution
 			var attachmentDictionary = new HybridDictionary(this._attachments.Length);
 			var idGenerator = new Random();
 
-			// Заменяем значения параметров в URI на идентификаторы.
+			// Replace parameter's values in the URI with identifiers.
 			var uriBuilder = new PhoenixUriBuilder(this._unresolvedUri);
 			for (int i = 0; i < uriBuilder.Parameters.Count; i++)
 			{
 				var value = uriBuilder.Parameters[i];
 
-				// Placeholder объекта определяем по формату "{индекс}",
-				// где индекс - целое в диапазоне числа элементов attachments.
+				// Detect object's placeholder by the string "{index}",
+				// where index is integer from the attachment number's range.
 
 				if (value.Length <= 2)
 				{
@@ -187,12 +190,11 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Получает объект, на который указывает открываемый URI, используя <see cref="IUriModuleItemResolver"/>.
+		/// Gets the object responsible for resolution of the given URI. 
 		/// </summary>
-		/// <param name="uri">URI, указывающий на объект.</param>
-		/// <param name="attachmentSelector">Селектор, предоставляющий доступ к объектам,
-		/// прикрепленным к URI с помощью идентификаторов.</param>
-		/// <returns>Объект, на который указывает открываемый URI.</returns>
+		/// <param name="uri">The URI of the object being resolved.</param>
+		/// <param name="attachmentSelector">The selector for objects attached to the URI.</param>
+		/// <returns>The object responsible for resolution of the given URI. </returns>
 		private object ResolveModuleItem(Uri uri, UriAttachmentSelector attachmentSelector)
 		{
 			var builder = new PhoenixUriBuilder(uri);
@@ -210,13 +212,12 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Ищет размещение для объекта, на который указывает заданный URI.
+		/// Gets the object responsible for the given URI's placement. 
 		/// </summary>
-		/// <param name="uri">URI, указывающий на объект.</param>
-		/// <param name="attachmentSelector">Селектор, предоставляющий доступ к объектам,
-		/// прикрепленным к URI с помощью идентификаторов.</param>
-		/// <param name="resolved">Объект, полученный через URI.</param>
-		/// <returns><see cref="IUriPlacementConnector"/> для присоединения объекта к пользовательскому интерфейсу.</returns>
+		/// <param name="uri">The URI of the object being resolved.</param>
+		/// <param name="attachmentSelector">The selector for objects attached to the URI.</param>
+		/// <param name="resolved">The object resolved via the URI.</param>
+		/// <returns><see cref="IUriPlacementConnector"/> for connecting the object to an user interface.</returns>
 		private IUriPlacementConnector ResolvePlacement(Uri uri, UriAttachmentSelector attachmentSelector, object resolved)
 		{
 			var placementConnector = this._uriResolutionCustomization
@@ -235,15 +236,15 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Пробует сделать объект, полученный через URI, доступным в оболочке.
+		/// Tries to make the object resolved via the URI available in the shell.
 		/// </summary>
-		/// <param name="uri">URI, указывающий на объект.</param>
-		/// <param name="resolved">Объект, полученный через URI.</param>
-		/// <param name="placementConnector"><see cref="IUriPlacementConnector"/> для присоединения объекта
-		/// к пользовательскому интерфейсу.</param>
-		/// <param name="appendToDisposable">На выходе из метода содержит действие, позволяющее нарастить
-		/// цепочку <see cref="IDisposable"/> в метаданных.</param>
-		/// <returns><see cref="IDisposable"/>, зарегистрированный в метаданных.</returns>
+		/// <param name="uri">The URI of the resolved object.</param>
+		/// <param name="resolved">The object resolved via the URI.</param>
+		/// <param name="placementConnector"><see cref="IUriPlacementConnector"/> 
+		/// for connecting the object to the user interface.</param>
+		/// <param name="appendToDisposable">When this method returns, contains the action that allows to add a <see cref="IDisposable"/> 
+		/// to the group of <see cref="IDisposable"/> in the metadata.</param>
+		/// <returns><see cref="IDisposable"/> registered in the metadata.</returns>
 		private IDisposable Connect(Uri uri, object resolved, IUriPlacementConnector placementConnector, out Action<IDisposable> appendToDisposable)
 		{
 			placementConnector.Connect(resolved);
@@ -261,7 +262,7 @@ namespace UriShell.Shell.Resolution
 			{
 				if (!ex.IsCritical())
 				{
-					// При невозможности внести объект в холдер, убираем его из UI.
+					// When failed to add the object in the holder - disconnect it from the UI.
 					placementConnector.Disconnect(resolved);
 				}
 
@@ -270,11 +271,11 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Вызывает настройку объекта, полученного через URI.
+		/// Calls setup of the object resolved via the URI.
 		/// </summary>
-		/// <param name="uri">URI, указывающий на объект.</param>
-		/// <param name="resolved">Объект, полученный через URI.</param>
-		/// <returns>Сервис, вызываемый, когда в объекте больше нет необходимости.</returns>
+		/// <param name="uri">The URI of the resolved object.</param>
+		/// <param name="resolved">The object resolved via the URI.</param>
+		/// <returns>The service called when object is disposed.</returns>
 		private IDisposable PlaySetup(Uri uri, object resolved)
 		{
 			if (this._resolveSetupPlayer != null)
@@ -299,12 +300,12 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Создает <see cref="IDisposable"/> для закрытия объекта.
+		/// Creates the <see cref="IDisposable"/> for object's closing.
 		/// </summary>
-		/// <param name="resolved">Объект, полученный через URI.</param>
-		/// <param name="uriResolvedObjectHolder">Холдер объектов, открытых оболочкой через URI.</param>
-		/// <param name="uriDisconnectTable">Таблица отсоединения объектов от пользовательского интерфейса.</param>
-		/// <returns><see cref="IDisposable"/> для закрытия объекта.</returns>
+		/// <param name="resolved">The object resolved via the URI.</param>
+		/// <param name="uriResolvedObjectHolder">The holder of objects via an URI.</param>
+		/// <param name="uriDisconnectTable">The table for disonnectiong objects from the user interface.</param>
+		/// <returns><see cref="IDisposable"/> for object's closing.</returns>
 		private static IDisposable CreateCloseDisposable(
 			object resolved,
 			IUriResolvedObjectHolder uriResolvedObjectHolder,
@@ -338,11 +339,11 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Рассылает событие с целью обновления данных в заданном объекте, полученном через URI.
+		/// Sends the event for data refresh in the given object resolved via an URI. 
 		/// </summary>
-		/// <param name="resolved">Объект, полученный через URI.</param>
-		/// <param name="placementConnector"><see cref="IUriPlacementConnector"/>, использованный
-		/// для присоединения объекта к пользовательскому интерфейсу.</param>
+		/// <param name="resolved">The object resolved via an URI.</param>
+		/// <param name="placementConnector">The <see cref="IUriPlacementConnector"/> 
+		/// that connected the object to the user interface.</param>
 		private void SendRefresh(object resolved, IUriPlacementConnector placementConnector)
 		{
 			if (placementConnector.IsResponsibleForRefresh)
@@ -356,9 +357,9 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Открывает объект, полученный через URI.
+		/// Opens an object resolved from an URI.
 		/// </summary>
-		/// <returns>Сервис, позволяющий закрыть объект вызовом <see cref="IDisposable.Dispose"/>.</returns>
+		/// <returns>The service for object's closing via <see cref="IDisposable.Dispose"/>.</returns>
 		public IDisposable Open()
 		{
 			try
@@ -379,11 +380,11 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Открывает объект, полученный через URI, позволяя вызывающему коду обработать
-		/// исключение в случае неудачи.
+		/// Opens an object resolved from an URI and allows the calling site to handle an exception 
+		/// when it occurs.
 		/// </summary>
-		/// <returns>Сервис, позволяющий закрыть объект вызовом <see cref="IDisposable.Dispose"/>,
-		/// если объект открыт успешно.</returns>
+		/// <returns>The service for object's closing via <see cref="IDisposable.Dispose"/>,
+		/// if an object was opened successfully.</returns>
 		public IDisposable OpenOrThrow()
 		{
 			Uri uri;

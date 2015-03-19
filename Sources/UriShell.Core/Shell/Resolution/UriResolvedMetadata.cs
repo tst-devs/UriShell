@@ -5,30 +5,30 @@ using System.Collections.Specialized;
 namespace UriShell.Shell.Resolution
 {
 	/// <summary>
-	/// Метаданные объекта, открытого оболочкой через URI.
+	/// A metadata of an object resolved via an URI.
 	/// </summary>
 	internal struct UriResolvedMetadata
 	{		
 		/// <summary>
-		/// URI, по которому был открыт объект.
+		/// Gets the URI of the resolved object.
 		/// </summary>
 		private readonly Uri _uri;
 
 		/// <summary>
-		/// Сервис, позволяющий закрыть объект.
+		/// Gets the service for object's disposal.
 		/// </summary>
 		private readonly IDisposable _disposable;
 
 		/// <summary>
-		/// Идентификатор объекта, открытого через URI.
+		/// Gets the identifier of the object resolved via an URI.
 		/// </summary>
 		private readonly int _resolvedId;
 
 		/// <summary>
-		/// Инициализирует новый объект <see cref="UriResolvedMetadata"/>.
+		/// Initializes a new instance of the class <see cref="UriResolvedMetadata"/>.
 		/// </summary>
-		/// <param name="uri">URI, по которому был открыт объект.</param>
-		/// <param name="disposable">Сервис, позволяющий закрыть объект.</param>
+		/// <param name="uri">The URI of the resolved object.</param>
+		/// <param name="disposable">The service for object's disposal.</param>
 		public UriResolvedMetadata(Uri uri, IDisposable disposable)
 		{
 			this._uri = uri;
@@ -37,10 +37,10 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Инициализирует новый объект <see cref="UriResolvedMetadata"/>.
+		/// Initializes a new instance of the class <see cref="UriResolvedMetadata"/>.
 		/// </summary>
-		/// <param name="source">Метаданные, из которых создаются новые.</param>
-		/// <param name="resolvedId">Идентификатор объекта, открытого через URI.</param>
+		/// <param name="source">The metadata used as a source for the new metadata.</param>
+		/// <param name="resolvedId">The identifier of the object resolved via an URI.</param>
 		private UriResolvedMetadata(UriResolvedMetadata source, int resolvedId)
 		{
 			this = source;
@@ -48,18 +48,17 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Возвращает новые метаданные с назначенным идентификатором объекта,
-		/// открытого оболочкой через URI.
+		/// Get the new metadata with the assigned identifier of the object, resolved via an URI.
 		/// </summary>
-		/// <param name="resolvedId">Идентификатор объекта, открытого через URI.</param>
-		/// <returns>Копию метаданных с назначенным идентификатором объекта.</returns>
+		/// <param name="resolvedId">The identifier of the object resolved via an URI.</param>
+		/// <returns>The new metadata with the assigned identifier of the object.</returns>
 		public UriResolvedMetadata AssignId(int resolvedId)
 		{
 			return new UriResolvedMetadata(this, resolvedId);
 		}
 
 		/// <summary>
-		/// Возвращает URI, по которому был открыт объект.
+		/// Gets the URI of the resolved object.
 		/// </summary>
 		public Uri Uri
 		{
@@ -70,7 +69,7 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Возвращает сервис, позволяющий закрыть объект.
+		/// Gets the service for object's disposal.
 		/// </summary>
 		public IDisposable Disposable
 		{
@@ -81,7 +80,7 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Возвращает идентификатор объекта, открытого через URI.
+		/// Gets the identifier of the object resolved via an URI.
 		/// </summary>
 		public int ResolvedId
 		{

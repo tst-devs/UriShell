@@ -5,53 +5,53 @@ using System.Diagnostics.Contracts;
 namespace UriShell.Shell.Resolution
 {
 	/// <summary>
-	/// Интерфейс холдера объектов, открытых оболочкой через URI, и их метаданных.
+	/// The interface of a holder of opened via an URI objects and their metadata.
 	/// </summary>
 	[ContractClass(typeof(IUriResolvedObjectHolderContract))]
 	internal interface IUriResolvedObjectHolder : IEnumerable<object>
 	{
 		/// <summary>
-		/// Добавляет объект, открытый оболочкой через URI.
+		/// Adds the new object opened via an URI. 
 		/// </summary>
-		/// <param name="resolved">Объект для добавления.</param>
-		/// <param name="metadata">Метаданные добавляемого объекта.</param>
+		/// <param name="resolved">The added object.</param>
+		/// <param name="metadata">The metadata of the added object.</param>
 		void Add(object resolved, UriResolvedMetadata metadata);
 
 		/// <summary>
-		/// Удаляет объект, открытый оболочкой через URI.
+		/// Removes the object opened via an URI previously. 
 		/// </summary>
-		/// <param name="resolved">Объект для удаления.</param>
+		/// <param name="resolved">The removed object.</param>
 		void Remove(object resolved);
 
 		/// <summary>
-		/// Проверяет наличие объекта в холдере.
+		/// Checks whether the object is present in the holder.
 		/// </summary>
-		/// <param name="resolved">Объект, проверяемый на наличие в холдере.</param>
-		/// <returns>true, если объект содержится в холдере; иначе false.</returns>
+		/// <param name="resolved">The object whose presence in the holder is checked.</param>
+		/// <returns>true, if the holder contains the object; false otherwise.</returns>
 		[Pure]
 		bool Contains(object resolved);
 
 		/// <summary>
-		/// Возвращает заданный объект, находящийся в холдере, по его идентификатору.
+		/// Gets an object stored in the holder by its identifier.
 		/// </summary>
-		/// <param name="id">Идентификатор запрашиваемого объекта.</param>
-		/// <returns>Объект с заданным идентификатором.</returns>
+		/// <param name="id">The identifier of a requested object.</param>
+		/// <returns>The object with the given identifier.</returns>
 		[Pure]
 		object Get(int id);
 
 		/// <summary>
-		/// Возвращает метаданные заданного объекта, находящегося в холдере.
+		/// Get the metadata of the given object stored in the holder.
 		/// </summary>
-		/// <param name="resolved">Объект, для которого запрашиваются метаданные.</param>
-		/// <returns>Метаданные заданного объекта.</returns>
+		/// <param name="resolved">The object whose metadata is requested.</param>
+		/// <returns>The metadata of the given object.</returns>
 		[Pure]
 		UriResolvedMetadata GetMetadata(object resolved);
 
 		/// <summary>
-		/// Записывает новые метаданные заданного объекта, полученные путем замены URI.
+		/// Replace the metadata of the given object with a new metadata based on the given URI.
 		/// </summary>
-		/// <param name="resolved">Объект, для которого записываются метаданные.</param>
-		/// <param name="overrideUri">Новый URI для записи в метаданные.</param>
+		/// <param name="resolved">The objec whose metadata are replaced.</param>
+		/// <param name="overrideUri">The URI for the new metadata.</param>
 		void ModifyMetadata(object resolved, Uri overrideUri);
 	}
 }

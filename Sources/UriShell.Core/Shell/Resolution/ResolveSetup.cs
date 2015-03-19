@@ -13,30 +13,29 @@ namespace UriShell.Shell.Resolution
 	internal sealed class ResolveSetup<TResolved> : IShellResolveSetup<TResolved>
 	{
 		/// <summary>
-		/// Сервис, позволяющий открыть объект, полученный через URI.
+		/// The service that allows to open an object resolved via an URI.
 		/// </summary>
 		private readonly IShellResolveOpen _resolveOpen;
 
 		/// <summary>
-		/// Действие, позволяющее передать делегат вызова настроек.
+		/// The action for passing a delegate for calling object's setup.
 		/// </summary>
 		private readonly Action<ResolveSetupPlayer> _playerSender;
 		
 		/// <summary>
-		/// Действие, вызываемое с объектом, полученным через URI, перед открытием.
+		/// The action, accepting an object resolved via an URI, called before opening.
 		/// </summary>
 		private Action<TResolved> _onReady;
 
 		/// <summary>
-		/// Действие, вызываемое с объектом, полученным через URI, когда в нем больше
-		/// нет необходимости.
+		/// The action, accepting an object resolved via an URI, called when an object is disposed.
 		/// </summary>
 		private Action<TResolved> _onFinished;
 
 		/// <summary>
-		/// Инициализирует новый объект класса <see cref="ResolveSetup{TResolved}"/>.
+		/// Initializes a new instance of the class <see cref="ResolveSetup{TResolved}"/>.
 		/// </summary>
-		/// <param name="args">Аргументы, необходимые для инициализации <see cref="ResolveSetup{TResolved}"/>.</param>
+		/// <param name="args">Arguments for initialization of <see cref="ResolveSetup{TResolved}"/>.</param>
 		public ResolveSetup(ResolveSetupArgs args)
 		{
 			Contract.Requires<ArgumentNullException>(args != null);
@@ -46,12 +45,10 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Позволяет задать действие, вызываемое с объектом, полученным через URI,
-		/// перед открытием.
+		/// Allows to assign an action invoked before object's opening.
 		/// </summary>
-		/// <param name="action">Действие, вызываемое с объектом, полученным через URI,
-		/// перед открытием.</param>
-		/// <returns>Сервис, позволяющий настроить и открыть объект, полученный через URI.</returns>
+		/// <param name="action">Action invoked with a resolved object before object's opening.</param>
+		/// <returns>The service that allows to setup or open an object resolved from an URI.</returns>
 		public IShellResolveSetup<TResolved> OnReady(Action<TResolved> action)
 		{
 			this._onReady = action;
@@ -59,12 +56,10 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Позволяет задать действие, вызываемое с объектом, полученным через URI,
-		/// когда в нем больше нет необходимости.
+		/// Allows to assign an action invoked when a resolved object is being closed. 
 		/// </summary>
-		/// <param name="action">Действие, вызываемое с объектом, полученным через URI,
-		/// когда в нем больше нет необходимости.</param>
-		/// <returns>Сервис, позволяющий настроить и открыть объект, полученный через URI.</returns>
+		/// <param name="action">The action invoked with a resolved object when the latter is being closed.</param>
+		/// <returns>The service that allows to setup or open an object resolved from an URI.</returns>
 		public IShellResolveSetup<TResolved> OnFinished(Action<TResolved> action)
 		{
 			this._onFinished = action;
@@ -72,20 +67,20 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Открывает объект, полученный через URI.
+		/// Opens an object resolved from an URI.
 		/// </summary>
-		/// <returns>Сервис, позволяющий закрыть объект вызовом <see cref="IDisposable.Dispose"/>.</returns>
+		/// <returns>The service for object's closing via <see cref="IDisposable.Dispose"/>.</returns>
 		public IDisposable Open()
 		{
 			return this.SendPlayerAndInvoke(_ => _.Open());
-		}		
-		
+		}
+
 		/// <summary>
-		/// Открывает объект, полученный через URI, позволяя вызывающему коду обработать
-		/// исключение в случае неудачи.
+		/// Opens an object resolved from an URI and allows the calling site to handle an exception 
+		/// when it occurs.
 		/// </summary>
-		/// <returns>Сервис, позволяющий закрыть объект вызовом <see cref="IDisposable.Dispose"/>,
-		/// если объект открыт успешно.</returns>
+		/// <returns>The service for object's closing via <see cref="IDisposable.Dispose"/>,
+		/// if an object was opened successfully.</returns>
 		public IDisposable OpenOrThrow()
 		{
 			return this.SendPlayerAndInvoke(_ => _.OpenOrThrow());
@@ -109,15 +104,14 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Создает функцию, принимающую на вход полученный через URI объект, и выполняющую
-		/// его настройку, результатом которой служит сервис, вызываемый, когда в объекте
-		/// больше нет необходимости. 
+		/// Create a function, accepting an object resolved via an URI, 
+		/// that conducts object's setup and returns an object for object's disposal.
 		/// </summary>
-		/// <param name="onReady">Действие, вызываемое с объектом, полученным через URI,
-		/// перед открытием.</param>
-		/// <param name="onFinished">Действие, вызываемое с объектом, полученным через URI,
-		/// когда в нем больше нет необходимости.</param>
-		/// <returns>Созданную функцию, выполняющую настройку; или null, если настройки не заданы.</returns>
+		/// <param name="onReady">The action, accepting an object resolved via an URI, 
+		/// called before opening.</param>
+		/// <param name="onFinished">The action, accepting an object resolved via an URI, 
+		/// called when an object is disposed.</param>
+		/// <returns>The function conducting object's setup; or null when setup actions are not set.</returns>
 		private static ResolveSetupPlayer CreatePlayer(Action<TResolved> onReady, Action<TResolved> onFinished)
 		{
 			if (onReady == null && onFinished == null)
@@ -127,8 +121,8 @@ namespace UriShell.Shell.Resolution
 
 			return (uri, resolved) =>
 				{
-					// Если тип объекта, полученного через URI, отличается от
-					// заданного, логируем этот факт, и отменяем вызов настроек.
+					// If the type of the object resolved via the URI 
+					// mismatch the given type - log this fact and cancel setup process for the object. 
 					if (!typeof(TResolved).IsInstanceOfType(resolved))
 					{
 						Trace.TraceWarning(

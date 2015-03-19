@@ -8,19 +8,20 @@ using UriShell.Shell.Registration;
 namespace UriShell.Shell.Resolution
 {
 	/// <summary>
+	/// Implementation of a factory of a service that makes setup of objects resolved via an URI. 
 	/// Реализация фабрики сервиса настройки объектов, полученных через URI.
 	/// </summary>
 	internal sealed class ResolveSetupFactory : IResolveSetupFactory
 	{
 		/// <summary>
-		/// Контейнер Dependency Injection.
+		/// The dependency injection container.
 		/// </summary>
 		private readonly IComponentContext _diContainer;
 
 		/// <summary>
-		/// Инициализирует новый объект класса <see cref="ResolveSetupFactory"/>.
+		/// Initializes a new instance of the class <see cref="ResolveSetupFactory"/>.
 		/// </summary>
-		/// <param name="diContainer">Контейнер Dependency Injection.</param>
+		/// <param name="diContainer">The dependency injection container.</param>
 		public ResolveSetupFactory(IComponentContext diContainer)
 		{
 			Contract.Requires<ArgumentNullException>(diContainer != null);
@@ -28,11 +29,11 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Создает сервис, реализующий настройку объектов, полученных через URI.
+		/// Creates the service that implements setup of objects resolved via an URI. 
 		/// </summary>
-		/// <typeparam name="TResolved">Тип объекта, который ожидается от URI.</typeparam>
-		/// <param name="args">Аргументы, необходимые для инициализации <see cref="ResolveSetup{TResolved}"/>.</param>
-		/// <returns>Сервис, позволяющий настроить и открыть объект, полученный через URI.</returns>
+		/// <typeparam name="TResolved">The object's type expected from URI's resolution.</typeparam>
+		/// <param name="args">Arguments for initialization <see cref="ResolveSetup{TResolved}"/>.</param>
+		/// <returns>The service that allows to setup and open an object resolved via an URI.</returns>
 		public IShellResolveSetup<TResolved> Create<TResolved>(ResolveSetupArgs args)
 		{
 			return this._diContainer.Resolve<IShellResolveSetup<TResolved>>(TypedParameter.From(args));
