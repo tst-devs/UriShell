@@ -6,21 +6,21 @@ using System.Reflection;
 namespace UriShell.Shell
 {
 	/// <summary>
-	/// Результат поиска объекта, реализующего представление по заданной модели,
-	/// использующего для присваивания модели параметр конструктора.
+	/// The result of search of an object implementing a view for the given view model
+	/// and accepting the view model as a constructor parameter.
 	/// </summary>
 	internal sealed class ViewModelParameterMatch : IViewModelViewMatch
 	{
 		/// <summary>
-		/// Пробует определить соответствие одного из параметров конструктора заданного
-		/// типа заданной модели представления.
+		/// Tries to find a match between one of constructor's parameters of the given type 
+		/// and the given view model. 
 		/// </summary>
-		/// <param name="viewModel">Модель искомого представления.</param>
-		/// <param name="viewType">Тип объекта, проверяемого на соответствие параметра конструктора.</param>
-		/// <param name="viewFactory">Фабрика представления, принимающая на вход информацию о соответствующем
-		/// параметре, вызываемая в случае соответствия.</param>
-		/// <returns>Результат поиска объекта, реализующего представление по заданной модели,
-		/// или null, если ни одного из свойств заданного типа не подходит для заданной модели.</returns>
+		/// <param name="viewModel">The view model of a view being looked for.</param>
+		/// <param name="viewType">The constructor parameter's type.</param>
+		/// <param name="viewFactory">The view's factory being called when match happens 
+		/// and accepting info about a parameter.</param>
+		/// <returns>The result of search of an object implementing a view for the given view model; 
+		/// otherwise null.</returns>
 		public static ViewModelParameterMatch TryMatch(object viewModel, Type viewType, Func<ParameterInfo, object> viewFactory)
 		{
 			Contract.Requires<ArgumentNullException>(viewModel != null);
@@ -46,16 +46,16 @@ namespace UriShell.Shell
 		}
 
 		/// <summary>
-		/// Инициализирует новый объект класса <see cref="ViewModelPropertyMatch"/>.
+		/// Initializes a new instance of the class <see cref="ViewModelPropertyMatch"/>.
 		/// </summary>
-		/// <param name="view">Найденное представление.</param>
+		/// <param name="view">The found view.</param>
 		private ViewModelParameterMatch(object view)
 		{
 			this.View = view;
 		}
 
 		/// <summary>
-		/// Возвращает найденное представление.
+		/// Gets the found view.
 		/// </summary>
 		public object View
 		{
@@ -64,8 +64,7 @@ namespace UriShell.Shell
 		}
 
 		/// <summary>
-		/// Указывает, что найденное представление поддерживает присваивание
-		/// другой модели.
+		/// Gets whether the found view supports view model's change.
 		/// </summary>
 		public bool SupportsModelChange
 		{
@@ -76,20 +75,20 @@ namespace UriShell.Shell
 		}
 
 		/// <summary>
-		/// Проверяет, реализует ли объект представление по заданной модели.
+		/// Gets whether the object implements a view for the given model.
 		/// </summary>
-		/// <param name="viewModel">Модель представления для проверки.</param>
-		/// <returns>true, если объект реализует представление по заданной модели;
-		/// иначе false.</returns>
+		/// <param name="viewModel">The view model to be checked.</param>
+		/// <returns>true, if the given object implements a view for the given model;
+		/// otherwise false.</returns>
 		public bool IsMatchToModel(object viewModel)
 		{
 			return false;
 		}
 
 		/// <summary>
-		/// Присваивает представлению заданную модель.
+		/// Changes a view model of the view.
 		/// </summary>
-		/// <param name="viewModel">Модель представления для присваивания.</param>
+		/// <param name="viewModel">The new view model of the view.</param>
 		public void ChangeModel(object viewModel)
 		{
 			throw new NotSupportedException();

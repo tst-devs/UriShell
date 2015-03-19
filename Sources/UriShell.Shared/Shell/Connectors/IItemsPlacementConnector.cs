@@ -46,7 +46,6 @@ namespace UriShell.Shell.Connectors
 
 		/// <summary>
 		/// Gets the connected object for the given view.
-		/// Возвращает присоединенный объект, представленный заданным.
 		/// </summary>
 		/// <param name="view">The view of the object being looked for.</param>
 		/// <returns>The object for the given view.</returns>

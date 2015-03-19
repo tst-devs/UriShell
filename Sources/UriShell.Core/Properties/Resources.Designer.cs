@@ -70,6 +70,15 @@ namespace UriShell.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Icon URI &apos;{0}&apos; is invalid.
+        /// </summary>
+        internal static string InvalidIconUri {
+            get {
+                return ResourceManager.GetString("InvalidIconUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Превышено возможное количество открытых URI..
         /// </summary>
         internal static string NoAvailableUriResolutionId {

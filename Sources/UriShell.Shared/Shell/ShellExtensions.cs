@@ -13,7 +13,7 @@ namespace UriShell.Shell
 		/// <summary>
 		/// Closes objects from the given list.
 		/// </summary>
-		/// <param name="shell">Interface of the application shell.</param>
+		/// <param name="shell">The interface of the application shell.</param>
 		/// <param name="resolvedList">The list of objects to be closed.</param>
 		public static void CloseResolvedList(this IShell shell, IEnumerable<object> resolvedList)
 		{

@@ -7,44 +7,45 @@ using System.Windows.Data;
 namespace UriShell.Shell.Connectors
 {
 	/// <summary>
-	/// Реализует базовый функционал <see cref="IItemsPlacementConnector"/>.
+	/// Implements basic features of <see cref="IItemsPlacementConnector"/>.
 	/// </summary>
     public abstract partial class ItemsPlacementConnectorBase : IItemsPlacementConnector
 	{
 		/// <summary>
-		/// Настроечные флаги данного <see cref="ItemsPlacementConnector"/>.
+		/// Setup flags for the <see cref="ItemsPlacementConnector"/>.
 		/// </summary>
 		private readonly ItemsPlacementConnectorFlags _flags;
 
 		/// <summary>
-		/// Список присоединенных объектов.
+		/// The list of connected objects.
 		/// </summary>
 		private readonly List<object> _connected = new List<object>();
 
 		/// <summary>
-		/// Коллекция представлений присоединенных объектов.
+		/// The collection of views of connected objects.
 		/// </summary>
 		private readonly ObservableCollection<object> _views = new ObservableCollection<object>();
 
 		/// <summary>
-		/// <see cref="ICollectionView"/> коллекции представлений присоединенных объектов.
+		/// <see cref="ICollectionView"/> of the collection of views of connected objects
 		/// </summary>
 		private readonly ICollectionView _viewsCollectionView;
 
 		/// <summary>
-		/// Указывает, что идет изменение коннектора, начатое вызовом <see cref="BeginChange"/>.
+		/// Shows that changing of the connector started by <see cref="BeginChange"/>
+		/// is in progress.
 		/// </summary>
 		private bool _isChanging;
 				
 		/// <summary>
-		/// Индекс объекта, представление которого активно.
+		/// The index of the active object.
 		/// </summary>
 		private int _activeIndex = -1;
 
 		/// <summary>
-		/// Инициализирует новый объект класса <see cref="ItemsPlacementConnectorBase"/>.
+		/// Initializes a new instance of the class <see cref="ItemsPlacementConnectorBase"/>.
 		/// </summary>
-		/// <param name="flags">Настроечные флаги создаваемого <see cref="ItemsPlacementConnector"/>.</param>
+		/// <param name="flags">Configuration flags of the created <see cref="ItemsPlacementConnector"/>.</param>
 		public ItemsPlacementConnectorBase(ItemsPlacementConnectorFlags flags)
 		{
 			this._flags = flags;
@@ -54,17 +55,17 @@ namespace UriShell.Shell.Connectors
 		}
 
 		/// <summary>
-		/// Проверяет, установлен ли заданный настроечный флаг.
+		/// Checks whether the given configuration flag is set.
 		/// </summary>
-		/// <param name="flag">Проверяемый настроечный флаг.</param>
-		/// <returns>true, если заданный флаг установлен; иначе false.</returns>
+		/// <param name="flag">The configuration flag to check.</param>
+		/// <returns>true, if the given flag is set; false otherwise.</returns>
 		protected bool IsFlagSet(ItemsPlacementConnectorFlags flag)
 		{
 			return (this._flags & flag) == flag;
 		}
 
 		/// <summary>
-		/// Возвращает список присоединенных объектов.
+		/// Gets the list of connected objects.
 		/// </summary>
 		protected IList<object> Connected
 		{
@@ -75,7 +76,7 @@ namespace UriShell.Shell.Connectors
 		}
 
 		/// <summary>
-		/// Возвращает коллекцию представлений присоединенных объектов.
+		/// Gets the list of views of connected objects.
 		/// </summary>
 		protected ObservableCollection<object> Views
 		{
@@ -88,7 +89,7 @@ namespace UriShell.Shell.Connectors
 		#region Explicit IItemsPlacementConnector Members
 
 		/// <summary>
-		/// Возвращает список присоединенных объектов.
+		/// Gets the list of connected objects.
 		/// </summary>
 		IEnumerable<object> IItemsPlacementConnector.Connected
 		{
@@ -99,8 +100,7 @@ namespace UriShell.Shell.Connectors
 		}
 
 		/// <summary>
-		/// Возвращает <see cref="ICollectionView"/> коллекции представлений
-		/// присоединенных объектов.
+		/// Gets the <see cref="ICollectionView"/> of the view collection of connected objects.
 		/// </summary>
 		ICollectionView IItemsPlacementConnector.Views
 		{
@@ -113,22 +113,22 @@ namespace UriShell.Shell.Connectors
 		#endregion
 
 		/// <summary>
-		/// Присоединяет заданный объект к пользовательскому интерфейсу.
+		/// Connects the given object to the user interface. 
 		/// </summary>
-		/// <param name="resolved">Объект для присоединения к UI.</param>
+		/// <param name="resolved">The object to be connected to the UI.</param>
 		public abstract void Connect(object resolved);
 
 		/// <summary>
-		/// Отсоединяет заданный объект от пользовательского интерфейса.
+		/// Disconnects the given object from the user interface. 
 		/// </summary>
-		/// <param name="resolved">Объект для отсоединения от UI.</param>
+		/// <param name="resolved">The object to be disconnected from the given UI.</param>
 		public abstract void Disconnect(object resolved);
-		
+
 		/// <summary>
-		/// Возвращает присоединенный объект, представленный заданным.
+		/// Gets the connected object for the given view.
 		/// </summary>
-		/// <param name="view">Представление искомого объекта.</param>
-		/// <returns>Объект, представленный заданным.</returns>
+		/// <param name="view">The view of the object being looked for.</param>
+		/// <returns>The object for the given view.</returns>
 		public object ConnectedFromView(object view)
 		{
 			var index = this._views.IndexOf(view);
@@ -136,16 +136,16 @@ namespace UriShell.Shell.Connectors
 		}
 
 		/// <summary>
-		/// Меняет индекс присоединенного объекта на заданный.
+		/// Changes the index of the connected object to the given value.
 		/// </summary>
-		/// <param name="connected">Присоединенный объект, индекс которого нужно изменить.</param>
-		/// <param name="newIndex">Новый индекс присоединенного объекта в <see cref="Connected"/>.</param>
+		/// <param name="connected">The connected object whose index is changed.</param>
+		/// <param name="newIndex">The new index of the connected object in the <see cref="Connected"/> list.</param>
 		public abstract void MoveConnected(object connected, int newIndex);
 
 		/// <summary>
-		/// Отмечает блок начала изменения состояния коннектора.
+		/// Starts changing of connector's state.
 		/// </summary>
-		/// <returns>Объект, позволяющий описать и среагировать на изменения.</returns>
+		/// <returns>The object that allows to record changes.</returns>
 		protected ChangeRec BeginChange()
 		{
 			if (this._isChanging)
@@ -161,16 +161,17 @@ namespace UriShell.Shell.Connectors
 		}
 
 		/// <summary>
-		/// Вызывается по окончании блока изменения состояния коннектора.
+		/// Finishes changing of connector's state.
 		/// </summary>
-		/// <param name="changeRec">Объект, содержащий сведения об изменении.</param>
+		/// <param name="changeRec">The object that allows to record changes.</param>
 		private void EndChange(ChangeRec changeRec)
 		{
 			try
 			{
 				this._activeIndex = this._connected.IndexOf(changeRec.NewActive);
 				
-				// При присоединении и перемещении объектов, вызываем ConnectedChanged до ActiveChanged.
+				// When objects are added and moved, 
+				// raise ConnectedChanged before ActiveChanged.
 				foreach (var change in changeRec.ConnectedChanges)
 				{
 					if (change.Action == ConnectedChangedAction.Connect
@@ -185,7 +186,8 @@ namespace UriShell.Shell.Connectors
 					this.OnActiveChanged(new ActiveChangedEventArgs(changeRec.OldActive, changeRec.NewActive));
 				}
 
-				// При отсоединении объекта, вызываем ConnectedChanged после ActiveChanged.
+				// When objects are disconnected, 
+				// raise ConnectedChanged after ActiveChanged.
 				foreach (var change in changeRec.ConnectedChanges)
 				{
 					if (change.Action == ConnectedChangedAction.Disconnect)
@@ -194,7 +196,7 @@ namespace UriShell.Shell.Connectors
 					}
 				}
 
-				// Синхронизируем выбранный элемент в списке представлений.
+				// Synchronize the selected element in the list of views.
 				this._viewsCollectionView.MoveCurrentToPosition(this._activeIndex);
 			}
 			finally
@@ -204,13 +206,13 @@ namespace UriShell.Shell.Connectors
 		}
 
 		/// <summary>
-		/// Обрабатывает изменение текущего элемента во <see cref="Views"/>.
+		/// Handles change of the active element in the <see cref="Views"/>.
 		/// </summary>
-		/// <param name="sender">Объект, к которому прикреплен обработчик события.</param>
-		/// <param name="e">Объект, содержащий аргументы события.</param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The object with event arguments.</param>
 		private void ViewsCollectionView_CurrentChanged(object sender, EventArgs e)
 		{
-			// Игнорируем оповещения в процессе изменения состояния.
+			// Ignore notifications when connector's state changing is in progress.
 			if (this._isChanging)
 			{
 				return;
@@ -227,9 +229,9 @@ namespace UriShell.Shell.Connectors
 		}
 
 		/// <summary>
-		/// Вызывает событие <see cref="ConnectedChanged"/>.
+		/// Raises the event <see cref="ConnectedChanged"/>.
 		/// </summary>
-		/// <param name="e">Объект, содержащий аргументы события.</param>
+		/// <param name="e">The object with event's arguments.</param>
 		private void OnConnectedChanged(ConnectedChangedEventArgs e)
 		{
 			var connectedChanged = this.ConnectedChanged;
@@ -240,9 +242,9 @@ namespace UriShell.Shell.Connectors
 		}
 
 		/// <summary>
-		/// Вызывает событие <see cref="ActiveChanged"/>.
+		/// Raises the event <see cref="ActiveChanged"/>.
 		/// </summary>
-		/// <param name="e">Объект, содержащий аргументы события.</param>
+		/// <param name="e">The object with event's arguments.</param>
 		private void OnActiveChanged(ActiveChangedEventArgs e)
 		{
 			var activeChanged = this.ActiveChanged;
@@ -253,8 +255,7 @@ namespace UriShell.Shell.Connectors
 		}
 
 		/// <summary>
-		/// Возвращает признак того, что данный коннектор сам отвечает за 
-		/// обновление данных в присоединенных объектах.
+		/// Returns the flag that this connector is responsible for data refresh in connected objects.
 		/// </summary>
 		public bool IsResponsibleForRefresh
 		{
@@ -265,7 +266,7 @@ namespace UriShell.Shell.Connectors
 		}
 
 		/// <summary>
-		/// Возвращает или присваивает объект, представление которого активно.
+		/// Gets or sets the object whose view is active.
 		/// </summary>
 		public object Active
 		{
@@ -293,7 +294,7 @@ namespace UriShell.Shell.Connectors
 		}
 
 		/// <summary>
-		/// Возвращает значение, указывающее, что нет ни одного присоединенного объекта.
+		/// Gets the value indicating that there is no connected objects.
 		/// </summary>
 		public bool IsPlacementEmpty
 		{
@@ -302,14 +303,14 @@ namespace UriShell.Shell.Connectors
 				return this._connected.Count == 0;
 			}
 		}
-		
+
 		/// <summary>
-		/// Вызывается при присоединении или отсоединении объекта. 
+		/// Is raised when an object is connected or disconnected.
 		/// </summary>
 		public event EventHandler<ConnectedChangedEventArgs> ConnectedChanged;
 
 		/// <summary>
-		/// Вызывается при смене активного представления.
+		/// Is raised when the active view is changed.
 		/// </summary>
 		public event EventHandler<ActiveChangedEventArgs> ActiveChanged;
 	}

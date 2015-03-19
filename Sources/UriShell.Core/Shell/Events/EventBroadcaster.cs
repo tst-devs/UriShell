@@ -10,6 +10,7 @@ namespace UriShell.Shell.Events
 	/// Позволяет рассылать и получать события без непосредственного взаимодействия
 	/// между источником и получателем.
 	/// </summary>
+	[Obsolete("Will be replaced with the more specific interface")]
 	internal sealed partial class EventBroadcaster : IEventBroadcaster
 	{
 		/// <summary>

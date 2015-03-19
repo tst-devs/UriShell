@@ -50,9 +50,9 @@ namespace UriShell.Shell
 		Uri GetResolvedUri(object resolved);
 
 		/// <summary>
-		/// Closes the given object.
+		/// Closes the given resolved object.
 		/// </summary>
-		/// <param name="resolved">The object to be closed.</param>
+		/// <param name="resolved">The resolved object to be closed.</param>
 		void CloseResolved(object resolved);
 
 		/// <summary>

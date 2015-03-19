@@ -4,25 +4,25 @@ using System.Diagnostics.Contracts;
 namespace UriShell.Shell.Connectors
 {
 	/// <summary>
-	/// Присоединяет объекты к пользовательскому интерфейсу в виде списка их представлений.
+	/// Connects objects to the user interface as the list of their views.
 	/// </summary>
     public sealed partial class ItemsPlacementConnector : ItemsPlacementConnectorBase
 	{
 		/// <summary>
-		/// Сервис для поиска представлений присоединенных объектов.
+		/// The service for a connected object's view lookup.
 		/// </summary>
 		private readonly IViewModelViewMatcher _viewModelViewMatcher;
 
 		/// <summary>
-		/// Сервис перетаскивания объектов, присоединенных к пользовательскому интерфейсу.
+		/// The service for dragging an object connected to the user interface.
 		/// </summary>
 		private readonly IConnectedDragDrop _connectedDragDrop;
 		
 		/// <summary>
-		/// Инициализирует новый объект класса <see cref="ItemsPlacementConnector"/>.
+		/// Initializes a new instance of the class <see cref="ItemsPlacementConnector"/>.
 		/// </summary>
-		/// <param name="viewModelViewMatcher">Сервис для поиска представлений присоединенных объектов.</param>
-		/// <param name="connectedDragDrop">Сервис перетаскивания объектов, присоединенных к пользовательскому интерфейсу.</param>
+		/// <param name="viewModelViewMatcher">The service for a connected object's view lookup.</param>
+		/// <param name="connectedDragDrop">The service for dragging an object connected to the user interface.</param>
 		public ItemsPlacementConnector(
 			IViewModelViewMatcher viewModelViewMatcher,
 			IConnectedDragDrop connectedDragDrop)
@@ -32,11 +32,11 @@ namespace UriShell.Shell.Connectors
 		}
 
 		/// <summary>
-		/// Инициализирует новый объект класса <see cref="ItemsPlacementConnector"/>.
+		/// Initializes a new instance of the class <see cref="ItemsPlacementConnector"/>.
 		/// </summary>
-		/// <param name="viewModelViewMatcher">Сервис для поиска представлений присоединенных объектов.</param>
-		/// <param name="connectedDragDrop">Сервис перетаскивания объектов, присоединенных к пользовательскому интерфейсу.</param>
-		/// <param name="flags">Настроечные флаги создаваемого <see cref="ItemsPlacementConnector"/>.</param>
+		/// <param name="viewModelViewMatcher">The service for a connected object's view lookup.</param>
+		/// <param name="connectedDragDrop">The service for dragging an object connected to the user interface.</param>
+		/// <param name="flags">Configuration flags of the created <see cref="ItemsPlacementConnector"/>.</param>
 		public ItemsPlacementConnector(
 			IViewModelViewMatcher viewModelViewMatcher,
 			IConnectedDragDrop connectedDragDrop,
@@ -52,16 +52,16 @@ namespace UriShell.Shell.Connectors
 		}
 
 		/// <summary>
-		/// Присоединяет заданный объект к пользовательскому интерфейсу.
+		/// Connects the given object to the user interface. 
 		/// </summary>
-		/// <param name="resolved">Объект для присоединения к UI.</param>
+		/// <param name="resolved">The object to be connected to the UI.</param>
 		public override void Connect(object resolved)
 		{
 			using (var changeRec = this.BeginChange())
 			{
-				// Определяем представление присоединяемого объекта.
-				// Оно либо должно быть найдено через matcher, либо
-				// может поступить вместе с перетаскиванием.
+				// Determine a view of the connected object. 
+				// We either find it via the matcher 
+				// or receive it from dragging service.
 				object view;
 				if (this._connectedDragDrop.IsDragging(resolved))
 				{
@@ -77,7 +77,7 @@ namespace UriShell.Shell.Connectors
 				this.Views.Add(view);
 				changeRec.Connected(resolved);
 
-				// Если указано, делаем присоединенный объект активным.
+				// If the proper flag set, activate the connected object.
 				if (this.IsFlagSet(ItemsPlacementConnectorFlags.ActivateOnConnect))
 				{
 					changeRec.NewActive = resolved;
@@ -86,17 +86,17 @@ namespace UriShell.Shell.Connectors
 		}
 
 		/// <summary>
-		/// Отсоединяет заданный объект от пользовательского интерфейса.
+		/// Disconnects the given object from the user interface. 
 		/// </summary>
-		/// <param name="resolved">Объект для отсоединения от UI.</param>
+		/// <param name="resolved">The object to be disconnected from the given UI.</param>
 		public override void Disconnect(object resolved)
 		{
 			using (var changeRec = this.BeginChange())
 			{
 				var index = this.Connected.IndexOf(resolved);
 
-				// Выбираем объект, который станет активным
-				// после отсоединения заданного.
+				// Pick the next active object 
+				// after disconnecting the active object's disconnection.
 				if (resolved == this.Active)
 				{
 					if (index == this.Connected.Count - 1)
@@ -109,9 +109,8 @@ namespace UriShell.Shell.Connectors
 					}
 				}
 
-				// Решаем, как поступить с представлением. Если объект отсоединяют
-				// с целью перетаскивания, нужно сохранить его в соответствующем
-				// сервисе. Если нет, нужно обеспечить высвобождение его ресурсов.
+				// If the view is disconnected for dragging then we store it in the dragging service.
+				// Otherwise, we need to dispose the view.
 				IDisposable disposableView = null;
 				if (this._connectedDragDrop.IsDragging(resolved))
 				{
@@ -136,10 +135,10 @@ namespace UriShell.Shell.Connectors
 		}
 
 		/// <summary>
-		/// Меняет индекс присоединенного объекта на заданный.
+		/// Changes the index of the connected object to the given value.
 		/// </summary>
-		/// <param name="connected">Присоединенный объект, индекс которого нужно изменить.</param>
-		/// <param name="newIndex">Новый индекс присоединенного объекта в <see cref="IItemsPlacementConnector.Connected"/>.</param>
+		/// <param name="connected">The connected object whose index is changed.</param>
+		/// <param name="newIndex">The new index of the connected object in the <see cref="Connected"/> list.</param>
 		public override void MoveConnected(object connected, int newIndex)
 		{
 			var oldIndex = this.Connected.IndexOf(connected);

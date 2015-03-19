@@ -6,7 +6,7 @@ using System.Text;
 namespace UriShell.Shell.Connectors
 {
 	/// <summary>
-	/// Flags for the <see cref="IItemsPlacementConnector"/> setup.
+	/// Configuration flags for the <see cref="IItemsPlacementConnector"/>.
 	/// </summary>
 	[Flags]
 	public enum ItemsPlacementConnectorFlags

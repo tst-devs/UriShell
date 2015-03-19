@@ -40,7 +40,6 @@ namespace UriShell.Shell.Connectors
 
 		/// <summary>
 		/// Saves the given data for dragging.
-		/// Сохраняет указанные данные на время перетаскивания.
 		/// </summary>
 		/// <typeparam name="TFormat">The data type.</typeparam>
 		/// <param name="key">The key for the data being saved.</param>

@@ -12,6 +12,7 @@ namespace UriShell.Shell.Connectors
 	/// Присоединяет объекты к пользовательскому интерфейсу SidebarView,
 	/// используя <see cref="IScheduler"/> для разделения наборов объектов.
 	/// </summary>
+	[Obsolete("Not sure if this class should be common")]
     public sealed class SidebarPlacementConnector : ItemsPlacementConnectorBase, ISidebarPlacementConnector
 	{
 		/// <summary>

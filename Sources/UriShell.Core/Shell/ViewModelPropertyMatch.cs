@@ -6,20 +6,20 @@ using System.Reflection;
 namespace UriShell.Shell
 {
 	/// <summary>
-	/// Результат поиска объекта, реализующего представление по заданной модели,
-	/// использующий для замены модели заданный <see cref="PropertyInfo"/>.
+	/// The result of search of an object implementing a view for the given view model
+	/// and accepting the view model as a property.
 	/// </summary>
 	internal sealed class ViewModelPropertyMatch : IViewModelViewMatch
 	{
 		/// <summary>
-		/// Пробует определить соответствие одного из свойств заданного типа,
-		/// указывающего на модель представления, заданной модели представления.
+		/// Tries to find a match between a property of the given type 
+		/// and the given view model.
 		/// </summary>
-		/// <param name="viewModel">Модель искомого представления.</param>
-		/// <param name="viewType">Тип объекта, проверяемого на соответствие свойств.</param>
-		/// <param name="viewFactory">Фабрика представления, вызываемая в случае соответствия.</param>
-		/// <returns>Результат поиска объекта, реализующего представление по заданной модели,
-		/// или null, если ни одного из свойств заданного типа не подходит для заданной модели.</returns>
+		/// <param name="viewModel">The view model of a view being looked for.</param>
+		/// <param name="viewType">The type of an object which properties are analyzed.</param>
+		/// <param name="viewFactory">The view factory called when a match happens.</param>
+		/// <returns>The result of search of an object implementing a view for the given view model; 
+		/// otherwise null.</returns>
 		public static ViewModelPropertyMatch TryMatch(object viewModel, Type viewType, Func<object> viewFactory)
 		{
 			Contract.Requires<ArgumentNullException>(viewModel != null);
@@ -43,13 +43,12 @@ namespace UriShell.Shell
 			return match;
 		}
 
-		/// <summary>
-		/// Проверяет, реализует ли объект с заданным свойством представление по заданной модели.
+		/// <summary>Checks whether the given property implements the given view model.
 		/// </summary>
-		/// <param name="viewModelProperty">Свойство для проверки совместимости с заданной моделью.</param>
-		/// <param name="viewModel">Модель представления для проверки.</param>
-		/// <returns>true, если объект с заданным свойством реализует представление по заданной модели;
-		/// иначе false.</returns>
+		/// <param name="viewModelProperty">The property to be checked.</param>
+		/// <param name="viewModel">The view model to be checked.</param>
+		/// <returns>true, if the given property implements the given view model;
+		/// otherwise false.</returns>
 		private static bool IsPropertyMatchToModel(PropertyInfo viewModelProperty, object viewModel)
 		{
 			if (!viewModelProperty.CanWrite)
@@ -61,22 +60,21 @@ namespace UriShell.Shell
 		}
 
 		/// <summary>
-		/// Найденное представление, имеющее свойство с моделью представления.
+		/// The found view that has a property for the view model.
 		/// </summary>
 		private readonly object _view;
 
 		/// <summary>
-		/// <see cref="PropertyInfo"/>, указывающее на свойство с моделью представления.
+		/// <see cref="PropertyInfo"/> of the property for the view model.
 		/// </summary>
 		private readonly PropertyInfo _viewModelProperty;
 
 		/// <summary>
-		/// Инициализирует новый объект класса <see cref="ViewModelPropertyMatch"/>.
+		/// Initializes a new instance of the class <see cref="ViewModelPropertyMatch"/>.
 		/// </summary>
-		/// <param name="view">Найденное представление, имеющее свойство с моделью
-		/// представления.</param>
-		/// <param name="viewModelProperty"><see cref="PropertyInfo"/>, указывающее
-		/// на свойство с моделью представления.</param>
+		/// <param name="view">The found view that has a property for the view model.</param>
+		/// <param name="viewModelProperty"><see cref="PropertyInfo"/> 
+		/// of the property for the view model.</param>
 		private ViewModelPropertyMatch(object view, PropertyInfo viewModelProperty)
 		{
 			this._view = view;
@@ -84,7 +82,7 @@ namespace UriShell.Shell
 		}
 
 		/// <summary>
-		/// Возвращает найденное представление.
+		/// Gets the found view.
 		/// </summary>
 		public object View
 		{
@@ -95,8 +93,7 @@ namespace UriShell.Shell
 		}
 
 		/// <summary>
-		/// Указывает, что найденное представление поддерживает присваивание
-		/// другой модели.
+		/// Gets whether the found view supports view model's change.
 		/// </summary>
 		public bool SupportsModelChange
 		{
@@ -107,20 +104,20 @@ namespace UriShell.Shell
 		}
 
 		/// <summary>
-		/// Проверяет, реализует ли объект представление по заданной модели.
+		/// Gets whether the object implements a view for the given model.
 		/// </summary>
-		/// <param name="viewModel">Модель представления для проверки.</param>
-		/// <returns>true, если объект реализует представление по заданной модели;
-		/// иначе false.</returns>
+		/// <param name="viewModel">The view model to be checked.</param>
+		/// <returns>true, if the given object implements a view for the given model;
+		/// otherwise false.</returns>
 		public bool IsMatchToModel(object viewModel)
 		{
 			return ViewModelPropertyMatch.IsPropertyMatchToModel(this._viewModelProperty, viewModel);
 		}
 
 		/// <summary>
-		/// Присваивает представлению заданную модель.
+		/// Changes a view model of the view.
 		/// </summary>
-		/// <param name="viewModel">Модель представления для присваивания.</param>
+		/// <param name="viewModel">The new view model of the view.</param>
 		public void ChangeModel(object viewModel)
 		{
 			this._viewModelProperty.SetValue(this._view, viewModel, new object[0]);

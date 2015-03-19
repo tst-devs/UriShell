@@ -8,19 +8,19 @@ using UriShell.Shell;
 namespace UriShell.Input
 {
 	/// <summary>
-	/// Реализует команду открытия заданного URI.
+	/// Implements the command for the given URI's opening.
 	/// </summary>
 	public sealed class OpenUriCommand : ICommand
 	{
 		/// <summary>
-		/// Интерфейс оболочки АРМа.
+		/// The interface of the application shell.
 		/// </summary>
 		private readonly IShell _shell;
 
 		/// <summary>
-		/// Инициализирует новый объект класса <see cref="OpenUriCommand"/>.
+		/// Implements a new instance of the class <see cref="OpenUriCommand"/>.
 		/// </summary>
-		/// <param name="shell">Интерфейс оболочки АРМа.</param>
+		/// <param name="shell">The interface of the application shell.</param>
 		public OpenUriCommand(IShell shell)
 		{
 			Contract.Requires<ArgumentNullException>(shell != null);
@@ -29,11 +29,11 @@ namespace UriShell.Input
 		}
 
 		/// <summary>
-		/// Определяет, может ли команда выполняться в ее текущем состоянии.
+		/// Checks if the command can execute in its current state.
 		/// </summary>
-		/// <param name="parameter">Данные, используемые командой. Если команда не требует
-		/// передачи данных, этот объект может быть установлен в null.</param>
-		/// <returns>true, если команда может быть выполнена; иначе false.</returns>
+		/// <param name="parameter">The command's parameter. 
+		/// If the command doesn't require a parameter, could be null.</param>
+		/// <returns>true, if the command can execute; otherwise false.</returns>
 		public bool CanExecute(object parameter)
 		{
 			if (parameter == null)
@@ -51,10 +51,10 @@ namespace UriShell.Input
 		}
 
 		/// <summary>
-		/// Выполняет данную команду.
+		/// Executes the command.
 		/// </summary>
-		/// <param name="parameter">Данные, используемые командой. Если команда не требует
-		/// передачи данных, этот объект может быть установлен в null.</param>
+		/// <param name="parameter">The command's parameter. 
+		/// If the command doesn't require a parameter, could be null.</param>
 		public void Execute(object parameter)
 		{
 			var uri = parameter as Uri;
@@ -63,7 +63,7 @@ namespace UriShell.Input
 				uri = new Uri(parameter.ToString(), UriKind.Absolute);
 			}
 
-			// Если URI не соответствует схеме Феникса, открываем ее вовне.
+			// If the URI isn't for Phoenix, open it externally.
 			if (!uri.IsPhoenix())
 			{
 				uri = PhoenixUriBuilder.StartUri()
@@ -78,14 +78,14 @@ namespace UriShell.Input
 		}
 
 		/// <summary>
-		/// Вызывается при изменениях, влияющих на то, должна ли выполняться команда. 
+		/// Invoked when a change, that affect command's availability, happens.
 		/// </summary>
 		event EventHandler ICommand.CanExecuteChanged
 		{
 			add
 			{
-				// команда доступна всегда,
-				// поэтому нет необходимости что-либо делать.
+				// The command is available always. 
+				// Nothing to do.
 			}
 			remove
 			{

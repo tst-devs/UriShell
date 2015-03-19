@@ -162,4 +162,7 @@
   <data name="SidebarPlacementConnectorDoesntSupportMoveConnected" xml:space="preserve">
     <value>{0} не поддерживает изменение индекса присоединенного объекта. Подобное действие нецелесообразно для SidebarView.</value>
   </data>
+  <data name="InvalidIconUri" xml:space="preserve">
+    <value>Icon URI '{0}' is invalid</value>
+  </data>
 </root>

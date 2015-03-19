@@ -8,29 +8,30 @@ using UriShell.Shell.Resolution;
 namespace UriShell.Shell.Connectors
 {
 	/// <summary>
-	/// Реализует сервис перетаскивания объектов, присоединенных к пользовательскому интерфейсу.
+	/// Implements a service for dragging objects connected to the UI. 
 	/// </summary>
 	internal sealed class ConnectedDragDrop : IConnectedDragDrop, IUriPlacementConnector
 	{
 		/// <summary>
-		/// Таблица отсоединения объектов от пользовательского интерфейса.
+		/// The table for disconnecting objects from the UI.
 		/// </summary>
 		private readonly IUriDisconnectTable _uriDisconnectTable;
 
 		/// <summary>
-		/// Словарь для хранения данных на время перетаскивания.
+		/// The dictionary for storing data during dragging process.
 		/// </summary>
 		private readonly HybridDictionary _data = new HybridDictionary();
 
 		/// <summary>
-		/// Объект, который перетаскивается.
+		/// The object being dragged.
 		/// </summary>
 		private object _connected;
 
 		/// <summary>
-		/// Инициализирует новый объект класса <see cref="ConnectedDragDrop"/>.
+		/// Initializes a new instance of the class <see cref="ConnectedDragDrop"/>.
 		/// </summary>
-		/// <param name="uriDisconnectTable">Таблица отсоединения объектов от пользовательского интерфейса.</param>
+		/// <param name="uriDisconnectTable">The table for disconnecting 
+		/// objects from the UI.</param>
 		public ConnectedDragDrop(IUriDisconnectTable uriDisconnectTable)
 		{
 			Contract.Requires<ArgumentNullException>(uriDisconnectTable != null);
@@ -39,7 +40,7 @@ namespace UriShell.Shell.Connectors
 		}
 
 		/// <summary>
-		/// Возвращает значение, указывающее, что перетаскивание находится в процессе.
+		/// Gets the value indicating that dragging is in process.
 		/// </summary>
 		public bool IsActive
 		{
@@ -50,11 +51,9 @@ namespace UriShell.Shell.Connectors
 		}
 
 		/// <summary>
-		/// Начинает перетаскивание заданного объекта, присоединенного к
-		/// пользовательскому интерфейсу.
+		/// Begins dragging of the given object, connected to the UI.
 		/// </summary>
-		/// <param name="connected">Объект, присоединенный к пользовательскому
-		/// интерфейсу, для перетаскивания.</param>
+		/// <param name="connected">The object for dragging, connected to the UI.</param>
 		public void Drag(object connected)
 		{
 			this._connected = connected;
@@ -64,9 +63,9 @@ namespace UriShell.Shell.Connectors
 		}
 
 		/// <summary>
-		/// Завершает перетаскивание присоединением объекта к заданному коннектору.
+		/// Ends dragging of an object by attaching it to the given connector.
 		/// </summary>
-		/// <param name="target">Коннектор для присоединения перетаскиваемого объекта.</param>
+		/// <param name="target">The connector for attaching of a dragging object.</param>
 		public void Drop(IUriPlacementConnector target)
 		{
 			var dragged = this._connected;
@@ -79,33 +78,33 @@ namespace UriShell.Shell.Connectors
 		}
 
 		/// <summary>
-		/// Проверяет, перетаскивается ли заданный объект.
+		/// Checks if the given object is being dragged.
 		/// </summary>
-		/// <param name="resolved">Объект, проверяемый на перетаскивание.</param>
-		/// <returns>true, если объект перетаскивается; иначе false.</returns>
+		/// <param name="resolved">The object to be checked.</param>
+		/// <returns>true, if the object is being dragged; otherwise false.</returns>
 		public bool IsDragging(object resolved)
 		{
 			return resolved == this._connected;
 		}
 
 		/// <summary>
-		/// Сохраняет указанные данные на время перетаскивания.
+		/// Saves the given data for dragging.
 		/// </summary>
-		/// <typeparam name="TFormat">Тип, определяющий формат данных.</typeparam>
-		/// <param name="key">Ключ сохраняемых данных.</param>
-		/// <param name="data">Данные для сохранения на время перетаскивания.</param>
+		/// <typeparam name="TFormat">The data type.</typeparam>
+		/// <param name="key">The key for the data being saved.</param>
+		/// <param name="data">The data being saved for dragging.</param>
 		public void SetData<TFormat>(ConnectedDragDropKey<TFormat> key, TFormat data)
 		{
 			this._data[key] = data;
 		}
 
 		/// <summary>
-		/// Возвращает данные, сохраненные на время перетаскивания.
+		/// Gets the data saved for dragging.
 		/// </summary>
-		/// <typeparam name="TFormat">Тип, определяющий формат данных.</typeparam>
-		/// <param name="key">Ключ для поиска данных.</param>
-		/// <returns>Запрошенные данные или значение типа <typeparamref name="TFormat"/> по умолчанию,
-		/// если данные не найдены.</returns>
+		/// <typeparam name="TFormat">The data type.</typeparam>
+		/// <param name="key">The key for data lookup.</param>
+		/// <returns>The requested data or default value of the <typeparamref name="TFormat"/> type,
+		/// if the data wasn't found.</returns>
 		public TFormat GetData<TFormat>(ConnectedDragDropKey<TFormat> key)
 		{
 			if (this._data.Contains(key))
@@ -117,38 +116,37 @@ namespace UriShell.Shell.Connectors
 		}
 
 		/// <summary>
-		/// Проверяет наличие данных, сохраненных на время перетаскивания.
+		/// Checks presence of the data saved for dragging.
 		/// </summary>
-		/// <typeparam name="TFormat">Тип, определяющий формат данных.</typeparam>
-		/// <param name="key">Ключ для поиска данных.</param>
-		/// <returns>true, если данные есть; иначе false.</returns>
+		/// <typeparam name="TFormat">The data type.</typeparam>
+		/// <param name="key">The key for data lookup.</param>
+		/// <returns>true, if the data are present; otherwise false.</returns>
 		public bool GetDataPresent<TFormat>(ConnectedDragDropKey<TFormat> key)
 		{
 			return this._data.Contains(key);
 		}
 
 		/// <summary>
-		/// Присоединяет заданный объект к пользовательскому интерфейсу.
+		/// Connects the given object to the user interface. 
 		/// </summary>
-		/// <param name="resolved">Объект для присоединения к UI.</param>
+		/// <param name="resolved">The object to be connected to the UI.</param>
 		void IUriPlacementConnector.Connect(object resolved)
 		{
-			// Никто не должен явно использовать ConnectorDragDrop как коннектор.
+			// No one has to use ConnectorDragDrop as a connector. 
 			throw new NotImplementedException();
 		}
-		
+
 		/// <summary>
-		/// Отсоединяет заданный объект от пользовательского интерфейса.
+		/// Disconnects the given object from the user interface. 
 		/// </summary>
-		/// <param name="resolved">Объект для отсоединения от UI.</param>
+		/// <param name="resolved">The object to be disconnected from the given UI.</param>
 		void IUriPlacementConnector.Disconnect(object resolved)
 		{
 			this.OnDraggedClosed(EventArgs.Empty);
 
-			// Вызов Disconnect означает, что оболочка закрывает объект
-			// в процессе перетаскивания. В этом случае объектом владеет
-			// ConnectedDragDrop и отвечает за высвобождение связанных данных.
-
+			// The call of Disconnect means the the shell closes the object
+			// during dragging. In this case ConnectedDragDrop owns the object 
+			// hence is responsible disposing stored data.
 			foreach (var disposable in this._data.Values.OfType<IDisposable>())
 			{
 				disposable.Dispose();
@@ -159,8 +157,7 @@ namespace UriShell.Shell.Connectors
 		}
 
 		/// <summary>
-		/// Возвращает признак того, что данный коннектор сам отвечает за 
-		/// обновление данных в присоединенных объектах.
+		/// Returns the flag that this connector is responsible for data refresh in connected objects.
 		/// </summary>
 		bool IUriPlacementConnector.IsResponsibleForRefresh
 		{
@@ -171,9 +168,9 @@ namespace UriShell.Shell.Connectors
 		}
 
 		/// <summary>
-		/// Вызывает событие <see cref="DraggedClosed"/>.
+		/// Raises the event <see cref="DraggedClosed"/>.
 		/// </summary>
-		/// <param name="e">Объект, содержащий аргументы события.</param>
+		/// <param name="e">The object with event's arguments.</param>
 		private void OnDraggedClosed(EventArgs e)
 		{
 			var draggedClosed = this.DraggedClosed;
@@ -184,7 +181,7 @@ namespace UriShell.Shell.Connectors
 		}
 
 		/// <summary>
-		/// Вызывается при закрытии оболочкой перетаскиваемого объекта.
+		/// Is raised when a dragging object is closed by the shell.
 		/// </summary>
 		public event EventHandler DraggedClosed;
 	}

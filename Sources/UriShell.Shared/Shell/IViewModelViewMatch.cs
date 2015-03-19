@@ -36,9 +36,9 @@ namespace UriShell.Shell
 		bool IsMatchToModel(object viewModel);
 
 		/// <summary>
-		/// Changes a view model of a view.
+		/// Changes a view model of the view.
 		/// </summary>
-		/// <param name="viewModel">The new view model for a view.</param>
+		/// <param name="viewModel">The new view model of the view.</param>
 		void ChangeModel(object viewModel);
 	}
 }

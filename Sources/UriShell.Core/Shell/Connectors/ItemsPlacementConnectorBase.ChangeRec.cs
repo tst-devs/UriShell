@@ -7,24 +7,24 @@ namespace UriShell.Shell.Connectors
 	partial class ItemsPlacementConnectorBase
 	{
 		/// <summary>
-		/// Обеспечивает реакцию на изменение состояния коннектора.
+		/// Records changes of the connector's state.
 		/// </summary>
 		protected sealed class ChangeRec : IDisposable
 		{
 			/// <summary>
-			/// Коннектор, состояние изменяется.
+			/// The connector being changed.
 			/// </summary>
 			private readonly ItemsPlacementConnectorBase _connector;
 
 			/// <summary>
-			/// Список изменений содержимого коннектора.
+			/// The list of the connector's state changes.
 			/// </summary>
 			private List<ConnectedChangedEventArgs> _connectionChanges;
 
 			/// <summary>
-			/// Инициализирует новый объект класса <see cref="ChangeRec"/>.
+			/// Initializes a new instance of the class <see cref="ChangeRec"/>.
 			/// </summary>
-			/// <param name="connector">Коннектор, состояние которого будет изменено.</param>
+			/// <param name="connector">The connector being changed.</param>
 			public ChangeRec(ItemsPlacementConnectorBase connector)
 			{
 				this._connector = connector;
@@ -34,7 +34,7 @@ namespace UriShell.Shell.Connectors
 			}
 
 			/// <summary>
-			/// Вызывается при необходимости освободить ресурсы, занятые объектом.
+			/// Releases resources held by the objects.
 			/// </summary>
 			public void Dispose()
 			{
@@ -42,9 +42,9 @@ namespace UriShell.Shell.Connectors
 			}
 
 			/// <summary>
-			/// Добавляет изменение содержимого коннектора.
+			/// Records the connector's state change.
 			/// </summary>
-			/// <param name="change">Аргументы, описывающие изменение.</param>
+			/// <param name="change">Arguments that describes a change.</param>
 			private void AddConnectionChange(ConnectedChangedEventArgs change)
 			{
 				if (this._connectionChanges == null)
@@ -56,7 +56,7 @@ namespace UriShell.Shell.Connectors
 			}
 
 			/// <summary>
-			/// Возвращает объект, представление которого было активно до начала изменения.
+			/// Gets the object, whose view was active before connector's state changing. 
 			/// </summary>
 			public object OldActive
 			{
@@ -65,8 +65,8 @@ namespace UriShell.Shell.Connectors
 			}
 
 			/// <summary>
-			/// Возвращает или присваивает объект, представление которого должно
-			/// стать активным после изменения.
+			/// Gets or sets the object, whose view is active 
+			/// after connector's state changing.
 			/// </summary>
 			public object NewActive
 			{
@@ -75,9 +75,9 @@ namespace UriShell.Shell.Connectors
 			}
 
 			/// <summary>
-			/// Записывает присоединение объекта.
+			/// Records connection of the object.
 			/// </summary>
-			/// <param name="connected">Объект, который был присоединен.</param>
+			/// <param name="connected">The object to connect.</param>
 			public void Connected(object connected)
 			{
 				this.AddConnectionChange(
@@ -85,9 +85,9 @@ namespace UriShell.Shell.Connectors
 			}
 
 			/// <summary>
-			/// Записывает отсоединение объекта.
+			/// Records disconnection of the object.
 			/// </summary>
-			/// <param name="connected">Объект, который был отсоединен.</param>
+			/// <param name="connected">The object to disconnect.</param>
 			public void Disconnected(object connected)
 			{
 				this.AddConnectionChange(
@@ -95,9 +95,9 @@ namespace UriShell.Shell.Connectors
 			}
 
 			/// <summary>
-			/// Записывает изменение индекса объекта.
+			/// Records the object's index change.
 			/// </summary>
-			/// <param name="connected">Объект, у которого изменился индекс.</param>
+			/// <param name="connected">The object with the changed index.</param>
 			public void Moved(object connected)
 			{
 				this.AddConnectionChange(
@@ -105,7 +105,7 @@ namespace UriShell.Shell.Connectors
 			}
 
 			/// <summary>
-			/// Возвращает список изменений содержимого коннектора.
+			/// Gets the list of changes of the connector's state.
 			/// </summary>
 			public IEnumerable<ConnectedChangedEventArgs> ConnectedChanges
 			{

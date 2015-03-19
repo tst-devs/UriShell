@@ -4,18 +4,17 @@ using System.Diagnostics;
 namespace UriShell.Shell
 {
 	/// <summary>
-	/// Реализует <see cref="IUriModuleItemResolver"/>, позволяя открыть заданное
-	/// приложение или документ средствами операционной системы.
+	/// Implements <see cref="IUriModuleItemResolver"/> for opening 
+	/// applications and documents by means of the operating system.
 	/// </summary>
 	internal sealed  class OpenItemResolver : IUriModuleItemResolver
 	{
 		/// <summary>
-		/// Создает объект по заданному URI.
+		/// Creates an object from the given URI.
 		/// </summary>
-		/// <param name="uri">URI, по которому требуется создать объект.</param>
-		/// <param name="attachmentSelector">Селектор, предоставляющий доступ к объектам,
-		/// прикрепленным к URI через параметры.</param>
-		/// <returns>Объект, созданный по заданному URI.</returns>
+		/// <param name="uri">The URI that describes an object to be created.</param>
+		/// <param name="attachmentSelector">The selector for acccess to attached to the given URI objects.</param>
+		/// <returns>The object created from the given URI.</returns>
 		public object Resolve(Uri uri, UriAttachmentSelector attachmentSelector)
 		{
 			var builder = new PhoenixUriBuilder(uri);

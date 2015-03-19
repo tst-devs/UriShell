@@ -8,20 +8,20 @@ using Autofac.Core;
 namespace UriShell.Shell
 {
 	/// <summary>
-	/// Реализует <see cref="IViewModelViewMatcher"/>, выполняя поиск представлений
-	/// в контейнерах Dependency Injection ядра и модулей.
+	/// Implements <see cref="IViewModelViewMatcher"/> looking for views inside 
+	/// the Autofac dependency injection container.
 	/// </summary>
 	internal sealed class ViewModelViewMatcher : IViewModelViewMatcher
 	{
 		/// <summary>
-		/// Контейнер Dependency Injection ядра.
+		/// Autofac dependency injection container.
 		/// </summary>
 		private readonly IComponentContext _coreContainer;
 
 		/// <summary>
-		/// Инициализирует новый объект класса <see cref="ViewModelViewMatcher"/>.
+		/// Initializes a new instance of the class <see cref="ViewModelViewMatcher"/>.
 		/// </summary>
-		/// <param name="coreContainer">Контейнер Dependency Injection ядра.</param>
+		/// <param name="coreContainer">Autofac dependency injection container.</param>
 		public ViewModelViewMatcher(IComponentContext coreContainer)
 		{
 			Contract.Requires<ArgumentNullException>(coreContainer != null);
@@ -30,11 +30,11 @@ namespace UriShell.Shell
 		}
 
 		/// <summary>
-		/// Выполняет поиск объекта, реализующего представление по заданной модели.
+		/// Looks for an object implementing a view for the given view model.  
 		/// </summary>
-		/// <param name="viewModel">Модель искомого представления.</param>
-		/// <returns>Результат поиска, который в случае успеха содержит экземпляр
-		/// <see cref="IViewModelViewMatch"/>, или null, когда ничего не найдено.</returns>
+		/// <param name="viewModel">The view model whose view is looked for.</param>
+		/// <returns>Instance of <see cref="IViewModelViewMatch"/> if search was successful;
+		/// otherwise null.</returns>
 		public IViewModelViewMatch Match(object viewModel)
 		{
 			var matchFromCore = ViewModelViewMatcher.Match(viewModel, this._coreContainer);
@@ -56,18 +56,18 @@ namespace UriShell.Shell
 		}
 
 		/// <summary>
-		/// Выполняет поиск объекта, реализующего представление по заданной модели,
-		/// в заданном контейнере Dependency Injection.
+		/// Looks for an object implementing a view for the given view model 
+		/// inside the given dependency injection container.  
 		/// </summary>
-		/// <param name="viewModel">Модель искомого представления.</param>
-		/// <param name="diContainer">Контейнер Dependency Injection для поиска представлений.</param>
-		/// <returns>Результат поиска, который в случае успеха содержит экземпляр
-		/// <see cref="IViewModelViewMatch"/>, или null, когда ничего не найдено.</returns>
+		/// <param name="viewModel">The view model whose view is looked for.</param>
+		/// <param name="diContainer">The dependency injection container.</param>
+		/// <returns>Instance of <see cref="IViewModelViewMatch"/> if search was successful;
+		/// otherwise null.</returns>
 		private static IViewModelViewMatch Match(object viewModel, IComponentContext diContainer)
 		{
-			// Для поиска представления в контейнере, просматриваем все регистрации,
-			// связанные с типом. У каждого типа просматриваем список свойств и
-			// параметры конструкторов на предмет ViewModelAttribute.
+			// When looking for a view in the container, watch all registrations 
+			// connected with the type. Then look for ViewModelAttribute 
+			// among all type's properties and constructors
 
 			var serviceTypes = diContainer
 				.ComponentRegistry
