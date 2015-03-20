@@ -104,16 +104,14 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Reactive.Core">
-      <HintPath>..\..\packages\Rx-Core.2.2.5\lib\net40\System.Reactive.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Interfaces">
-      <HintPath>..\..\packages\Rx-Interfaces.2.2.5\lib\net40\System.Reactive.Interfaces.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Disposables\AnonymousDisposable.cs" />
+    <Compile Include="Disposables\CompositeDisposable.cs" />
+    <Compile Include="Disposables\DefaultDisposable.cs" />
+    <Compile Include="Disposables\Disposable.cs" />
     <Compile Include="Shell\Connectors\ConnectedDragDrop.cs" />
     <Compile Include="Shell\Resolution\UriDisconnectTable.cs" />
     <Compile Include="Shell\Resolution\IUriDisconnectTable.Contract.cs" />

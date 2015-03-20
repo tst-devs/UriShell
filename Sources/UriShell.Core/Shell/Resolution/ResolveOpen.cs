@@ -3,7 +3,8 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using System.Reactive.Disposables;
+
+using UriShell.Disposables;
 using UriShell.Extensions;
 using UriShell.Shell.Events;
 using UriShell.Shell.Registration;

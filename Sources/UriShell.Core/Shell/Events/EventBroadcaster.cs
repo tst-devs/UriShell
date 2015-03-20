@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using System.Reactive.Disposables;
+
+using UriShell.Disposables;
 
 namespace UriShell.Shell.Events
 {

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
-using System.Reactive.Disposables;
+
+using UriShell.Disposables;
 using UriShell.Shell.Registration;
 
 namespace UriShell.Shell.Resolution
