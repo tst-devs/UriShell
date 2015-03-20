@@ -6,17 +6,18 @@ using System.Text;
 namespace UriShell
 {
     /// <summary>
-    /// Предоставляет строку, содержащую пространство имен Феникса для XML.
+	/// Describes strings for the Phoenix XML namespace.
     /// </summary>
+	[Obsolete("UriShell should be completely separated from the Phoenix application.")]
     public static class PhoenixXmlNamespace
     {
         /// <summary>
-        /// Пространство имен Феникса для XML.
+        /// The Phoenix XML namespace.
         /// </summary>
         public const string Value = "http://www.transsys.ru/phoenix";
 
         /// <summary>
-        /// Рекомендуемый префикс пространства имен Феникса для XML.
+		/// The recommended prefix of the Phoenix XML namespace.
         /// </summary>
         public const string Prefix = "phoenix";
     }

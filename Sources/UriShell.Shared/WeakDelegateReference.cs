@@ -4,30 +4,30 @@ using System.Reflection;
 namespace UriShell
 {
 	/// <summary>
-	/// Хранит ссылку на метод со слабой ссылкой на вызываемый объект,
-	/// в случае экземплярного метода.
+	/// Holds a method reference with a weak target object's reference 
+	/// in case of an instance method.
 	/// </summary>
 	public class WeakDelegateReference
 	{
 		/// <summary>
-		/// Ссылка на метод, вызываемый делегатом.
+		/// The reference to a method invoked by the delegate.
 		/// </summary>
 		private readonly MethodInfo _delegateMethod;
 
 		/// <summary>
-		/// Тип метода, вызываемого делегатом.
+		/// The type of a method invoked by the delegate.
 		/// </summary>
 		private readonly Type _delegateType;
 
 		/// <summary>
-		/// Ссылка на объект, метод которого вызывается делегатом в случае экземлярного метода.
+		/// The reference to an object, whose method is invoked in case of an instance method.
 		/// </summary>
 		private readonly WeakReference _delegateTarget;
 
 		/// <summary>
-		/// Инициализирует новый объект класса <see cref="WeakDelegateReference"/>.
+		/// Initializes a new object of the class <see cref="WeakDelegateReference"/>.
 		/// </summary>
-		/// <param name="handler">Делегат, для которого создается ссылка.</param>
+		/// <param name="handler">The delegate to be held with a weak reference.</param>
 		public WeakDelegateReference(Delegate handler)
 		{
 			this._delegateMethod = handler.Method;
@@ -40,15 +40,17 @@ namespace UriShell
 		}
 
 		/// <summary>
-		/// Получает делегат, на который ссылается <see cref="WeakDelegateReference"/>, если возможен его вызов.
+		/// Gets the delegate held by the <see cref="WeakDelegateReference"/>, if it could be invoked.
 		/// </summary>
-		/// <returns><langword>true</langword>, если вызов делагата возможен; иначе <langword>false</langword>.</returns>
+		/// <param name="handler">The delegate held by the <see cref="WeakDelegateReference"/>, 
+		/// if it could be invoked.</param>
+		/// <returns>true, if the delegate could be invoked; otherwise false.</returns>
 		public bool TryGetDelegate(out Delegate handler)
 		{
 			object target = null;
 
-			// Если метод нестатический, пробуем получить строгую ссылку.
-			// В случае, когда это не удалось, возвращаем false.
+			// If the method is non-static, try to get a strong reference.
+ 			// Return false on failure.
 			if (!this._delegateMethod.IsStatic)
 			{
 				target = this._delegateTarget.Target;

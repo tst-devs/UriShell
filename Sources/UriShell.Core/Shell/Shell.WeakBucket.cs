@@ -7,19 +7,21 @@ namespace UriShell.Shell
 	partial class Shell
 	{
 		/// <summary>
-		/// Наполняет список объектов заданного типа, используя слабые ссылки.
+		/// Implements a list of objects of the given type 
+		/// that holds them with weak references.
 		/// </summary>
 		private sealed class WeakBucket<T> where T : class
 		{
 			/// <summary>
+			/// Holds weak references to added objects.
 			/// Хранит слабые ссылки на добавленные объекты.
 			/// </summary>
 			private readonly List<WeakReference> _list = new List<WeakReference>();
 
 			/// <summary>
-			/// Добавляет объект к перечислению.
+			/// Adds the object to the list.
 			/// </summary>
-			/// <param name="object">Объект для добавления.</param>
+			/// <param name="object">The object to be added.</param>
 			public void Add(T @object)
 			{
 				if (this.ExtractAlive().Contains(@object))
@@ -31,9 +33,9 @@ namespace UriShell.Shell
 			}
 
 			/// <summary>
-			/// Возвращает список достижимых объектов.
+			/// Gets the list of alive objects.
 			/// </summary>
-			/// <returns>Список достижимых объектов.</returns>
+			/// <returns>The list of alive objects.</returns>
 			public IEnumerable<T> ExtractAlive()
 			{
 				var alive = new List<T>(this._list.Count);

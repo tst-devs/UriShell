@@ -6,15 +6,15 @@ using UriShell.Shell.Registration;
 namespace UriShell.Shell.Resolution
 {
 	/// <summary>
-	/// Аргументы для создания объектов, реализующих <see cref="IShellResolveSetup{TResolved}"/>.
+	/// Describes arguments for initializing objects implemening <see cref="IShellResolveSetup{TResolved}"/>.
 	/// </summary>
 	internal sealed class ResolveSetupArgs
 	{
 		/// <summary>
-		/// Инициализирует новый объект класса <see cref="ResolveSetupArgs"/>.
+		/// Initializes a new instance of the class <see cref="ResolveSetupArgs"/>.
 		/// </summary>
-		/// <param name="resolveOpen">Сервис, позволяющий открыть объект, полученный через URI.</param>
-		/// <param name="playerSender">Действие, позволяющее передать делегат вызова настроек.</param>
+		/// <param name="resolveOpen">The service that opens an object resolved via an URI.</param>
+		/// <param name="playerSender">The action that passes a delegate for calling object's setup.</param>
 		public ResolveSetupArgs(IShellResolveOpen resolveOpen, Action<ResolveSetupPlayer> playerSender)
 		{
 			this.ResolveOpen = resolveOpen;
@@ -22,7 +22,7 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Задает инвариант класса.
+		/// Describes the invariant of the class.
 		/// </summary>
 		[ContractInvariantMethod]
 		private void ContractInvariant()
@@ -32,7 +32,7 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Сервис, позволяющий открыть объект, полученный через URI.
+		/// The service that opens an object resolved via an URI.
 		/// </summary>
 		public IShellResolveOpen ResolveOpen
 		{
@@ -41,7 +41,7 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Действие, позволяющее передать делегат вызова настроек.
+		/// The action that passes a delegate for calling object's setup.
 		/// </summary>
 		public Action<ResolveSetupPlayer> PlayerSender
 		{

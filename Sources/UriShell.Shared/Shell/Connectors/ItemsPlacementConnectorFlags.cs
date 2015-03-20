@@ -6,24 +6,24 @@ using System.Text;
 namespace UriShell.Shell.Connectors
 {
 	/// <summary>
-	/// Список флагов настройки <see cref="IItemsPlacementConnector"/> при его создании.
+	/// Configuration flags for the <see cref="IItemsPlacementConnector"/>.
 	/// </summary>
 	[Flags]
 	public enum ItemsPlacementConnectorFlags
 	{
 		/// <summary>
-		/// Настройки по умолчанию.
+		/// Default setup.
 		/// </summary>
 		Default = 0,
 
 		/// <summary>
-		/// Указывает, что свойство <see cref="IUriPlacementConnector.IsResponsibleForRefresh"/>
-		/// должно возвращать значение true.
+		/// The flag indicating that the property <see cref="IUriPlacementConnector.IsResponsibleForRefresh"/>
+		/// should return true.
 		/// </summary>
 		IsResponsibleForRefresh = 1,
 
 		/// <summary>
-		/// При присоединении объекта, коннектор должен делать его представление активным.
+		/// The connector should make a connecting object active on connection.  
 		/// </summary>
 		ActivateOnConnect = 2,
 	}

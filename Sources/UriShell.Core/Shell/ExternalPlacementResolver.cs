@@ -5,19 +5,18 @@ using System.Diagnostics;
 namespace UriShell.Shell
 {
 	/// <summary>
-	/// Реализует размещение объектов во внешнем процессе.
+	/// Implements object's placement in an external process.
 	/// </summary>
 	internal sealed class ExternalPlacementResolver : IUriPlacementResolver, IUriPlacementConnector
 	{
 		/// <summary>
-		/// Определяет размещение объекта по заданному URI.
+		/// Determines an object's placement from the given URI.
 		/// </summary>
-		/// <param name="resolved">Объект для размещения по заданному URI.</param>
-		/// <param name="uri">URI, по которому требуется разместить объект.</param>
-		/// <param name="attachmentSelector">Селектор, предоставляющий доступ к объектам,
-		/// прикрепленным к URI через параметры.</param>
-		/// <returns><see cref="IUriPlacementConnector"/>, позволяющий присоединить объект
-		/// к пользовательскому интерфейсу, если размещение было определено; иначе null.</returns>
+		/// <param name="resolved">The object to be placed with the given URI.</param>
+		/// <param name="uri">The URI used to determine an object's placement.</param>
+		/// <param name="attachmentSelector">The selector for acccess to attached to the given URI objects.</param>
+		/// <returns>The <see cref="IUriPlacementConnector"/> that allows to connect the given object to the 
+		/// user interface, if the placement was determined successfully; otherwise null.</returns>
 		public IUriPlacementConnector Resolve(object resolved, Uri uri, UriAttachmentSelector attachmentSelector)
 		{
 			var builder = new PhoenixUriBuilder(uri);
@@ -30,9 +29,9 @@ namespace UriShell.Shell
 		}
 
 		/// <summary>
-		/// Присоединяет заданный объект к пользовательскому интерфейсу.
+		/// Connects the given object to the user interface. 
 		/// </summary>
-		/// <param name="resolved">Объект для присоединения к UI.</param>
+		/// <param name="resolved">The object to be connected to the UI.</param>
 		public void Connect(object resolved)
 		{
 			var process = (Process)resolved;
@@ -48,17 +47,16 @@ namespace UriShell.Shell
 		}
 
 		/// <summary>
-		/// Отсоединяет заданный объект от пользовательского интерфейса.
+		/// Disconnects the given object from the user interface. 
 		/// </summary>
-		/// <param name="resolved">Объект для отсоединения от UI.</param>
+		/// <param name="resolved">The object to be disconnected from the given UI.</param>
 		public void Disconnect(object resolved)
 		{
 			((Process)resolved).Kill();
 		}
 
 		/// <summary>
-		/// Возвращает признак того, что данный коннектор сам отвечает за 
-		/// обновление данных в присоединенных объектах.
+		/// Returns the flag that this connector is responsible for data refresh in connected objects.
 		/// </summary>
 		public bool IsResponsibleForRefresh
 		{

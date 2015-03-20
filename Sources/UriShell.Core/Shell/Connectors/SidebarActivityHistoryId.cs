@@ -9,6 +9,7 @@ namespace UriShell.Shell.Connectors
 	/// Представляет собой идентификатор записи истории активности
 	/// представлений объектов в SidebarView.
 	/// </summary>
+	[Obsolete("Not sure if this class should be common. It's specific to the Phoenix app.")]
 	internal sealed class SidebarActivityHistoryId
 	{
 		/// <summary>

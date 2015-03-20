@@ -3,22 +3,21 @@
 namespace UriShell.Shell
 {
 	/// <summary>
-	/// Аргументы синхронизирующего события <see cref="ShellEventKeys.OneSecondElapsed"/>, 
-	/// рассылаемого каждую секунду.
+	/// Arguments of the event for synchronization sent every 1 second.
 	/// </summary>
 	public sealed class OneSecondElapsedBroadcastArgs
 	{
 		/// <summary>
-		/// Инициализирует новый объект <see cref="OneSecondElapsedBroadcastArgs"/>.
+		/// Initializes a new instance of the class <see cref="OneSecondElapsedBroadcastArgs"/>.
 		/// </summary>
-		/// <param name="totalElapsed">Общее время, которое работает рассылка события.</param>
+		/// <param name="totalElapsed">The total time elapsed since the start of the event broadcasting.</param>
 		public OneSecondElapsedBroadcastArgs(TimeSpan totalElapsed)
 		{
 			this.TotalElapsed = totalElapsed;
 		}
 
 		/// <summary>
-		/// Возвращает общее время, которое работает рассылка события.
+		/// The total time elapsed since the start of the event broadcasting
 		/// </summary>
 		public TimeSpan TotalElapsed
 		{

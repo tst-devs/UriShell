@@ -8,6 +8,7 @@ namespace UriShell.Shell.Events
 		/// <summary>
 		/// Список обработчиков событий, удерживающий слабые ссылки на подписчиков.
 		/// </summary>
+		[Obsolete]
 		private sealed class HandlerList
 		{
 			/// <summary>

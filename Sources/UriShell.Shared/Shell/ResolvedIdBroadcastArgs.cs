@@ -4,22 +4,22 @@ using System.Diagnostics.Contracts;
 namespace UriShell.Shell
 {
 	/// <summary>
-	/// Аргументы событий, предназначенных для объектов, открытых оболочкой через URI.
+	/// Arguments of the event sent for refreshing data in an object opened via a URI.
 	/// </summary>
 	public sealed class ResolvedIdBroadcastArgs
 	{
 		/// <summary>
-		/// Инициализирует новый объект <see cref="ResolvedIdBroadcastArgs"/>.
+		/// Initializes a new instance of the class <see cref="ResolvedIdBroadcastArgs"/>.
 		/// </summary>
-		/// <param name="resolvedId">Идентификатор объекта, открытого через URI,
-		/// которому предназначено событие.</param>
+		/// <param name="resolvedId">The identifier of the object opened via the URI 
+		/// that should refresh data.</param>
 		public ResolvedIdBroadcastArgs(int resolvedId)
 		{
 			this.ResolvedId = resolvedId;
 		}
 
 		/// <summary>
-		/// Задает инвариант класса.
+		/// Describes the invariant of the class.
 		/// </summary>
 		[ContractInvariantMethod]
 		private void ContractInvariant()
@@ -29,8 +29,8 @@ namespace UriShell.Shell
 		}
 
 		/// <summary>
-		/// Возвращает идентификатор объекта, открытого через URI, которому
-		/// предназначено событие.
+		/// Gets the identifier of the object opened via the URI 
+		/// that should refresh data.
 		/// </summary>
 		public int ResolvedId
 		{

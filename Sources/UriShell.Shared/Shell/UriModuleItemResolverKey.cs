@@ -4,16 +4,16 @@ using System.Diagnostics.Contracts;
 namespace UriShell.Shell
 {
 	/// <summary>
-	/// Идентифицирует <see cref="IUriModuleItemResolver"/> для заданного сочетания компонентов
-	/// module/item в URI представления.
+	/// Identifies the <see cref="IUriModuleItemResolver"/> for the given combination of 
+	/// "module/item" components in a URI of a view.
 	/// </summary>
 	public sealed class UriModuleItemResolverKey
 	{
 		/// <summary>
-		/// Инициализирует новый объект класса <see cref="UriModuleItemResolverKey"/>.
+		/// Initializes a new instance of the class <see cref="UriModuleItemResolverKey"/>.
 		/// </summary>
-		/// <param name="module">Компонент module в URI представления.</param>
-		/// <param name="item">Компонент item в URI представления.</param>
+		/// <param name="module">The component "module" in the URI of a view.</param>
+		/// <param name="item">The component "item" in the URI of a view.</param>
 		public UriModuleItemResolverKey(string module, string item)
 		{
 			if (module != null)
@@ -27,7 +27,7 @@ namespace UriShell.Shell
 		}
 
 		/// <summary>
-		/// Задает инвариант класса.
+		/// Describes the invariant of the class.
 		/// </summary>
 		[ContractInvariantMethod]
 		private void ContractInvariant()
@@ -37,7 +37,7 @@ namespace UriShell.Shell
 		}
 
 		/// <summary>
-		/// Возвращает компонент module в URI представления.
+		/// Gets the component "module" in the URI of the view
 		/// </summary>
 		public string Module
 		{
@@ -46,7 +46,7 @@ namespace UriShell.Shell
 		}
 
 		/// <summary>
-		/// Возвращает компонент item в URI представления.
+		/// Gets the component "item" in the URI of the view
 		/// </summary>
 		public string Item
 		{
@@ -55,11 +55,11 @@ namespace UriShell.Shell
 		}
 
 		/// <summary>
-		/// Определяет, является ли заданный объект равным по значению текущему.
+		/// Determines if the given object is equal to this.
 		/// </summary>
-		/// <param name="obj">Объект для сравнения с текущим.</param>
-		/// <returns>true, если заданный объект является равным по значению текущему;
-		/// иначе false.</returns>
+		/// <param name="obj">The object for comparison with this.</param>
+		/// <returns>true, if the given object is equal to this;
+		/// otherwise false.</returns>
 		public override bool Equals(object obj)
 		{
 			if (obj != null && obj.GetType() == this.GetType())
@@ -83,18 +83,18 @@ namespace UriShell.Shell
 		}
 
 		/// <summary>
-		/// Возвращает хэш-код данного <see cref="UriModuleItemResolverKey"/>.
+		/// Gets the hash-code of the <see cref="UriModuleItemResolverKey"/>.
 		/// </summary>
-		/// <returns>Хэш-код данного <see cref="UriModuleItemResolverKey"/>.</returns>
+		/// <returns>The hash-code of the <see cref="UriModuleItemResolverKey"/>.</returns>
 		public override int GetHashCode()
 		{
 			return this.Module.GetHashCode() ^ this.Item.GetHashCode();
 		}
 
 		/// <summary>
-		/// Возвращает строковое представление объекта.
+		/// Gets the string representation of the object.
 		/// </summary>
-		/// <returns>Строковое представление объекта.</returns>
+		/// <returns>The string representation of the object</returns>
 		public override string ToString()
 		{
 			return String.Format("{0}/{1}", this.Module, this.Item);

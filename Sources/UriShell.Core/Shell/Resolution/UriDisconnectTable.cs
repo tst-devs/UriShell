@@ -3,21 +3,20 @@
 namespace UriShell.Shell.Resolution
 {
 	/// <summary>
-	/// Реализация таблицы отсоединения объектов от пользовательского интерфейса.
+	/// Implementation of the table used for disconnecting objects from the user interface.
 	/// </summary>
 	internal sealed class UriDisconnectTable : IUriDisconnectTable
 	{
 		/// <summary>
-		/// Словарь, в котором каждому объекту сопоставлен <see cref="IUriPlacementConnector"/>,
-		/// которые отсоединяют его от пользовательского интерфейса.
+		/// The dictionary, where every resolved object corresponds with a <see cref="IUriPlacementConnector"/> 
+		/// used for its disconnection from the user interface.
 		/// </summary>
 		private readonly Dictionary<object, IUriPlacementConnector> _connectors = new Dictionary<object, IUriPlacementConnector>();
 
 		/// <summary>
-		/// Возвращает или присваивает <see cref="IUriPlacementConnector"/>, который отсоединяет
-		/// объект от пользовательского интерфейса.
+		/// Gets or sets <see cref="IUriPlacementConnector"/> for object's disconnection from an user interface.
 		/// </summary>
-		/// <param name="resolved">Объект, для которого запрашивается или задается значение.</param>
+		/// <param name="resolved">The object whose connector is got or set.</param>
 		public IUriPlacementConnector this[object resolved]
 		{
 			get
@@ -39,9 +38,9 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Удаляет запись об отсоединении заданного объекта.
+		/// Removes a disconnection entry of the given object.
 		/// </summary>
-		/// <param name="resolved">Объект, для которого удаляется запись.</param>
+		/// <param name="resolved">The object whose disconnection entry is deleted.</param>
 		public void Remove(object resolved)
 		{
 			if (!this._connectors.Remove(resolved))

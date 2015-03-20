@@ -1,9 +1,11 @@
 ﻿using Autofac;
 using Autofac.Core;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
 using UriShell.Input;
 using UriShell.Shell;
 using UriShell.Shell.Connectors;
@@ -11,14 +13,14 @@ using UriShell.Shell.Connectors;
 namespace UriShell.Autofac
 {
     /// <summary>
-    /// Модуль Autofac, регистрирующий компоненты реализации АРМ Феникс.
+    /// The Autofac module that registers components of the UriShell library.
     /// </summary>
     internal sealed class UriShellModule : Module
     {
         /// <summary>
-        /// Настраивает и добавляет компоненты АРМ в заданный <see cref="ContainerBuilder"/>.
+        /// Setup and adds components of the UriShell to the given <see cref="ContainerBuilder"/>.
         /// </summary>
-        /// <param name="builder"><see cref="ContainerBuilder"/> для добавления компонентов АРМ.</param>
+        /// <param name="builder">The target <see cref="ContainerBuilder"/>.</param>
         protected override void Load(ContainerBuilder builder)
         {
             builder
@@ -88,12 +90,12 @@ namespace UriShell.Autofac
 		}
 
 		/// <summary>
-		/// Обрабатывает событие активации <see cref="IShell"/> контейнером Dependency Injection.
+		/// Handles the event of <see cref="IShell"/> activation by the dependency injection container.
 		/// </summary>
-		/// <param name="e">Объект, содержащий аргументы события.</param>
+		/// <param name="e">The object with event arguments.</param>
 		private static void OnShellActivated(IActivatedEventArgs<IShell> e)
 		{
-			// Подключаем глобальные IUriPlacementResolver-ы, зарегистрированные ядром.
+			// Add global IUriPlacementResolvers registered by the core.
 			foreach (var placementResolver in e.Context.Resolve<IEnumerable<IUriPlacementResolver>>())
 			{
 				e.Instance.AddUriPlacementResolver(placementResolver);
@@ -101,21 +103,21 @@ namespace UriShell.Autofac
 		}
 
 		/// <summary>
-		/// Создает фабрику заданного типа объектов, которая открывает доступ к регистрациям
-		/// подключаемых модулей.
+		/// Creates the factory of an object of the given type that opens access to registrations 
+		/// of pluggable modules.
 		/// </summary>
-		/// <typeparam name="T">Тип объектов, возвращаемых фабрикой.</typeparam>
-		/// <param name="coreContainer">Контейнер Dependency Injection ядра.</param>
-		/// <returns>Созданную фабрику заданного типа объектов.</returns>
+		/// <typeparam name="T">The type of an object created by the factory.</typeparam>
+		/// <param name="coreContainer">The core dependency injection container.</param>
+		/// <returns>The factory of an object of the given type.</returns>
 		private static Func<T> ResolveFactoryIncludingModules<T>(IComponentContext coreContainer)
 		{
-			var diContainer = coreContainer.Resolve<IComponentContext>(); // требование Autofac.
+			var diContainer = coreContainer.Resolve<IComponentContext>(); // Autofac claim.
 
 			return () =>
 			{
-				// Контейнер ядра не имеет доступа к регистрациям подключаемых модулей.
-				// Поэтому зарегистрированные ими компоненты оказываются недоступны.
-				// Обратиться к ним можно только через IModuleLoader.
+				// The core container doen't have access to registrations of pluggable modules.
+				// Hence their components are invisible. 
+				// We can reach them only via IModuleLoader.
 				var moduleLoader = diContainer.Resolve<IModuleLoader>();
 				if (moduleLoader.ModuleContainer != null)
 				{

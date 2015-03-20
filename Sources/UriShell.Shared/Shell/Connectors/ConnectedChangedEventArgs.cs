@@ -4,15 +4,15 @@ using System.Diagnostics.Contracts;
 namespace UriShell.Shell.Connectors
 {
 	/// <summary>
-	/// Аргументы события <see cref="IItemsPlacementConnector.ConnectedChanged"/>.
+	/// Arguments of the event <see cref="IItemsPlacementConnector.ConnectedChanged"/>.
 	/// </summary>
 	public class ConnectedChangedEventArgs : EventArgs
 	{
 		/// <summary>
-		/// Инициализирует новый объект класса <see cref="ConnectedChangedEventArgs"/>.
+		/// Initializes a new instance of the class <see cref="ConnectedChangedEventArgs"/>.
 		/// </summary>
-		/// <param name="action">Действие, вызвавшее событие <see cref="IItemsPlacementConnector.ConnectedChanged"/>.</param>
-		/// <param name="changed">Объект, с которым было совершено действие.</param>
+		/// <param name="action">The action invoked the event <see cref="IItemsPlacementConnector.ConnectedChanged"/>.</param>
+		/// <param name="changed">The object the action was applied to.</param>
 		public ConnectedChangedEventArgs(ConnectedChangedAction action, object changed)
 		{
 			this.Action = action;
@@ -20,7 +20,7 @@ namespace UriShell.Shell.Connectors
 		}
 
 		/// <summary>
-		/// Задает инвариант класса.
+		/// Describes the invariant of the class.
 		/// </summary>
 		[ContractInvariantMethod]
 		private void ContractInvariant()
@@ -29,7 +29,7 @@ namespace UriShell.Shell.Connectors
 		}
 
 		/// <summary>
-		/// Возвращает действие, вызвавшее событие <see cref="IItemsPlacementConnector.ConnectedChanged"/>.
+		/// Gets the action invoked the event <see cref="IItemsPlacementConnector.ConnectedChanged"/>.
 		/// </summary>
 		public ConnectedChangedAction Action
 		{
@@ -38,7 +38,7 @@ namespace UriShell.Shell.Connectors
 		}
 
 		/// <summary>
-		/// Возвращает объект, с которым было совершено действие.
+		/// Gets the object the action was applied to.
 		/// </summary>
 		public object Changed
 		{

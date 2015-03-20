@@ -4,23 +4,23 @@ using System.Diagnostics.Contracts;
 namespace UriShell.Shell.Registration
 {
 	/// <summary>
-	/// Позволяет открыть объект, полученный через URI.
+	/// Allows to open an object resolved from a URI.
 	/// </summary>
 	[ContractClass(typeof(IShellResolveOpenContract))]
 	public interface IShellResolveOpen
 	{
 		/// <summary>
-		/// Открывает объект, полученный через URI.
+		/// Opens an object resolved from an URI.
 		/// </summary>
-		/// <returns>Сервис, позволяющий закрыть объект вызовом <see cref="IDisposable.Dispose"/>.</returns>
+		/// <returns>The service for object's closing via <see cref="IDisposable.Dispose"/>.</returns>
 		IDisposable Open();
 
 		/// <summary>
-		/// Открывает объект, полученный через URI, позволяя вызывающему коду обработать
-		/// исключение в случае неудачи.
+		/// Opens an object resolved from an URI and allows the calling site to handle an exception 
+		/// when it occurs.
 		/// </summary>
-		/// <returns>Сервис, позволяющий закрыть объект вызовом <see cref="IDisposable.Dispose"/>,
-		/// если объект открыт успешно.</returns>
+		/// <returns>The service for object's closing via <see cref="IDisposable.Dispose"/>,
+		/// if an object was opened successfully.</returns>
 		IDisposable OpenOrThrow();
 	}
 }

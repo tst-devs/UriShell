@@ -148,7 +148,6 @@
     <Compile Include="Shell\ShellEventKeys.cs" />
     <Compile Include="Shell\IShell.Contract.cs" />
     <Compile Include="Shell\IShell.cs" />
-    <Compile Include="NotificationPack.cs" />
     <Compile Include="PhoenixXmlNamespace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WeakDelegateReference.cs" />

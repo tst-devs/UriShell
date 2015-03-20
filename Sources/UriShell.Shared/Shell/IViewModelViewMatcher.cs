@@ -3,17 +3,18 @@
 namespace UriShell.Shell
 {
 	/// <summary>
-	/// Интерфейс сервиса поиска объектов, реализующих представление по заданной модели.
+	/// Interface of a service that looks for an object 
+	/// implementing a view for a given view model.  
 	/// </summary>
 	[ContractClass(typeof(IViewModelViewMatcherContract))]
 	public interface IViewModelViewMatcher
 	{
 		/// <summary>
-		/// Выполняет поиск объекта, реализующего представление по заданной модели.
+		/// Looks for an object implementing a view for the given view model.  
 		/// </summary>
-		/// <param name="viewModel">Модель искомого представления.</param>
-		/// <returns>Результат поиска, который в случае успеха содержит экземпляр
-		/// <see cref="IViewModelViewMatch"/>, или null, когда ничего не найдено.</returns>
+		/// <param name="viewModel">The view model whose view is looked for.</param>
+		/// <returns>Instance of <see cref="IViewModelViewMatch"/> if search was successful;
+		/// otherwise null.</returns>
 		IViewModelViewMatch Match(object viewModel);
 	}
 }
