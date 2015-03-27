@@ -133,8 +133,6 @@
     <Compile Include="Shell\Resolution\ResolveSetupFactory.cs" />
     <Compile Include="Shell\Resolution\IResolveSetupFactory.cs" />
     <Compile Include="Shell\Resolution\ResolveOpen.cs" />
-    <Compile Include="Shell\Events\EventBroadcaster.cs" />
-    <Compile Include="Shell\Events\EventBroadcaster.HandlerList.cs" />
     <Compile Include="Shell\Resolution\IUriResolvedObjectHolder.Contract.cs" />
     <Compile Include="Shell\Resolution\IUriResolvedObjectHolder.cs" />
     <Compile Include="Shell\Connectors\SidebarActivityHistoryId.cs" />

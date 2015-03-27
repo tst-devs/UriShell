@@ -107,7 +107,7 @@
     <Compile Include="Shell\Connectors\ISidebarPlacementKeySource.cs" />
     <Compile Include="Shell\Connectors\ISidebarPlacementConnector.cs" />
     <Compile Include="Shell\Connectors\ItemsPlacementConnectorFlags.cs" />
-    <Compile Include="Shell\Events\EventKeyOfT.cs" />
+    <Compile Include="Shell\IRefreshable.cs" />
     <Compile Include="Shell\PhoenixHyperlink.cs" />
     <Compile Include="Shell\ShellExtensions.cs" />
     <Compile Include="Shell\IViewModelViewMatch.Contract.cs" />
@@ -142,15 +142,10 @@
     <Compile Include="Shell\IUriModuleItemResolver.Contract.cs" />
     <Compile Include="Shell\IUriModuleItemResolver.cs" />
     <Compile Include="Shell\PhoenixUriBuilder.cs" />
-    <Compile Include="Shell\Events\IEventBroadcaster.Contract.cs" />
-    <Compile Include="Shell\Events\EventKey.cs" />
-    <Compile Include="Shell\Events\IEventBroadcaster.cs" />
-    <Compile Include="Shell\ShellEventKeys.cs" />
     <Compile Include="Shell\IShell.Contract.cs" />
     <Compile Include="Shell\IShell.cs" />
     <Compile Include="PhoenixXmlNamespace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WeakDelegateReference.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\Resources.Designer.cs">

@@ -6,7 +6,6 @@ using System.Linq;
 
 using UriShell.Disposables;
 using UriShell.Extensions;
-using UriShell.Shell.Events;
 using UriShell.Shell.Registration;
 
 namespace UriShell.Shell.Resolution
@@ -43,14 +42,8 @@ namespace UriShell.Shell.Resolution
 
 		/// <summary>
 		/// The function for calling setup for an object resolved via an URI.
-		/// Функция для вызова настройки объекта, полученного через URI.
 		/// </summary>
 		private ResolveSetupPlayer _resolveSetupPlayer;
-
-		/// <summary>
-		/// The service for event broadcasting.
-		/// </summary>
-		private readonly IEventBroadcaster _eventBroadcaster;
 
 		/// <summary>
 		/// The table for disconnecting objects from an user interface.
@@ -66,15 +59,13 @@ namespace UriShell.Shell.Resolution
 		/// <param name="uriResolvedObjectHolder">The holder of objects resolved via an URI.</param>
 		/// <param name="uriDisconnectTable">The table for disconnecting objects from an user interface.</param>
 		/// <param name="uriResolutionCustomization">The object that provides custom components of the URI resolution process.</param>
-		/// <param name="eventBroadcaster">The service for event broadcasting.</param>
 		public ResolveOpen(
 			Uri uri,
 			object[] attachments,
 			IResolveSetupFactory resolveSetupFactory,
 			IUriResolvedObjectHolder uriResolvedObjectHolder,
 			IUriDisconnectTable uriDisconnectTable,
-			IUriResolutionCustomization uriResolutionCustomization,
-			IEventBroadcaster eventBroadcaster)
+			IUriResolutionCustomization uriResolutionCustomization)
 		{
 			Contract.Requires<ArgumentNullException>(uri != null);
 			Contract.Requires<ArgumentNullException>(attachments != null);
@@ -82,14 +73,12 @@ namespace UriShell.Shell.Resolution
 			Contract.Requires<ArgumentNullException>(uriResolvedObjectHolder != null);
 			Contract.Requires<ArgumentNullException>(uriDisconnectTable != null);
 			Contract.Requires<ArgumentNullException>(uriResolutionCustomization != null);
-			Contract.Requires<ArgumentNullException>(eventBroadcaster != null);
 
 			this._unresolvedUri = uri;
 			this._attachments = attachments;
 			this._resolveSetupFactory = resolveSetupFactory;
 			this._uriResolvedObjectHolder = uriResolvedObjectHolder;
 			this._uriResolutionCustomization = uriResolutionCustomization;
-			this._eventBroadcaster = eventBroadcaster;
 			this._uriDisconnectTable = uriDisconnectTable;
 		}
 
@@ -339,11 +328,11 @@ namespace UriShell.Shell.Resolution
 		}
 
 		/// <summary>
-		/// Sends the event for data refresh in the given object resolved via an URI. 
+		/// Ensures that a given resolved object is refreshed if needed.
 		/// </summary>
-		/// <param name="resolved">The object resolved via an URI.</param>
-		/// <param name="placementConnector">The <see cref="IUriPlacementConnector"/> 
-		/// that connected the object to the user interface.</param>
+		/// <param name="resolved">The object resolved by URI.</param>
+		/// <param name="placementConnector">The <see cref="IUriPlacementConnector"/>,
+		/// used to connect the resolved to user interface.</param>
 		private void SendRefresh(object resolved, IUriPlacementConnector placementConnector)
 		{
 			if (placementConnector.IsResponsibleForRefresh)
@@ -351,9 +340,13 @@ namespace UriShell.Shell.Resolution
 				return;
 			}
 
-			var id = this._uriResolvedObjectHolder.GetMetadata(resolved).ResolvedId;
-			var args = new ResolvedIdBroadcastArgs(id);
-			this._eventBroadcaster.Send(ShellEventKeys.RefreshResolved, args);
+			var refreshable = resolved as IRefreshable;
+			if (refreshable == null)
+			{
+				return;
+			}
+
+			refreshable.Refresh();
 		}
 
 		/// <summary>
