@@ -26,7 +26,6 @@ namespace UriShell.Shell
 			ShellResolveFactory shellResolveFactory = null)
 		{
 			return new Shell(
-				securityService ?? Substitute.For<ISecurityService>(),
 				uriModuleItemResolverIndexFactory ?? Substitute.For<Func<UriModuleItemResolverIndex>>(),
 				this._uriResolvedObjectHolder,
 				shellResolveFactory ?? Substitute.For<ShellResolveFactory>());

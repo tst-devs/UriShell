@@ -12,13 +12,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using UriShell.Shell.Connectors;
+
 namespace UriShell.Samples.TabApp
 {
-    public partial class MainWindow : Window
+    internal partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(MainWindowViewModel viewModel)
         {
             InitializeComponent();
+
+			this.DataContext = viewModel;
         }
-    }
+	}
 }

@@ -15,12 +15,6 @@ namespace UriShell.Shell
 	using ShellResolveFactory = Func<Uri, object[], IShellResolve>;
 	using UriModuleItemResolverIndex = IIndex<UriModuleItemResolverKey, IUriModuleItemResolver>;
 
-#warning Change to default Uri Provider
-    internal interface ISecurityService
-    {
-
-    }
-
 	/// <summary>
 	/// Implementation of the application shell <see cref="IShell"/>.
 	/// </summary>
@@ -206,5 +200,11 @@ namespace UriShell.Shell
 
 			return new PhoenixHyperlink(uri, title, icon);
 		}
+	}
+
+#warning Change to default Uri Provider
+	internal interface ISecurityService
+	{
+
 	}
 }

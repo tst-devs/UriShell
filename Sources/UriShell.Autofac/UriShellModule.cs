@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Core;
+using Autofac.Features.Indexed;
 
 using System;
 using System.Collections.Generic;
@@ -9,13 +10,18 @@ using System.Text;
 using UriShell.Input;
 using UriShell.Shell;
 using UriShell.Shell.Connectors;
+using UriShell.Shell.Events;
+using UriShell.Shell.Registration;
+using UriShell.Shell.Resolution;
 
 namespace UriShell.Autofac
 {
-    /// <summary>
+	using UriModuleItemResolverIndex = IIndex<UriModuleItemResolverKey, IUriModuleItemResolver>;
+
+	/// <summary>
     /// The Autofac module that registers components of the UriShell library.
     /// </summary>
-    internal sealed class UriShellModule : Module
+    public sealed class UriShellModule : Module
     {
         /// <summary>
         /// Setup and adds components of the UriShell to the given <see cref="ContainerBuilder"/>.
@@ -27,14 +33,16 @@ namespace UriShell.Autofac
                 .RegisterType<OpenUriCommand>()
                 .SingleInstance();
 
+#warning OnActivated and inner module resolution? 
+
             builder
-				.RegisterType<Shell>()
+				.RegisterType<UriShell.Shell.Shell>()
 				.As<IShell>()
 				.As<IUriResolutionCustomization>()
 				.WithParameter(
 					(pi, c) => pi.ParameterType == typeof(Func<UriModuleItemResolverIndex>),
-					(pi, c) => ShellModule.ResolveFactoryIncludingModules<UriModuleItemResolverIndex>(c))
-				.OnActivated(ShellModule.OnShellActivated)
+					(pi, c) => c.Resolve<Func<UriModuleItemResolverIndex>>()/*UriShellModule.ResolveFactoryIncludingModules<UriModuleItemResolverIndex>(c)*/)
+				//.OnActivated(ShellModule.OnShellActivated)
 				.SingleInstance();
 
 			builder
@@ -60,10 +68,11 @@ namespace UriShell.Autofac
 				.RegisterType<ExternalPlacementResolver>()
 				.As<IUriPlacementResolver>()
 				.SingleInstance();
-			builder
-				.RegisterType<BlankPlacementResolver>()
-				.As<IUriPlacementResolver>()
-				.SingleInstance();
+#warning Remove?
+			//builder
+			//	.RegisterType<BlankPlacementResolver>()
+			//	.As<IUriPlacementResolver>()
+			//	.SingleInstance();
 
 			builder
 				.RegisterType<EventBroadcaster>()
@@ -78,14 +87,18 @@ namespace UriShell.Autofac
 			builder
 				.RegisterType<ItemsPlacementConnector>()
 				.As<IItemsPlacementConnector>();
-			builder
-				.RegisterType<SidebarPlacementConnector>()
-				.As<ISidebarPlacementConnector>()
-				.ExternallyOwned();
+
+#warning Remove? 
+			//builder
+			//	.RegisterType<SidebarPlacementConnector>()
+			//	.As<ISidebarPlacementConnector>()
+			//	.ExternallyOwned();
+
+#warning OnActivated? 
 			builder
 				.RegisterType<ConnectedDragDrop>()
 				.As<IConnectedDragDrop>()
-				.OnActivated(e => e.Instance.DraggedClosed += FlexibleItemsSourceBehavior.OnConnectedDragDropDraggedClosed)
+				//.OnActivated(e => e.Instance.DraggedClosed += FlexibleItemsSourceBehavior.OnConnectedDragDropDraggedClosed)
 				.SingleInstance();
 		}
 
@@ -102,31 +115,30 @@ namespace UriShell.Autofac
 			}
 		}
 
-		/// <summary>
-		/// Creates the factory of an object of the given type that opens access to registrations 
-		/// of pluggable modules.
-		/// </summary>
-		/// <typeparam name="T">The type of an object created by the factory.</typeparam>
-		/// <param name="coreContainer">The core dependency injection container.</param>
-		/// <returns>The factory of an object of the given type.</returns>
-		private static Func<T> ResolveFactoryIncludingModules<T>(IComponentContext coreContainer)
-		{
-			var diContainer = coreContainer.Resolve<IComponentContext>(); // Autofac claim.
+		///// <summary>
+		///// Creates the factory of an object of the given type that opens access to registrations 
+		///// of pluggable modules.
+		///// </summary>
+		///// <typeparam name="T">The type of an object created by the factory.</typeparam>
+		///// <param name="coreContainer">The core dependency injection container.</param>
+		///// <returns>The factory of an object of the given type.</returns>
+		//private static Func<T> ResolveFactoryIncludingModules<T>(IComponentContext coreContainer)
+		//{
+		//	var diContainer = coreContainer.Resolve<IComponentContext>(); // Autofac claim.
 
-			return () =>
-			{
-				// The core container doen't have access to registrations of pluggable modules.
-				// Hence their components are invisible. 
-				// We can reach them only via IModuleLoader.
-				var moduleLoader = diContainer.Resolve<IModuleLoader>();
-				if (moduleLoader.ModuleContainer != null)
-				{
-					diContainer = moduleLoader.ModuleContainer;
-				}
+		//	return () =>
+		//	{
+		//		// The core container doen't have access to registrations of pluggable modules.
+		//		// Hence their components are invisible. 
+		//		// We can reach them only via IModuleLoader.
+		//		var moduleLoader = diContainer.Resolve<IModuleLoader>();
+		//		if (moduleLoader.ModuleContainer != null)
+		//		{
+		//			diContainer = moduleLoader.ModuleContainer;
+		//		}
 
-				return diContainer.Resolve<T>();
-			};
-		}
-        }
+		//		return diContainer.Resolve<T>();
+		//	};
+		//}
     }
 }

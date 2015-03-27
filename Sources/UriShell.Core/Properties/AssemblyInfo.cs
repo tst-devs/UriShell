@@ -40,3 +40,4 @@ using System.Windows;
 
 [assembly: InternalsVisibleTo("UriShell.Core.Tests")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")] // needed to mock internal interfaces by NSubstitute.
+[assembly: InternalsVisibleTo("UriShell.Autofac")]
