@@ -4,8 +4,7 @@ using System.Collections.Specialized;
 using System.Diagnostics.Contracts;
 using System.Text.RegularExpressions;
 
-using Autofac.Features.Indexed;
-
+using UriShell.Collections;
 using UriShell.Extensions;
 using UriShell.Shell.Registration;
 using UriShell.Shell.Resolution;
@@ -18,7 +17,7 @@ namespace UriShell.Shell
 	/// <summary>
 	/// Implementation of the application shell <see cref="IShell"/>.
 	/// </summary>
-	internal sealed partial class Shell : IShell, IUriResolutionCustomization
+	public sealed partial class Shell : IShell, IUriResolutionCustomization
 	{
 		/// <summary>
 		/// The regular expression for parsing hyperlinks.
@@ -76,6 +75,8 @@ namespace UriShell.Shell
 				return this._uriModuleItemResolversFactory();
 			}
 		}
+
+		
 
 		/// <summary>
 		/// Gets the list of services for looking for object's placement by a URI.

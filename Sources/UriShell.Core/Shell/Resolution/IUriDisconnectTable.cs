@@ -6,7 +6,7 @@ namespace UriShell.Shell.Resolution
 	/// A table for disconnecting objects from an user interface.
 	/// </summary>
 	[ContractClass(typeof(IUriDisconnectTableContract))]
-	internal interface IUriDisconnectTable
+	public interface IUriDisconnectTable
 	{
 		/// <summary>
 		/// Gets or sets <see cref="IUriPlacementConnector"/> for object's disconnection from an user interface.

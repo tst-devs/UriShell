@@ -3,10 +3,9 @@ using System.Linq;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using Autofac.Features.Indexed;
-
 using NSubstitute;
 
+using UriShell.Collections;
 using UriShell.Shell.Registration;
 using UriShell.Shell.Resolution;
 

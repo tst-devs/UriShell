@@ -9,7 +9,7 @@ namespace UriShell.Disposables
 	/// <summary>
 	/// Represents a group of Disposables that are disposed together.
 	/// </summary>
-	public sealed class CompositeDisposable : ICollection<IDisposable>, IEnumerable<IDisposable>, IEnumerable, IDisposable
+	internal sealed class CompositeDisposable : ICollection<IDisposable>, IEnumerable<IDisposable>, IEnumerable, IDisposable
 	{
 		/// <summary>
 		/// The value that indicates whether the object is disposed.

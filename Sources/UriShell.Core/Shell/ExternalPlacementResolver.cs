@@ -7,7 +7,7 @@ namespace UriShell.Shell
 	/// <summary>
 	/// Implements object's placement in an external process.
 	/// </summary>
-	internal sealed class ExternalPlacementResolver : IUriPlacementResolver, IUriPlacementConnector
+	public sealed class ExternalPlacementResolver : IUriPlacementResolver, IUriPlacementConnector
 	{
 		/// <summary>
 		/// Determines an object's placement from the given URI.

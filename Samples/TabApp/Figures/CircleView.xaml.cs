@@ -15,9 +15,9 @@ using UriShell.Shell;
 
 namespace UriShell.Samples.TabApp.Figures
 {
-	internal partial class SquareView : UserControl
+	internal partial class CircleView : UserControl
 	{
-		public SquareView([ViewModel]SquareViewModel viewModel)
+		public CircleView([ViewModel]CircleViewModel viewModel)
 		{
 			InitializeComponent();
 			this.DataContext = viewModel;

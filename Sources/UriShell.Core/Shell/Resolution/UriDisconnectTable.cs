@@ -5,7 +5,7 @@ namespace UriShell.Shell.Resolution
 	/// <summary>
 	/// Implementation of the table used for disconnecting objects from the user interface.
 	/// </summary>
-	internal sealed class UriDisconnectTable : IUriDisconnectTable
+	public sealed class UriDisconnectTable : IUriDisconnectTable
 	{
 		/// <summary>
 		/// The dictionary, where every resolved object corresponds with a <see cref="IUriPlacementConnector"/> 

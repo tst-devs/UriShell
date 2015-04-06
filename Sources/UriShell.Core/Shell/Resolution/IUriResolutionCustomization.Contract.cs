@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
-using Autofac.Features.Indexed;
+using UriShell.Collections;
 
 namespace UriShell.Shell.Resolution
 {

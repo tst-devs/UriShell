@@ -4,23 +4,10 @@ using System.Windows.Input;
 
 namespace UriShell.Samples.TabApp.Input
 {
-	/// <summary>
-	/// Базовый класс команд, предназначенных для использования в моделях представлений.
-	/// </summary>
 	public abstract class ViewModelCommandBase : ICommand
 	{
-		/// <summary>
-		/// Список обработчиков <see cref="CanExecuteChanged"/> со слабыми ссылками
-		/// на подписчиков.
-		/// </summary>
 		private readonly List<WeakDelegateReference> _canExecuteChangedHandlers = new List<WeakDelegateReference>();
 
-		/// <summary>
-		/// Выполняет обход списка обработчиков <see cref="CanExecuteChanged"/>,
-		/// вызывая заданное действие для достижимых обработчиков и удаляя недостижимые.
-		/// </summary>
-		/// <param name="aliveHandlerAction">Действие, вызываемое для достижимого обработчика
-		/// и соответствующей записи из <see cref="_canExecuteChangedHandlers"/>.</param>
 		private void WalkCanExecuteChangedHandlers(Action<EventHandler, WeakDelegateReference> aliveHandlerAction)
 		{
 			for (int i = this._canExecuteChangedHandlers.Count - 1; i >= 0; i--)
@@ -41,9 +28,6 @@ namespace UriShell.Samples.TabApp.Input
 			}
 		}
 
-		/// <summary>
-		/// Вызывается при изменениях, влияющих на то, должна ли выполняться команда. 
-		/// </summary>
 		public event EventHandler CanExecuteChanged
 		{
 		    add
@@ -77,9 +61,6 @@ namespace UriShell.Samples.TabApp.Input
 		    }
 		}
 
-		/// <summary>
-		/// Инициирует проверку возможности выполнения команды ее пользователями.
-		/// </summary>
 		internal void Invalidate()
 		{
 			var handlers = new List<EventHandler>();
@@ -95,20 +76,8 @@ namespace UriShell.Samples.TabApp.Input
 			}
 		}
 
-		/// <summary>
-		/// Определяет, может ли команда выполняться в ее текущем состоянии.
-		/// </summary>
-		/// <param name="parameter">Данные, используемые командой. Если команда не требует
-		/// передачи данных, этот объект может быть установлен в null.</param>
-		/// <returns><langword>true</langword>, если команда может быть выполнена;
-		/// иначе <langword>false</langword>.</returns>
 		public abstract bool CanExecute(object parameter);
 
-		/// <summary>
-		/// Выполняет данную команду.
-		/// </summary>
-		/// <param name="parameter">Данные, используемые командой. Если команда не требует
-		/// передачи данных, этот объект может быть установлен в null.</param>
 		public abstract void Execute(object parameter);
 	}
 }

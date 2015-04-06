@@ -10,7 +10,7 @@ namespace UriShell.Shell.Connectors
 	/// <summary>
 	/// Implements a service for dragging objects connected to the UI. 
 	/// </summary>
-	internal sealed class ConnectedDragDrop : IConnectedDragDrop, IUriPlacementConnector
+	public sealed class ConnectedDragDrop : IConnectedDragDrop, IUriPlacementConnector
 	{
 		/// <summary>
 		/// The table for disconnecting objects from the UI.

@@ -8,7 +8,7 @@ namespace UriShell.Shell.Resolution
 	/// The interface of a holder of opened via an URI objects and their metadata.
 	/// </summary>
 	[ContractClass(typeof(IUriResolvedObjectHolderContract))]
-	internal interface IUriResolvedObjectHolder : IEnumerable<object>
+	public interface IUriResolvedObjectHolder : IEnumerable<object>
 	{
 		/// <summary>
 		/// Adds the new object opened via an URI. 

@@ -11,7 +11,7 @@ namespace UriShell.Shell
 	/// Implements <see cref="IViewModelViewMatcher"/> looking for views inside 
 	/// the Autofac dependency injection container.
 	/// </summary>
-	internal sealed class ViewModelViewMatcher : IViewModelViewMatcher
+	public sealed class AutofacViewModelViewMatcher : IViewModelViewMatcher
 	{
 		/// <summary>
 		/// Autofac dependency injection container.
@@ -19,10 +19,10 @@ namespace UriShell.Shell
 		private readonly IComponentContext _coreContainer;
 
 		/// <summary>
-		/// Initializes a new instance of the class <see cref="ViewModelViewMatcher"/>.
+		/// Initializes a new instance of the class <see cref="AutofacViewModelViewMatcher"/>.
 		/// </summary>
 		/// <param name="coreContainer">Autofac dependency injection container.</param>
-		public ViewModelViewMatcher(IComponentContext coreContainer)
+		public AutofacViewModelViewMatcher(IComponentContext coreContainer)
 		{
 			Contract.Requires<ArgumentNullException>(coreContainer != null);
 
@@ -37,7 +37,7 @@ namespace UriShell.Shell
 		/// otherwise null.</returns>
 		public IViewModelViewMatch Match(object viewModel)
 		{
-			var matchFromCore = ViewModelViewMatcher.Match(viewModel, this._coreContainer);
+			var matchFromCore = AutofacViewModelViewMatcher.Match(viewModel, this._coreContainer);
 			if (matchFromCore != null)
 			{
 				return matchFromCore;

@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System.Linq;
 
-using Autofac.Features.Indexed;
+using UriShell.Collections;
 
 namespace UriShell.Shell.Resolution
 {
@@ -9,7 +10,7 @@ namespace UriShell.Shell.Resolution
 	/// Provides custom components of the URI resolution process.
 	/// </summary>
 	[ContractClass(typeof(IUriResolutionCustomizationContract))]
-	internal interface IUriResolutionCustomization
+	public interface IUriResolutionCustomization
 	{
 		/// <summary>
 		/// Gets the list of services capable of creating objects by an URI 

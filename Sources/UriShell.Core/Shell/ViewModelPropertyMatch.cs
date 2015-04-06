@@ -9,7 +9,7 @@ namespace UriShell.Shell
 	/// The result of search of an object implementing a view for the given view model
 	/// and accepting the view model as a property.
 	/// </summary>
-	internal sealed class ViewModelPropertyMatch : IViewModelViewMatch
+	public sealed class ViewModelPropertyMatch : IViewModelViewMatch
 	{
 		/// <summary>
 		/// Tries to find a match between a property of the given type 

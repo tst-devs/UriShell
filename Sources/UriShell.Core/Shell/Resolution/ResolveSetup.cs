@@ -11,7 +11,7 @@ namespace UriShell.Shell.Resolution
 	/// Allows to setup an object of the given type resolved via an URI.
 	/// </summary>
 	/// <typeparam name="TResolved">The object's type, expected from an URI.</typeparam>
-	internal sealed class ResolveSetup<TResolved> : IShellResolveSetup<TResolved>
+	public sealed class ResolveSetup<TResolved> : IShellResolveSetup<TResolved>
 	{
 		/// <summary>
 		/// The service that allows to open an object resolved via an URI.

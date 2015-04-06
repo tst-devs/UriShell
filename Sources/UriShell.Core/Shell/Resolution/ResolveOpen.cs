@@ -13,7 +13,7 @@ namespace UriShell.Shell.Resolution
 	/// <summary>
 	/// Allows to use an object resolved via an URI.
 	/// </summary>
-	internal sealed partial class ResolveOpen : IShellResolve
+	public sealed partial class ResolveOpen : IShellResolve
 	{
 		/// <summary>
 		/// URI to be resolved.

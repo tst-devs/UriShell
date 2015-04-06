@@ -8,7 +8,7 @@ namespace UriShell.Shell.Resolution
 	/// <summary>
 	/// Describes arguments for initializing objects implemening <see cref="IShellResolveSetup{TResolved}"/>.
 	/// </summary>
-	internal sealed class ResolveSetupArgs
+	public sealed class ResolveSetupArgs
 	{
 		/// <summary>
 		/// Initializes a new instance of the class <see cref="ResolveSetupArgs"/>.

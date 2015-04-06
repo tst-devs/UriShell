@@ -10,7 +10,7 @@ using UriShell.Shell.Connectors;
 
 namespace UriShell.Samples.TabApp
 {
-	internal sealed class MainWindowViewModel : IUriPlacementResolver
+	internal sealed class MainWindowViewModel : ObservableObject, IUriPlacementResolver
 	{
 		private readonly IItemsPlacementConnector _figurePlacementConnector;
 
@@ -22,6 +22,11 @@ namespace UriShell.Samples.TabApp
 			this._shell = shell;
 
 			this._shell.AddUriPlacementResolver(this);
+			
+			this.SquareLength = 125;
+			this.SquareBackground = "DeepSkyBlue";
+			this.CircleDiameter = 150;
+			this.CircleBackground = "Lime";
 
 			this.AddSquareCommand = new DelegateCommand(() => 
 				{
@@ -29,20 +34,34 @@ namespace UriShell.Samples.TabApp
 						.Placement("figures")
 						.Module("main")
 						.Item("square")
+						.Parameter("length", this.SquareLength.ToString())
+						.Parameter("background", this.SquareBackground)
 						.End();
 
-					try
-					{
-						this._shell.Resolve(uri).OpenOrThrow();
-					}
-					catch (Exception ex)
-					{ 
-					
-					}
+					this._shell.Resolve(uri).Open();
+				});
+
+			this.AddCircleCommand = new DelegateCommand(() =>
+				{
+					var uri = PhoenixUriBuilder.StartUri()
+						.Placement("figures")
+						.Module("main")
+						.Item("circle")
+						.Parameter("diameter", this.CircleDiameter.ToString())
+						.Parameter("background", this.CircleBackground)
+						.End();
+
+					this._shell.Resolve(uri).Open();
 				});
 		}
 
 		public ICommand AddSquareCommand
+		{
+			get;
+			private set;
+		}
+
+		public ICommand AddCircleCommand
 		{
 			get;
 			private set;
@@ -53,6 +72,78 @@ namespace UriShell.Samples.TabApp
 			get
 			{
 				return this._figurePlacementConnector.Views;
+			}
+		}
+
+		private double _squareLength;
+
+		public double SquareLength
+		{
+			get
+			{
+				return this._squareLength; 
+			}
+			set
+			{
+				if (this._squareLength != value)
+				{
+					this._squareLength = value;
+					this.OnPropertyChanged("SquareLength");
+				}
+			}
+		}
+
+		private string _squareBackground;
+
+		public string SquareBackground
+		{
+			get
+			{
+				return this._squareBackground;
+			}
+			set
+			{
+				if (this._squareBackground != value)
+				{
+					this._squareBackground = value;
+					this.OnPropertyChanged("SquareBackground");
+				}
+			}
+		}
+
+		private double _circleDiameter;
+
+		public double CircleDiameter
+		{
+			get
+			{
+				return this._circleDiameter;
+			}
+			set
+			{
+				if (this._circleDiameter != value)
+				{
+					this._circleDiameter = value;
+					this.OnPropertyChanged("CircleDiameter");
+				}
+			}
+		}
+
+		private string _circleBackground;
+
+		public string CircleBackground
+		{
+			get
+			{
+				return this._circleBackground;
+			}
+			set
+			{
+				if (this._circleBackground != value)
+				{
+					this._circleBackground = value;
+					this.OnPropertyChanged("CircleBackground");
+				}
 			}
 		}
 

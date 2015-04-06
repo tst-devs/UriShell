@@ -9,7 +9,7 @@ namespace UriShell.Shell.Resolution
 	/// <summary>
 	/// Holds objects opened via an URI and their metadata.
 	/// </summary>
-	internal sealed class UriResolvedObjectHolder : IUriResolvedObjectHolder
+	public sealed class UriResolvedObjectHolder : IUriResolvedObjectHolder
 	{
 		/// <summary>
 		/// The dictionaty containing objects, resolved via an URI, along with their metadata.

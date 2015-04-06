@@ -126,8 +126,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Figures\CircleItemResolver.cs" />
+    <Compile Include="Figures\CircleView.xaml.cs">
+      <DependentUpon>CircleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Figures\CircleViewModel.cs" />
+    <Compile Include="UriShellPrerequisites\FakeConnectedDragDrop.cs" />
     <Compile Include="Input\ViewModelCommandBase.cs" />
     <Compile Include="Input\ViewModelCommandHelper.cs" />
+    <Compile Include="UriShellPrerequisites\ViewModelViewMatcher.cs" />
+    <Page Include="Figures\CircleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Figures\SquareView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -147,6 +158,7 @@
       <DependentUpon>SquareView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Figures\SquareViewModel.cs" />
+    <Compile Include="Input\WeakDelegateReference.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -154,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainWindowViewModel.cs" />
+    <Compile Include="ObservableObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

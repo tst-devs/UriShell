@@ -11,7 +11,7 @@ namespace UriShell.Shell.Resolution
 	/// Implementation of a factory of a service that makes setup of objects resolved via an URI. 
 	/// Реализация фабрики сервиса настройки объектов, полученных через URI.
 	/// </summary>
-	internal sealed class ResolveSetupFactory : IResolveSetupFactory
+	public sealed class AutofacResolveSetupFactory : IResolveSetupFactory
 	{
 		/// <summary>
 		/// The dependency injection container.
@@ -19,10 +19,10 @@ namespace UriShell.Shell.Resolution
 		private readonly IComponentContext _diContainer;
 
 		/// <summary>
-		/// Initializes a new instance of the class <see cref="ResolveSetupFactory"/>.
+		/// Initializes a new instance of the class <see cref="AutofacResolveSetupFactory"/>.
 		/// </summary>
 		/// <param name="diContainer">The dependency injection container.</param>
-		public ResolveSetupFactory(IComponentContext diContainer)
+		public AutofacResolveSetupFactory(IComponentContext diContainer)
 		{
 			Contract.Requires<ArgumentNullException>(diContainer != null);
 			this._diContainer = diContainer;

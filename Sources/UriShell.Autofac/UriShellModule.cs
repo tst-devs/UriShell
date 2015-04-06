@@ -10,13 +10,15 @@ using System.Text;
 using UriShell.Input;
 using UriShell.Shell;
 using UriShell.Shell.Connectors;
-using UriShell.Shell.Events;
 using UriShell.Shell.Registration;
 using UriShell.Shell.Resolution;
 
+
 namespace UriShell.Autofac
 {
-	using UriModuleItemResolverIndex = IIndex<UriModuleItemResolverKey, IUriModuleItemResolver>;
+	using AutofacUriModuleItemResolverIndex = IIndex<UriModuleItemResolverKey, IUriModuleItemResolver>;
+
+	using UriShellUriModuleItemResolverIndex = UriShell.Collections.IIndex<UriModuleItemResolverKey, IUriModuleItemResolver>;
 
 	/// <summary>
     /// The Autofac module that registers components of the UriShell library.
@@ -40,8 +42,13 @@ namespace UriShell.Autofac
 				.As<IShell>()
 				.As<IUriResolutionCustomization>()
 				.WithParameter(
-					(pi, c) => pi.ParameterType == typeof(Func<UriModuleItemResolverIndex>),
-					(pi, c) => c.Resolve<Func<UriModuleItemResolverIndex>>()/*UriShellModule.ResolveFactoryIncludingModules<UriModuleItemResolverIndex>(c)*/)
+					(pi, c) => pi.ParameterType == typeof(Func<UriShellUriModuleItemResolverIndex>),
+					(pi, c) => 
+						{
+							var autofacIndexFactory = c.Resolve<Func<AutofacUriModuleItemResolverIndex>>()();
+							return new Func<UriShellUriModuleItemResolverIndex>(() => new AutofacIndexWrapper<UriModuleItemResolverKey, IUriModuleItemResolver>(autofacIndexFactory));
+							/*UriShellModule.ResolveFactoryIncludingModules<UriModuleItemResolverIndex>(c)*/
+						})
 				//.OnActivated(ShellModule.OnShellActivated)
 				.SingleInstance();
 
@@ -52,7 +59,7 @@ namespace UriShell.Autofac
 				.RegisterGeneric(typeof(ResolveSetup<>))
 				.As(typeof(IShellResolveSetup<>));
 			builder
-				.RegisterType<ResolveSetupFactory>()
+				.RegisterType<AutofacResolveSetupFactory>()
 				.As<IResolveSetupFactory>();
 
 			builder
@@ -75,12 +82,7 @@ namespace UriShell.Autofac
 			//	.SingleInstance();
 
 			builder
-				.RegisterType<EventBroadcaster>()
-				.As<IEventBroadcaster>()
-				.SingleInstance();
-			
-			builder
-				.RegisterType<ViewModelViewMatcher>()
+				.RegisterType<AutofacViewModelViewMatcher>()
 				.As<IViewModelViewMatcher>()
 				.SingleInstance();
 

@@ -94,9 +94,6 @@
     <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac">
-      <HintPath>..\..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -113,6 +110,7 @@
     <Compile Include="Disposables\DefaultDisposable.cs" />
     <Compile Include="Disposables\Disposable.cs" />
     <Compile Include="Shell\Connectors\ConnectedDragDrop.cs" />
+    <Compile Include="Shell\Resolution\DefaultResolveSetupFactory.cs" />
     <Compile Include="Shell\Resolution\UriDisconnectTable.cs" />
     <Compile Include="Shell\Resolution\IUriDisconnectTable.Contract.cs" />
     <Compile Include="Shell\Resolution\IUriDisconnectTable.cs" />
@@ -124,13 +122,11 @@
     <Compile Include="Shell\OpenItemResolver.cs" />
     <Compile Include="Shell\ViewModelParameterMatch.cs" />
     <Compile Include="Shell\ViewModelPropertyMatch.cs" />
-    <Compile Include="Shell\ViewModelViewMatcher.cs" />
     <Compile Include="Shell\Resolution\IUriResolutionCustomization.Contract.cs" />
     <Compile Include="Shell\Resolution\IUriResolutionCustomization.cs" />
     <Compile Include="Shell\Shell.WeakBucket.cs" />
     <Compile Include="Shell\Resolution\IResolveSetupFactory.Contract.cs" />
     <Compile Include="Shell\Resolution\ResolveSetupArgs.cs" />
-    <Compile Include="Shell\Resolution\ResolveSetupFactory.cs" />
     <Compile Include="Shell\Resolution\IResolveSetupFactory.cs" />
     <Compile Include="Shell\Resolution\ResolveOpen.cs" />
     <Compile Include="Shell\Resolution\IUriResolvedObjectHolder.Contract.cs" />

@@ -7,7 +7,7 @@ namespace UriShell.Shell.Resolution
 	/// <summary>
 	/// A metadata of an object resolved via an URI.
 	/// </summary>
-	internal struct UriResolvedMetadata
+	public struct UriResolvedMetadata
 	{		
 		/// <summary>
 		/// Gets the URI of the resolved object.

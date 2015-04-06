@@ -2,26 +2,134 @@
         x:ClassModifier="internal"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Uri Shell Tab App Sample" Height="350" Width="525">
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        Title="Uri Shell Tab App Sample"
+        FontSize="14"
+        FontFamily="Verdana">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="5"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
         
-        <StackPanel Orientation="Horizontal">
-            <Button Content="AddView"
-                    Command="{Binding AddSquareCommand}"/>
-        </StackPanel>
+        <TextBlock FontSize="28"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Margin="10"
+                   Text="Pick up a figure, adjust its parameters and press 'Create...' button"
+                   Foreground="Gray"/>
+        
+        <TabControl Grid.Row="1">
+            <TabItem Header="Add a square view">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <TextBlock Text="Square length: "
+                               HorizontalAlignment="Right"/>
+                    
+                    <TextBox Text="{Binding Path=SquareLength, UpdateSourceTrigger=PropertyChanged}"
+                             Grid.Column="2"/>
+                    
+                    <TextBlock Grid.Row="2"
+                               Text="Square background: "
+                               HorizontalAlignment="Right"/>
 
-        <ItemsControl ItemsSource="{Binding Figures}"
-                      Grid.Row="2">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
+                    <ComboBox SelectedItem="{Binding SquareBackground}"
+                              Grid.Column="2"
+                              Grid.Row="2">
+                        <sys:String>DeepSkyBlue</sys:String>
+                        <sys:String>GreenYellow</sys:String>
+                        <sys:String>IndianRed</sys:String>
+                        <sys:String>LightGreen</sys:String>
+                        <sys:String>Tan</sys:String>
+                    </ComboBox>
+                  
+                    <Button Content="Create a square view"
+                            Command="{Binding AddSquareCommand}"
+                            Grid.Column="4"
+                            Grid.RowSpan="5"
+                            IsDefault="True"
+                            Padding="10"/>
+
+                </Grid>
+            </TabItem>
+            
+            <TabItem Header="Add a circle view">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Circle diameter: "
+                               HorizontalAlignment="Right"/>
+
+                    <TextBox Text="{Binding Path=CircleDiameter, UpdateSourceTrigger=PropertyChanged}"
+                             Grid.Column="2"/>
+
+                    <TextBlock Grid.Row="2"
+                               Text="Circle background: "
+                               HorizontalAlignment="Right"/>
+
+                    <ComboBox SelectedItem="{Binding CircleBackground}"
+                              Grid.Column="2"
+                              Grid.Row="2">
+                        <sys:String>Lime</sys:String>
+                        <sys:String>SandyBrown</sys:String>
+                        <sys:String>RosyBrown</sys:String>
+                        <sys:String>Lavender</sys:String>
+                    </ComboBox>
+
+                    <Button Content="Create a circle view"
+                            Command="{Binding AddCircleCommand}"
+                            Grid.Column="4"
+                            Grid.RowSpan="5"
+                            IsDefault="True"
+                            Padding="10"/>
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <TextBlock FontSize="28"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Margin="10"
+                   Text="Figures you have created"
+                   Foreground="Gray"
+                   Grid.Row="3"/>
+
+
+        <ScrollViewer Grid.Row="4">
+            <ItemsControl ItemsSource="{Binding Figures}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </Window>
