@@ -28,10 +28,10 @@ namespace UriShell.Samples.TabApp
 		{
 			base.OnStartup(e);
 
-			this.RunShellUriManually();
+			this.RunUriShellManually();
 		}
 
-		public void RunShellUriWithDi()
+		public void RunUriShellWithDi()
 		{
 			var builder = new ContainerBuilder();
 
@@ -57,7 +57,7 @@ namespace UriShell.Samples.TabApp
 			this.Container.Resolve<MainWindow>().Show();			
 		}
 
-		public void RunShellUriManually()
+		public void RunUriShellManually()
 		{
 			var holder = new UriResolvedObjectHolder();
 			var resolveSetupFactory = new DefaultResolveSetupFactory();
