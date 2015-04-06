@@ -131,7 +131,6 @@
       <DependentUpon>CircleView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Figures\CircleViewModel.cs" />
-    <Compile Include="UriShellPrerequisites\FakeConnectedDragDrop.cs" />
     <Compile Include="Input\ViewModelCommandBase.cs" />
     <Compile Include="Input\ViewModelCommandHelper.cs" />
     <Compile Include="UriShellPrerequisites\ViewModelViewMatcher.cs" />
