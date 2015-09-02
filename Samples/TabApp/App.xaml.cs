@@ -28,7 +28,8 @@ namespace UriShell.Samples.TabApp
 		{
 			base.OnStartup(e);
 
-			this.RunUriShellManually();
+			//this.RunUriShellManually();
+			this.RunUriShellWithDi();
 		}
 
 		public void RunUriShellWithDi()
@@ -48,7 +49,7 @@ namespace UriShell.Samples.TabApp
 				.RegisterType<SquareItemResolver>()
 				.Keyed<IUriModuleItemResolver>(new UriModuleItemResolverKey("main", "square"));
 			builder
-				.RegisterType<SquareItemResolver>()
+				.RegisterType<CircleItemResolver>()
 				.Keyed<IUriModuleItemResolver>(new UriModuleItemResolverKey("main", "circle"));
 			builder.RegisterModule<UriShellModule>();
 
