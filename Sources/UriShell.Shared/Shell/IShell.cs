@@ -62,7 +62,7 @@ namespace UriShell.Shell
 		/// <param name="ownerId">The identifier of the object that owns the object opened with the hyperlink.</param>
 		/// <returns>The hyperlink, if the given description of a hyperlink is valid; otherwise null.</returns>
 		[Pure]
-		PhoenixHyperlink TryParseHyperlink(string hyperlink, int ownerId);
+		ShellHyperlink TryParseHyperlink(string hyperlink, int ownerId);
 
 		/// <summary>
 		/// Creates a hyperlink for openening of the given <see cref="Uri"/>.
@@ -70,6 +70,6 @@ namespace UriShell.Shell
 		/// <param name="uri">The URI, for which a hyperlink is created.</param>
 		/// <returns>The hyperlink created for openening of the given <see cref="Uri"/>.</returns>
 		[Pure]
-		PhoenixHyperlink CreateHyperlink(Uri uri);
+		ShellHyperlink CreateHyperlink(Uri uri);
 	}
 }

@@ -136,7 +136,7 @@ namespace UriShell.Shell.Resolution
 			var idGenerator = new Random();
 
 			// Replace parameter's values in the URI with identifiers.
-			var uriBuilder = new PhoenixUriBuilder(this._unresolvedUri);
+			var uriBuilder = new ShellUriBuilder(this._unresolvedUri);
 			for (int i = 0; i < uriBuilder.Parameters.Count; i++)
 			{
 				var value = uriBuilder.Parameters[i];
@@ -186,7 +186,7 @@ namespace UriShell.Shell.Resolution
 		/// <returns>The object responsible for resolution of the given URI. </returns>
 		private object ResolveModuleItem(Uri uri, UriAttachmentSelector attachmentSelector)
 		{
-			var builder = new PhoenixUriBuilder(uri);
+			var builder = new ShellUriBuilder(uri);
 			var moduleItemResolverKey = new UriModuleItemResolverKey(builder.Module, builder.Item);
 
 			IUriModuleItemResolver resolver;

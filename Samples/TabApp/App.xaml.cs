@@ -34,6 +34,11 @@ namespace UriShell.Samples.TabApp
 
 		public void RunUriShellWithDi()
 		{
+			//Settings.Initialize(b =>
+			//{
+			//	b.Scheme = "tabapp";
+			//});
+
 			var builder = new ContainerBuilder();
 
 			builder.RegisterType<MainWindowViewModel>()
@@ -60,6 +65,11 @@ namespace UriShell.Samples.TabApp
 
 		public void RunUriShellManually()
 		{
+			Settings.Initialize(b =>
+			{
+				b.Scheme = "tabapp";
+			});
+
 			var holder = new UriResolvedObjectHolder();
 			var resolveSetupFactory = new DefaultResolveSetupFactory();
 			var uriDisconnectTable = new UriDisconnectTable();

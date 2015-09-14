@@ -10,14 +10,8 @@ namespace UriShell.Shell
 	/// <summary>
 	/// Позволяет считывать и настраивать компоненты <see cref="Uri"/> для открытия объектов в Фениксе.
 	/// </summary>
-	public sealed partial class PhoenixUriBuilder
+	public sealed partial class ShellUriBuilder
 	{
-		/// <summary>
-		/// Возвращает схему URI объектов Феникса.
-		/// </summary>
-#warning Scheme must be as pluggable
-		public static readonly string UriSchemePhoenix = "tst";
-
 		/// <summary>
 		/// Минимально допустимое значение идентификаторов объектов, открытых через URI.
         /// </summary>
@@ -55,21 +49,21 @@ namespace UriShell.Shell
 		private readonly NameValueCollection _parameters = new NameValueCollection();
 
 		/// <summary>
-		/// Инициализирует новый объект класса <see cref="PhoenixUriBuilder"/>.
+		/// Инициализирует новый объект класса <see cref="ShellUriBuilder"/>.
 		/// </summary>
-		public PhoenixUriBuilder()
+		public ShellUriBuilder()
 		{
 		}
 
 		/// <summary>
-		/// Инициализирует новый объект класса <see cref="PhoenixUriBuilder"/>.
+		/// Инициализирует новый объект класса <see cref="ShellUriBuilder"/>.
 		/// </summary>
 		/// <param name="uri"><see cref="Uri"/>, содержимое которой будет использовано
-		/// для инициализации свойств создаваемого <see cref="PhoenixUriBuilder"/>.</param>
-		public PhoenixUriBuilder(Uri uri)
+		/// для инициализации свойств создаваемого <see cref="ShellUriBuilder"/>.</param>
+		public ShellUriBuilder(Uri uri)
 		{
 			Contract.Requires<ArgumentNullException>(uri != null);
-			Contract.Requires<ArgumentOutOfRangeException>(uri.IsPhoenix());
+			Contract.Requires<ArgumentOutOfRangeException>(uri.IsUriShell());
 
 			this.Placement = uri.Host;
 			if (!uri.IsDefaultPort)
@@ -99,8 +93,8 @@ namespace UriShell.Shell
 			Contract.Invariant(this.Item != null);
 			Contract.Invariant(this.Parameters != null);
 			
-			Contract.Invariant(this.OwnerId >= PhoenixUriBuilder.MinResolvedId);
-			Contract.Invariant(this.OwnerId <= PhoenixUriBuilder.MaxResolvedId);
+			Contract.Invariant(this.OwnerId >= ShellUriBuilder.MinResolvedId);
+			Contract.Invariant(this.OwnerId <= ShellUriBuilder.MaxResolvedId);
 		}
 
 		/// <summary>
@@ -207,14 +201,14 @@ namespace UriShell.Shell
 		}
 
 		/// <summary>
-		/// Возвращает URI, построенный при помощи данного <see cref="PhoenixUriBuilder" />.
+		/// Возвращает URI, построенный при помощи данного <see cref="ShellUriBuilder" />.
 		/// </summary>
 		public Uri Uri
 		{
 			get
 			{
 				var ub = new UriBuilder(
-					PhoenixUriBuilder.UriSchemePhoenix,
+					Settings.Instance.Scheme,
 					this.Placement,
 					this.OwnerId, 
 					string.Format("/{0}/{1}", this.Module, this.Item));
@@ -247,7 +241,7 @@ namespace UriShell.Shell
 			}
 			set
 			{
-				PhoenixUriBuilder.ProtectFromNull(ref value);
+				ShellUriBuilder.ProtectFromNull(ref value);
 				this._placement = value;
 			}
 		}
@@ -264,8 +258,8 @@ namespace UriShell.Shell
 			}
 			set
 			{
-				Contract.Requires<ArgumentOutOfRangeException>(value >= PhoenixUriBuilder.MinResolvedId);
-				Contract.Requires<ArgumentOutOfRangeException>(value <= PhoenixUriBuilder.MaxResolvedId);
+				Contract.Requires<ArgumentOutOfRangeException>(value >= ShellUriBuilder.MinResolvedId);
+				Contract.Requires<ArgumentOutOfRangeException>(value <= ShellUriBuilder.MaxResolvedId);
 
 				this._ownerId = value;
 			}
@@ -282,7 +276,7 @@ namespace UriShell.Shell
 			}
 			set
 			{
-				PhoenixUriBuilder.ProtectFromNull(ref value);
+				ShellUriBuilder.ProtectFromNull(ref value);
 				this._module = value;
 			}
 		}
@@ -298,7 +292,7 @@ namespace UriShell.Shell
 			}
 			set
 			{
-				PhoenixUriBuilder.ProtectFromNull(ref value);
+				ShellUriBuilder.ProtectFromNull(ref value);
 				this._item = value;
 			}
 		}

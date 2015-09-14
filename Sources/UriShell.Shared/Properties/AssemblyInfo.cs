@@ -40,11 +40,10 @@ using UriShell;
 [assembly: AssemblyVersion("1.0.0.0")]
 
 // Xmlns aliases for XAML.
-[assembly: XmlnsPrefix(PhoenixXmlNamespace.Value, PhoenixXmlNamespace.Prefix)]
-[assembly: XmlnsDefinition(PhoenixXmlNamespace.Value, "TST.Phoenix.Arm")]
-[assembly: XmlnsDefinition(PhoenixXmlNamespace.Value, "TST.Phoenix.Arm.Data")]
-[assembly: XmlnsDefinition(PhoenixXmlNamespace.Value, "TST.Phoenix.Arm.Logging")]
-[assembly: XmlnsDefinition(PhoenixXmlNamespace.Value, "TST.Phoenix.Arm.Modularity")]
-[assembly: XmlnsDefinition(PhoenixXmlNamespace.Value, "TST.Phoenix.Arm.Shell")]
-[assembly: XmlnsDefinition(PhoenixXmlNamespace.Value, "TST.Phoenix.Arm.Shell.Connectors")]
-[assembly: XmlnsDefinition(PhoenixXmlNamespace.Value, "TST.Phoenix.Arm.Shell.Events")]
+[assembly: XmlnsPrefix(UriShellNamespace.Value, UriShellNamespace.Prefix)]
+[assembly: XmlnsDefinition(UriShellNamespace.Value, "UriShell")]
+[assembly: XmlnsDefinition(UriShellNamespace.Value, "UriShell.Collections")]
+[assembly: XmlnsDefinition(UriShellNamespace.Value, "UriShell.Extensions")]
+[assembly: XmlnsDefinition(UriShellNamespace.Value, "UriShell.Shell")]
+[assembly: XmlnsDefinition(UriShellNamespace.Value, "UriShell.Shell.Connectors")]
+[assembly: XmlnsDefinition(UriShellNamespace.Value, "UriShell.Shell.Registration")]

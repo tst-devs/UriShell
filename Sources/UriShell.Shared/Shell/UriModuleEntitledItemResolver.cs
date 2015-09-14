@@ -32,7 +32,7 @@ namespace UriShell.Shell
 		/// <returns>The object created from the given URI.</returns>
 		public object Resolve(Uri uri, UriAttachmentSelector attachmentSelector)
 		{
-			var uriBuilder = new PhoenixUriBuilder(uri);
+			var uriBuilder = new ShellUriBuilder(uri);
 			var title = uriBuilder.Parameters["title"] ?? uri.ToString();
 
 			return this._entitledItemFactory(title);	

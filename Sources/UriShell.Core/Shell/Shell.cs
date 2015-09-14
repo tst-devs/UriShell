@@ -59,6 +59,12 @@ namespace UriShell.Shell
 			Contract.Requires<ArgumentNullException>(uriResolvedObjectHolder != null);
 			Contract.Requires<ArgumentNullException>(uriModuleItemResolversFactory != null);
 
+			// If user hasn't specified settings, initialize with defaults.
+			if (Settings.Instance == null)
+			{
+				Settings.Initialize(b => { });
+			}
+
 			this._shellResolveFactory = shellResolveFactory;
 			this._uriResolvedObjectHolder = uriResolvedObjectHolder;
 			this._uriModuleItemResolversFactory = uriModuleItemResolversFactory;
@@ -155,7 +161,7 @@ namespace UriShell.Shell
 		/// <param name="hyperlink">The text description of a hyperlink in HTML anchor format.</param>
 		/// <param name="ownerId">The identifier of the object that owns the object opened with the hyperlink.</param>
 		/// <returns>The hyperlink, if the given description of a hyperlink is valid; otherwise null.</returns>
-		public PhoenixHyperlink TryParseHyperlink(string hyperlink, int ownerId)
+		public ShellHyperlink TryParseHyperlink(string hyperlink, int ownerId)
 		{
 			var matches = Shell._HyperLinkRegex.Matches(hyperlink);
 			if (matches.Count == 0)
@@ -170,15 +176,15 @@ namespace UriShell.Shell
 			var uri = new Uri(match.Groups[1].Value);
 			var title = match.Groups[2].Value;
 
-			if (uri.IsPhoenix())
+			if (uri.IsUriShell())
 			{
 				// Add owner ID to the view URI. 
-				var builder = new PhoenixUriBuilder(uri);
+				var builder = new ShellUriBuilder(uri);
 				builder.OwnerId = ownerId;
 				uri = builder.Uri;
 			}
 
-			return new PhoenixHyperlink(uri, title, null);
+			return new ShellHyperlink(uri, title, null);
 		}
 
 		/// <summary>
@@ -186,9 +192,9 @@ namespace UriShell.Shell
 		/// </summary>
 		/// <param name="uri">The URI, for which a hyperlink is created.</param>
 		/// <returns>The hyperlink created for openening of the given <see cref="Uri"/>.</returns>
-		public PhoenixHyperlink CreateHyperlink(Uri uri)
+		public ShellHyperlink CreateHyperlink(Uri uri)
 		{
-			var builder = new PhoenixUriBuilder(uri);
+			var builder = new ShellUriBuilder(uri);
 			var title = builder.Parameters["title"];
 
 			var iconParameter = builder.Parameters["icon"];
@@ -196,10 +202,10 @@ namespace UriShell.Shell
 
 			if (!Uri.TryCreate(iconParameter, UriKind.Absolute, out icon))
 			{
-				throw new Exception(string.Format(Properties.Resources.InvalidIconUri, iconParameter));
+				throw new ArgumentException(string.Format(Properties.Resources.InvalidIconUri, iconParameter));
 			}
 
-			return new PhoenixHyperlink(uri, title, icon);
+			return new ShellHyperlink(uri, title, icon);
 		}
 	}
 

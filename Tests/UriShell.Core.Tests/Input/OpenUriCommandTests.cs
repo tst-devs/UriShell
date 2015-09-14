@@ -18,6 +18,11 @@ namespace UriShell.Shell
 		[TestInitialize]
 		public void Initialize()
 		{
+			if (Settings.Instance == null)
+			{
+				Settings.Initialize(b => { b.Scheme = "tst"; });
+			}
+
 			this._shellResolve = Substitute.For<IShellResolve>();
 			
 			this._shell = Substitute.For<IShell>();
@@ -63,7 +68,7 @@ namespace UriShell.Shell
 		}
 
 		[TestMethod]
-		public void OpensPhoenixUriAsIs()
+		public void OpensShellUriAsIs()
 		{
 			var openUriCommand = new OpenUriCommand(this._shell);
 			openUriCommand.Execute(new Uri("tst://tab/contactchart/tools"));
@@ -73,7 +78,7 @@ namespace UriShell.Shell
 		}
 
 		[TestMethod]
-		public void OpensStringContainingPhoenixUriAsIs()
+		public void OpensStringContainingShellUriAsIs()
 		{
 			var openUriCommand = new OpenUriCommand(this._shell);
 			openUriCommand.Execute("tst://external/arm/log");
@@ -83,7 +88,7 @@ namespace UriShell.Shell
 		}
 
 		[TestMethod]
-		public void OpensNonPhoenixUriUsingArmOpen()
+		public void OpensNonShellUriUsingArmOpen()
 		{
 			var openUriCommand = new OpenUriCommand(this._shell);
 			openUriCommand.Execute(new Uri("E:/Tests/Opens/String/Contains Something"));
@@ -97,7 +102,7 @@ namespace UriShell.Shell
 		}
 
 		[TestMethod]
-		public void OpensStringContainingNonPhoenixUriUsingArmOpen()
+		public void OpensStringContainingNonShellUriUsingArmOpen()
 		{
 			var openUriCommand = new OpenUriCommand(this._shell);
 			openUriCommand.Execute("http://address-to-any-site.com/index.htm?data=091&p==145");

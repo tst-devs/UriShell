@@ -5,12 +5,21 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace UriShell.Shell
 {
 	[TestClass]
-	public class PhoenixUriBuilderTests
+	public class ShellUriBuilderTests
 	{
+		[TestInitialize]
+		public void Initialize()
+		{
+			if (Settings.Instance == null)
+			{
+				Settings.Initialize(b => { b.Scheme = "tst"; });
+			}
+		}
+
 		[TestMethod]
 		public void ParsesUriWhenCreatedWithUri()
 		{
-			var builder = new PhoenixUriBuilder(new Uri("tst://testplacement:102/testmodule/testitem"));
+			var builder = new ShellUriBuilder(new Uri("tst://testplacement:102/testmodule/testitem"));
 
 			Assert.AreEqual("testplacement", builder.Placement);
 			Assert.AreEqual(102, builder.OwnerId);
@@ -21,7 +30,7 @@ namespace UriShell.Shell
 		[TestMethod]
 		public void ParsesUriParametersWhenCreatedWithUri()
 		{
-			var builder = new PhoenixUriBuilder(new Uri("tst://testplacement:102/testmodule/testitem?p1=test Param1&p2=test Param2"));
+			var builder = new ShellUriBuilder(new Uri("tst://testplacement:102/testmodule/testitem?p1=test Param1&p2=test Param2"));
 
 			Assert.AreEqual(2, builder.Parameters.Count);
 
@@ -32,7 +41,7 @@ namespace UriShell.Shell
 		[TestMethod]
 		public void BuildsUriWhenCreatedEmpty()
 		{
-			var builder = new PhoenixUriBuilder();
+			var builder = new ShellUriBuilder();
 
 			builder.Placement = "newPlacement";
 			builder.OwnerId = 405;
@@ -45,7 +54,7 @@ namespace UriShell.Shell
 		[TestMethod]
 		public void BuildsUriWithParametersWhenCreatedEmpty()
 		{
-			var builder = new PhoenixUriBuilder();
+			var builder = new ShellUriBuilder();
 
 			builder.Placement = "newPlacement";
 			builder.OwnerId = 405;
@@ -62,7 +71,7 @@ namespace UriShell.Shell
 		[TestMethod]
 		public void BuildsUriFluently()
 		{
-			var uri = PhoenixUriBuilder
+			var uri = ShellUriBuilder
 				.StartUri()
 				.Placement("fluentPlacement")
 				.OwnerId(134)
@@ -76,7 +85,7 @@ namespace UriShell.Shell
 		[TestMethod]
 		public void BuildsUriWithParametersAndAttachmentsFluently()
 		{
-			var uri = PhoenixUriBuilder
+			var uri = ShellUriBuilder
 				.StartUri()
 				.Placement("fluentPlacement")
 				.Module("fluentModule")

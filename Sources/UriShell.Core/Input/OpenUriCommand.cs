@@ -65,9 +65,9 @@ namespace UriShell.Input
 			}
 
 			// If the URI isn't for Phoenix, open it externally.
-			if (!uri.IsPhoenix())
+			if (!uri.IsUriShell())
 			{
-				uri = PhoenixUriBuilder.StartUri()
+				uri = ShellUriBuilder.StartUri()
 					.Placement("external")
 					.Module("arm")
 					.Item("open")

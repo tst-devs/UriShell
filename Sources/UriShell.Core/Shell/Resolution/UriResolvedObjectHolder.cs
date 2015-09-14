@@ -24,7 +24,7 @@ namespace UriShell.Shell.Resolution
 		/// <summary>
 		/// The object's identifier generator.
 		/// </summary>
-		private readonly Random _random = new Random(PhoenixUriBuilder.MinResolvedId);
+		private readonly Random _random = new Random(ShellUriBuilder.MinResolvedId);
 
 		/// <summary>
 		/// Generates a new unique identifier of an object.
@@ -32,7 +32,7 @@ namespace UriShell.Shell.Resolution
 		/// <returns>The newly generated identifier.</returns>
 		private int GenerateNewId()
 		{
-			if (this._usedIds.Count > PhoenixUriBuilder.MaxResolvedId - PhoenixUriBuilder.MinResolvedId)
+			if (this._usedIds.Count > ShellUriBuilder.MaxResolvedId - ShellUriBuilder.MinResolvedId)
 			{
 				throw new InvalidOperationException(Properties.Resources.NoAvailableUriResolutionId);
 			}
@@ -40,7 +40,7 @@ namespace UriShell.Shell.Resolution
 			int id;
 			do
 			{
-				id = this._random.Next(PhoenixUriBuilder.MaxResolvedId + 1);
+				id = this._random.Next(ShellUriBuilder.MaxResolvedId + 1);
 			}
 			while (!this._usedIds.Add(id));
 

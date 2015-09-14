@@ -24,8 +24,8 @@ namespace UriShell.Shell.Resolution
 
 		public object Get(int id)
 		{
-			Contract.Requires<ArgumentOutOfRangeException>(id >= PhoenixUriBuilder.MinResolvedId);
-			Contract.Requires<ArgumentOutOfRangeException>(id <= PhoenixUriBuilder.MaxResolvedId);
+			Contract.Requires<ArgumentOutOfRangeException>(id >= ShellUriBuilder.MinResolvedId);
+			Contract.Requires<ArgumentOutOfRangeException>(id <= ShellUriBuilder.MaxResolvedId);
 
 			return default(object);
 		}
@@ -34,8 +34,8 @@ namespace UriShell.Shell.Resolution
 		{
 			Contract.Requires<ArgumentNullException>(resolved != null);
 
-			Contract.Ensures(Contract.Result<UriResolvedMetadata>().ResolvedId >= PhoenixUriBuilder.MinResolvedId);
-			Contract.Ensures(Contract.Result<UriResolvedMetadata>().ResolvedId <= PhoenixUriBuilder.MaxResolvedId);
+			Contract.Ensures(Contract.Result<UriResolvedMetadata>().ResolvedId >= ShellUriBuilder.MinResolvedId);
+			Contract.Ensures(Contract.Result<UriResolvedMetadata>().ResolvedId <= ShellUriBuilder.MaxResolvedId);
 
 			return default(UriResolvedMetadata);
 		}

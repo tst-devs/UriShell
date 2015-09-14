@@ -35,8 +35,8 @@ namespace UriShell.Shell
 			Contract.Requires<ArgumentNullException>(resolved != null);
 			Contract.Requires<ArgumentException>(this.IsResolvedOpen(resolved));
 			
-			Contract.Ensures(Contract.Result<int>() >= PhoenixUriBuilder.MinResolvedId);
-            Contract.Ensures(Contract.Result<int>() <= PhoenixUriBuilder.MaxResolvedId);
+			Contract.Ensures(Contract.Result<int>() >= ShellUriBuilder.MinResolvedId);
+            Contract.Ensures(Contract.Result<int>() <= ShellUriBuilder.MaxResolvedId);
 
 			return default(int);
 		}
@@ -56,22 +56,22 @@ namespace UriShell.Shell
 			Contract.Ensures(!this.IsResolvedOpen(resolved));
 		}
 
-		public PhoenixHyperlink TryParseHyperlink(string hyperlink, int ownerId)
+		public ShellHyperlink TryParseHyperlink(string hyperlink, int ownerId)
 		{
 			Contract.Requires<ArgumentNullException>(hyperlink != null);
 
-			Contract.Requires<ArgumentOutOfRangeException>(ownerId >= PhoenixUriBuilder.MinResolvedId);
-			Contract.Requires<ArgumentOutOfRangeException>(ownerId <= PhoenixUriBuilder.MaxResolvedId);
+			Contract.Requires<ArgumentOutOfRangeException>(ownerId >= ShellUriBuilder.MinResolvedId);
+			Contract.Requires<ArgumentOutOfRangeException>(ownerId <= ShellUriBuilder.MaxResolvedId);
 
-			return default(PhoenixHyperlink);
+			return default(ShellHyperlink);
 		}
 
-		public PhoenixHyperlink CreateHyperlink(Uri uri)
+		public ShellHyperlink CreateHyperlink(Uri uri)
 		{
 			Contract.Requires<ArgumentNullException>(uri != null);
 
-			Contract.Ensures(Contract.Result<PhoenixHyperlink>() != null);
-			return default(PhoenixHyperlink);
+			Contract.Ensures(Contract.Result<ShellHyperlink>() != null);
+			return default(ShellHyperlink);
 		}
 	}
 }

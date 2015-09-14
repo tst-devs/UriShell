@@ -17,7 +17,7 @@ namespace UriShell.Shell
 		/// <returns>The object created from the given URI.</returns>
 		public object Resolve(Uri uri, UriAttachmentSelector attachmentSelector)
 		{
-			var builder = new PhoenixUriBuilder(uri);
+			var builder = new ShellUriBuilder(uri);
 			var fileName = builder.Parameters["fileName"];
 
 			if (string.IsNullOrWhiteSpace(fileName))

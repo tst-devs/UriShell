@@ -8,7 +8,7 @@ using UriShell.Extensions;
 
 namespace UriShell.Shell
 {
-	partial class PhoenixUriBuilder
+	partial class ShellUriBuilder
 	{
 		/// <summary>
 		/// Позволяет создать URI, для открытия объектов в Фениксе, в виде последовательности его компонентов.
@@ -16,9 +16,9 @@ namespace UriShell.Shell
 		public sealed class Writer
 		{
 			/// <summary>
-			/// <see cref="PhoenixUriBuilder"/> для настройки компонентов URI.
+			/// <see cref="ShellUriBuilder"/> для настройки компонентов URI.
 			/// </summary>
-			private readonly PhoenixUriBuilder _builder = new PhoenixUriBuilder();
+			private readonly ShellUriBuilder _builder = new ShellUriBuilder();
 
 			/// <summary>
 			/// Инициализирует новый объект класса <see cref="Writer"/>.

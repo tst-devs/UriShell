@@ -6,7 +6,7 @@ namespace UriShell.Shell
 	/// <summary>
 	/// Describes a hyperlink for opening the URI from UI.
 	/// </summary>
-	public class PhoenixHyperlink
+	public class ShellHyperlink
 	{
 		/// <summary>
 		/// The URI which is opened by the hyperlink.
@@ -24,31 +24,31 @@ namespace UriShell.Shell
 		private readonly Uri _icon;
 
 		/// <summary>
-		/// Initializes a new instance of the  class <see cref="PhoenixHyperlink"/>.
+		/// Initializes a new instance of the  class <see cref="ShellHyperlink"/>.
 		/// </summary>
 		/// <param name="uri">The URI which is opened by the hyperlink.</param>
-		public PhoenixHyperlink(Uri uri)
+		public ShellHyperlink(Uri uri)
 			: this(uri, null, null)
 		{
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the  class <see cref="PhoenixHyperlink"/>.
+		/// Initializes a new instance of the  class <see cref="ShellHyperlink"/>.
 		/// </summary>
 		/// <param name="uri">The URI which is opened by the hyperlink.</param>
 		/// <param name="text">The text of the hyperlink.</param>
-		public PhoenixHyperlink(Uri uri, string text)
+		public ShellHyperlink(Uri uri, string text)
 			: this(uri, text, null)
 		{
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the  class <see cref="PhoenixHyperlink"/>.
+		/// Initializes a new instance of the  class <see cref="ShellHyperlink"/>.
 		/// </summary>
 		/// <param name="uri">The URI which is opened by the hyperlink.</param>
 		/// <param name="text">The text of the hyperlink.</param>
 		/// <param name="icon">The URI of an icon displayed in the hyperlink.</param>
-		public PhoenixHyperlink(Uri uri, string text, Uri icon)
+		public ShellHyperlink(Uri uri, string text, Uri icon)
 		{
 			this._uri = uri;
 			this._text = text;

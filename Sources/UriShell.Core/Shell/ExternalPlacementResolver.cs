@@ -19,7 +19,7 @@ namespace UriShell.Shell
 		/// user interface, if the placement was determined successfully; otherwise null.</returns>
 		public IUriPlacementConnector Resolve(object resolved, Uri uri, UriAttachmentSelector attachmentSelector)
 		{
-			var builder = new PhoenixUriBuilder(uri);
+			var builder = new ShellUriBuilder(uri);
 			if (builder.Placement == "external" && resolved is Process)
 			{
 				return this;

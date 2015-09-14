@@ -11,6 +11,7 @@ using UriShell.Shell.Resolution;
 
 namespace UriShell.Shell
 {
+	using Tests;
 	using ShellResolveFactory = Func<Uri, object[], IShellResolve>;
 	using UriModuleItemResolverIndex = IIndex<UriModuleItemResolverKey, IUriModuleItemResolver>;
 
@@ -20,10 +21,14 @@ namespace UriShell.Shell
 		private IUriResolvedObjectHolder _uriResolvedObjectHolder;
 
 		private Shell CreateShell(
-			ISecurityService securityService = null,
 			Func<UriModuleItemResolverIndex> uriModuleItemResolverIndexFactory = null,
 			ShellResolveFactory shellResolveFactory = null)
 		{
+			if (Settings.Instance == null)
+			{
+				Settings.Initialize(b => { b.Scheme = "tst"; });
+			}
+
 			return new Shell(
 				uriModuleItemResolverIndexFactory ?? Substitute.For<Func<UriModuleItemResolverIndex>>(),
 				this._uriResolvedObjectHolder,
@@ -221,7 +226,7 @@ namespace UriShell.Shell
 		}
 		
 		[TestMethod]
-		public void OmitsOwnerIdWhenTryingToParseNonPhoenixHyperlink()
+		public void OmitsOwnerIdWhenTryingToParseNonShellHyperlink()
 		{
 			var shell = this.CreateShell();
 			var source = string.Format("<a href=\"http://ya.ru/logo.png\">hello world</a>");
@@ -269,28 +274,7 @@ namespace UriShell.Shell
 		}
 
 		[TestMethod]
-		public void ReturnsAbsoluteHyperlinkIconWhenCreatesHyperlinkFromUri()
-		{
-            //var securityService = Substitute.For<ISecurityService>();
-            //var mainEndpoint = new ServiceEndpoint("main", "http://server:8080/relative/resource");
-            //var connectedServer = new ServerDescription(mainEndpoint, Enumerable.Empty<ServiceEndpoint>());
-            //securityService.ConnectedServer.ReturnsForAnyArgs(connectedServer);
-
-            //var uri = new Uri(string.Format(
-            //    "tst://placement:1111/module/item?&title={0}&icon={1}",
-            //    Uri.EscapeDataString("Test Title"),
-            //    Uri.EscapeDataString("/images/logo.png")));
-
-            //var shell = this.CreateShell(securityService: securityService);
-            //var hyperlink = shell.CreateHyperlink(uri);
-
-            //Assert.AreEqual(new Uri("http://server:8080/images/logo.png"), hyperlink.Icon);
-
-            Assert.Fail("Need to be rewritten using default uri provider or something like that");
-		}
-
-		[TestMethod]
-		public void ReturnsNullHyperlinkIconWhenCreatesHyperlinkFromUriWithDisconnectedServer()
+		public void ThrowsWhenCreatesHyperlinkFromUriWithRelativeIcon()
 		{
 			var uri = new Uri(string.Format(
 				"tst://placement:1111/module/item?&title={0}&icon={1}",
@@ -298,9 +282,9 @@ namespace UriShell.Shell
 				Uri.EscapeDataString("/images/logo.png")));
 
 			var shell = this.CreateShell();
-			var hyperlink = shell.CreateHyperlink(uri);
 
-			Assert.IsNull(hyperlink.Icon);
+			ExceptionAssert.Throws<ArgumentException>(
+				() => shell.CreateHyperlink(uri));
 		}
 	}
 }

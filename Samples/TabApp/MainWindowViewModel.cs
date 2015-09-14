@@ -30,7 +30,7 @@ namespace UriShell.Samples.TabApp
 
 			this.AddSquareCommand = new DelegateCommand(() => 
 				{
-					var uri = PhoenixUriBuilder.StartUri()
+					var uri = ShellUriBuilder.StartUri()
 						.Placement("figures")
 						.Module("main")
 						.Item("square")
@@ -43,7 +43,7 @@ namespace UriShell.Samples.TabApp
 
 			this.AddCircleCommand = new DelegateCommand(() =>
 				{
-					var uri = PhoenixUriBuilder.StartUri()
+					var uri = ShellUriBuilder.StartUri()
 						.Placement("figures")
 						.Module("main")
 						.Item("circle")
@@ -149,7 +149,7 @@ namespace UriShell.Samples.TabApp
 
 		public IUriPlacementConnector Resolve(object resolved, Uri uri, UriAttachmentSelector attachmentSelector)
 		{
-			var builder = new PhoenixUriBuilder(uri);
+			var builder = new ShellUriBuilder(uri);
 			if (builder.Placement == "figures")
 			{
 				return this._figurePlacementConnector;

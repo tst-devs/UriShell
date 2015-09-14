@@ -22,7 +22,7 @@ namespace UriShell.Samples.TabApp.Figures
 
 		public void Refresh()
 		{
-			var builder = new PhoenixUriBuilder(this._shell.GetResolvedUri(this));
+			var builder = new ShellUriBuilder(this._shell.GetResolvedUri(this));
 
 			var lengthString = builder.Parameters["length"];
 			double length;

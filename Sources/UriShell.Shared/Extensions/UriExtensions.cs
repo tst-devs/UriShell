@@ -12,14 +12,14 @@ namespace UriShell.Extensions
 	{
 		/// <summary>
 		/// Gets the value indicating that the given <see cref="Uri" /> is used 
-		/// for a view of the Phoenix application.
+		/// for an object resolved via UriShell.
 		/// </summary>
 		/// <param name="uri">The <see cref="Uri"/> to be checked.</param>
 		/// <returns>true, if the given <see cref="Uri" /> represents a URI 
-		/// for a view of the Phoenix application; otherwise false. 
+		/// for an object resolved via UriShell; otherwise false. 
 		/// </returns>
 		[Pure]
-		public static bool IsPhoenix(this Uri uri)
+		public static bool IsUriShell(this Uri uri)
 		{
 			Contract.Requires<ArgumentNullException>(uri != null);
 
@@ -28,7 +28,7 @@ namespace UriShell.Extensions
 				throw new InvalidOperationException(Properties.Resources.UriIsNotAbsolute);
 			}
 
-			return string.CompareOrdinal(uri.Scheme, PhoenixUriBuilder.UriSchemePhoenix) == 0;
+			return string.CompareOrdinal(uri.Scheme, Settings.Instance.Scheme) == 0;
 		}
 	}
 }

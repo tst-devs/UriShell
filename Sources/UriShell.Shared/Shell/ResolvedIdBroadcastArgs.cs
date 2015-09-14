@@ -24,8 +24,8 @@ namespace UriShell.Shell
 		[ContractInvariantMethod]
 		private void ContractInvariant()
 		{
-			Contract.Invariant(this.ResolvedId >= PhoenixUriBuilder.MinResolvedId);
-			Contract.Invariant(this.ResolvedId <= PhoenixUriBuilder.MaxResolvedId);
+			Contract.Invariant(this.ResolvedId >= ShellUriBuilder.MinResolvedId);
+			Contract.Invariant(this.ResolvedId <= ShellUriBuilder.MaxResolvedId);
 		}
 
 		/// <summary>

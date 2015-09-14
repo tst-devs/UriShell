@@ -12,7 +12,7 @@ namespace UriShell.Shell.Resolution
 	[TestClass]
 	public class UriResolvedObjectHolderTests
 	{
-		private static readonly int ValidIdCount = PhoenixUriBuilder.MaxResolvedId - PhoenixUriBuilder.MinResolvedId + 1;
+		private static readonly int ValidIdCount = ShellUriBuilder.MaxResolvedId - ShellUriBuilder.MinResolvedId + 1;
 
 		private UriResolvedMetadata _uriResolvedMetadata;
 
@@ -107,7 +107,7 @@ namespace UriShell.Shell.Resolution
 		public void GeneratesUniqueIds()
 		{
 			var objects = Enumerable
-				.Range(PhoenixUriBuilder.MinResolvedId, UriResolvedObjectHolderTests.ValidIdCount)
+				.Range(ShellUriBuilder.MinResolvedId, UriResolvedObjectHolderTests.ValidIdCount)
 				.Select(_ => new object());
 
 			var ids = new HashSet<int>();
@@ -129,7 +129,7 @@ namespace UriShell.Shell.Resolution
 		public void RaisesExceptionWhenIdsExceedViewIdContraints()
 		{
 			var objects = Enumerable
-				.Range(PhoenixUriBuilder.MinResolvedId, UriResolvedObjectHolderTests.ValidIdCount)
+				.Range(ShellUriBuilder.MinResolvedId, UriResolvedObjectHolderTests.ValidIdCount)
 				.Select(_ => new object());
 
 			var holder = new UriResolvedObjectHolder();
@@ -150,7 +150,7 @@ namespace UriShell.Shell.Resolution
 			var object2 = new object();
 
 			var objects = Enumerable
-				.Range(PhoenixUriBuilder.MinResolvedId, UriResolvedObjectHolderTests.ValidIdCount - 2)
+				.Range(ShellUriBuilder.MinResolvedId, UriResolvedObjectHolderTests.ValidIdCount - 2)
 				.Select(_ => new object())
 				.Concat(Enumerable.Repeat(object1, 1))
 				.Concat(Enumerable.Repeat(object2, 1));

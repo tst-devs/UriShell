@@ -55,7 +55,7 @@
     <Compile Include="Shell\UriModuleItemResolverKeyTests.cs" />
     <Compile Include="Shell\ShellExtensionsTests.cs" />
     <Compile Include="Shell\UriResolutionExceptionTests.cs" />
-    <Compile Include="Shell\PhoenixUriBuilderTests.cs" />
+    <Compile Include="Shell\ShellUriBuilderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Sources\UriShell.Shared\UriShell.Shared.csproj">
