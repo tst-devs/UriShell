@@ -7,6 +7,7 @@ UriShell is a lightweight, .NET library for resolving and placing UI elements by
 Assuming that this two steps are done:
 - every object, you want to open with UriShell, must have a unique(inside your application) URI and registered for resolution,
 - every area, where the resolved object could be placed, must be registered,
+
 opening is quite simple:
 ```C#
 var uri = "urishell://main-area/core-module/startup-item";
