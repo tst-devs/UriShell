@@ -72,7 +72,7 @@ catch(Exception ex)
 Currently UriShell supports only Autofac, but it's planned to add support for other popular containers.
 
 ## Autofac
-If you use [Autofac!](http://autofac.org/), you should include UriShell.Autofac assembly to your project and register UriShellModule as module: 
+If you use [Autofac](http://autofac.org/), you should include UriShell.Autofac assembly to your project and register UriShellModule as module: 
 
 ```
 var builder = new ContainerBuilder();
