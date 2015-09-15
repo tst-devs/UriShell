@@ -4,7 +4,7 @@ UriShell is a lightweight, .NET library for resolving and placing UI elements by
 
 # How it works 
 
-The heart of UriShell is the IShell object. IShell hold m
+The heart of UriShell is the IShell object.
 
 Assuming that this two steps are done:
 - every object, you want to open with UriShell, must have a unique(inside your application) URI and is registered for resolution,
@@ -54,6 +54,32 @@ UriShell follows next convention of URI format:
 - ownerid - (if specified) ID of the resolved object, where to look for a placement. It's common when the object wants to place other objects inside. 
 - module+item - a unique pair that describes a specific object to be resolved by this pair. 
 - param1...paramN - parameters of the object being resolved. UriShell doesn't care about them. 
+
+# ShellUriBuilder
+
+Although it's possible to create and modify UriShell URI manually, it's better to use ShellUriBuilder - a special object designed for this goals. 
+
+You may create a new URI from the scratch: 
+```C#
+var uri = ShellUriBuilder.StartUri()
+    .Placement("main-area")
+    .Module("core-module")
+    .Item("startup-item")
+    .Parameter("title", "To be or not to be?") // parameter will be escaped
+    .End();
+```
+
+Or use existing URI for reading/modification:
+```C#
+var builder = new ShellUriBuilder(uri);
+var title = builder.Parameters["title"]; // "To be or not to be?"
+var placement = builder.Placement; // "main-area"
+
+builder.Parameters["background"] = "red";
+builder.Parameters["title] = "New title";
+
+Trace.WriteLine(builder.Uri); 
+```
 
 # Error handling
 By default all exceptions thrown during resolution are handled by UriShell and logged to Trace. 
