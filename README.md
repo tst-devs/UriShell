@@ -28,8 +28,8 @@ UriShell follows next convention of URI format:
 - param1...paramN - parameters of the object being resolved. UriShell doesn't care about them. 
 
 # Error handling
-By default all exceptions thrown during resolution are handled by UriShell and written to TraceListener. 
-But you can directly specify that you are responsible for exception handling by calling *OpenOrThrow* instead of *Open*: 
+By default all exceptions thrown during resolution are handled by UriShell and logged to Trace. 
+But you can directly specify that your responsibility for exception handling by calling *OpenOrThrow* instead of *Open*: 
 ```
 try
 {
