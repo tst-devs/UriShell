@@ -66,3 +66,34 @@ catch(Exception ex)
     // handle exception
 }
 ```
+
+# Dependency injection container's support
+
+Currently UriShell supports only Autofac, but it's planned to add support for other popular containers.
+
+## Autofac
+If you use [Autofac!](http://autofac.org/), you should include UriShell.Autofac assembly to your project and register UriShellModule as module: 
+
+```
+var builder = new ContainerBuilder();
+builder.RegisterModule<UriShellModule>();
+
+// other registrations...
+
+this.Container = builder.Build();
+```
+
+If your application uses [nested containers](http://autofac.readthedocs.org/en/latest/lifetime/working-with-scopes.html#creating-a-new-lifetime-scope) you have to resolve AutofacViewModelViewMatcher and call AddContainer method for every container where objects supposed to be resolved are resistered. 
+```
+var builder = new ContainerBuilder();
+builder.RegisterModule<UriShellModule>();
+this.Container = builder.Build();
+
+var moduleContainer = this.Container.BeginLifetimeScope(b =>
+{
+	b.RegisterType<...>();
+});
+
+var matcher = moduleContainer.Resolve<AutofacViewModelViewMatcher>();
+matcher.AddContainer(moduleContainer);
+```
