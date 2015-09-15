@@ -83,7 +83,7 @@ builder.RegisterModule<UriShellModule>();
 this.Container = builder.Build();
 ```
 
-If your application uses [nested containers](http://autofac.readthedocs.org/en/latest/lifetime/working-with-scopes.html#creating-a-new-lifetime-scope) you have to resolve AutofacViewModelViewMatcher and call AddContainer method for every container where objects supposed to be resolved are resistered. 
+If your application uses [nested containers](http://autofac.readthedocs.org/en/latest/lifetime/working-with-scopes.html#creating-a-new-lifetime-scope) you have to resolve AutofacViewModelViewMatcher and call AddContainer method for every container where objects supposed to be resolved are registered. 
 ```C#
 var builder = new ContainerBuilder();
 builder.RegisterModule<UriShellModule>();
