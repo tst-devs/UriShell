@@ -17,6 +17,10 @@ and closing is even simpler:
 disposable.Dispose();
 ```
 
+# Object's setup
+
+Sometimes you need to do something before object is opened/closed. Generally it has to do with events. 
+
 # UriShell URI format
 
 UriShell follows next convention of URI format:
