@@ -8,19 +8,19 @@ Assuming that this two steps are done:
 - every object, you want to open with UriShell, must have a unique(inside your application) URI and registered for resolution,
 - every area, where the resolved object could be placed, must be registered,
 opening is quite simple:
-```
+```C#
 var uri = "urishell://main-area/core-module/startup-item";
 var disposable = this._shell.Resolve(uri).Open();
 ```
 and closing is even simpler:  
-```
+```C#
 disposable.Dispose();
 ```
 
 # Object's setup
 
 Sometimes you need to do something before object is opened/closed. Probably you want to subscribe/unsubscribe to/from events. Or propagate some property before start and receive it back when object is closed. UriShell has a superb way to achieve this: 
-```
+```C#
 var uri = "urishell://main-area/core-module/startup-item";
 var disposable = this._shell
     .Resolve(uri)
@@ -53,7 +53,7 @@ UriShell follows next convention of URI format:
 # Error handling
 By default all exceptions thrown during resolution are handled by UriShell and logged to Trace. 
 But you can directly specify your responsibility for exception handling by calling *OpenOrThrow* instead of *Open*: 
-```
+```C#
 try
 {
     var disposable = this._shell.Resolve(uri).OpenOrThrow();
