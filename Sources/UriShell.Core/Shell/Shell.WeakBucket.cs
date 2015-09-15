@@ -14,7 +14,6 @@ namespace UriShell.Shell
 		{
 			/// <summary>
 			/// Holds weak references to added objects.
-			/// Хранит слабые ссылки на добавленные объекты.
 			/// </summary>
 			private readonly List<WeakReference> _list = new List<WeakReference>();
 
