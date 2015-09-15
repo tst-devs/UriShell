@@ -29,7 +29,7 @@ UriShell follows next convention of URI format:
 
 # Error handling
 By default all exceptions thrown during resolution are handled by UriShell and logged to Trace. 
-But you can directly specify that your responsibility for exception handling by calling *OpenOrThrow* instead of *Open*: 
+But you can directly specify your responsibility for exception handling by calling *OpenOrThrow* instead of *Open*: 
 ```
 try
 {
