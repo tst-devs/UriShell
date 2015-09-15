@@ -19,7 +19,22 @@ disposable.Dispose();
 
 # Object's setup
 
-Sometimes you need to do something before object is opened/closed. Generally it has to do with events. 
+Sometimes you need to do something before object is opened/closed. Probable you want to subscribe/unsubscribe to/from events. Or propagate some property before start and receive it back when object is closed. UriShell has a superb way to achieve this: ```
+var uri = "urishell://main-area/core-module/startup-item";
+var disposable = this._shell
+    .Resolve(uri)
+    .Setup<IStartupView>()
+    .OnReady(startupView =>
+    {
+        startupView.VisibleDocumentCount = 10;
+        startupView.DocumentOpened += this.StartupDocumentOpen;
+    })
+    .OnFinished(startupView => 
+    {
+        startupView.DocumentOpened -= this.StartupDocumentOpen;
+    })
+    .Open();
+```
 
 # UriShell URI format
 
