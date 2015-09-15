@@ -26,3 +26,17 @@ UriShell follows next convention of URI format:
 - ownerid - (if specified) ID of the resolved object, where to look for a placement. It's common when the object wants to place other objects inside. 
 - module+item - a unique pair that describes a specific object to be resolved by this pair. 
 - param1...paramN - parameters of the object being resolved. UriShell doesn't care about them. 
+
+# Error handling
+By default all exceptions thrown during resolution are handled by UriShell and written to TraceListener. 
+But you can directly specify that you are responsible for exception handling by calling *OpenOrThrow* instead of *Open*: 
+```
+try
+{
+    this._shell.Resolve(uri).OpenOrThrow();
+}
+catch(Exception ex)
+{
+    // handle exception
+}
+```
