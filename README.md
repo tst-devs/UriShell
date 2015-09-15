@@ -38,6 +38,8 @@ var disposable = this._shell
     .Open();
 ```
 
+*Setup* tries to cast a resolved object to the given type. If cast fails, *OnReady* and *OnFinished* aren't called.
+
 # UriShell URI format
 
 UriShell follows next convention of URI format:
