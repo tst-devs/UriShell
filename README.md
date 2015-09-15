@@ -59,7 +59,7 @@ UriShell follows next convention of URI format:
 
 Although it's possible to create and modify UriShell URI manually, it's better to use ShellUriBuilder - a special object designed for this goals. 
 
-You may create a new URI from the scratch: 
+You may create a new URI from scratch: 
 ```C#
 var uri = ShellUriBuilder.StartUri()
     .Placement("main-area")
