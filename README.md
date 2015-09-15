@@ -7,12 +7,15 @@ UriShell is a lightweight, .NET library for resolving and placing UI elements by
 Assuming that this two steps are done:
 - every object, you want to open with UriShell, must have a unique(inside your application) URI and registered for resolution,
 - every area, where the resolved object could be placed, must be registered,
-usage is quite simple. 
+opening is quite simple:
 ```
 var uri = "urishell://main-area/core-module/startup-item";
-this._shell.Resolve(uri).Open();
+var disposable = this._shell.Resolve(uri).Open();
 ```
-
+and closing is even simpler:  
+```
+disposable.Dispose();
+```
 
 # UriShell URI format
 
@@ -33,7 +36,7 @@ But you can directly specify your responsibility for exception handling by calli
 ```
 try
 {
-    this._shell.Resolve(uri).OpenOrThrow();
+    var disposable = this._shell.Resolve(uri).OpenOrThrow();
 }
 catch(Exception ex)
 {
