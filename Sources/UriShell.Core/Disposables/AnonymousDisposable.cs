@@ -6,38 +6,41 @@ using System.Threading;
 
 namespace UriShell.Disposables
 {
-	/// <summary>
-	/// Represents an Action-based disposable.
-	/// </summary>
-	internal sealed class AnonymousDisposable : IDisposable
+	partial class Disposable
 	{
 		/// <summary>
-		/// The disposal action.
+		/// Represents an Action-based disposable.
 		/// </summary>
-		private readonly Action _disposalAction;
-
-		/// <summary>
-		/// The value that indicates whether the object is disposed.
-		/// </summary>
-		private int _isDisposed;
-
-		/// <summary>
-		/// Constructs a new disposable with the given action used for disposal.
-		/// </summary>
-		/// <param name="disposalAction">The disposal action.</param>
-		public AnonymousDisposable(Action disposalAction)
+		private sealed class AnonymousDisposable : IDisposable
 		{
-			this._disposalAction = disposalAction;
-		}
+			/// <summary>
+			/// The disposal action.
+			/// </summary>
+			private readonly Action _disposalAction;
 
-		/// <summary>
-		/// Calls the disposal action.
-		/// </summary>
-		public void Dispose()
-		{
-			if (Interlocked.Exchange(ref this._isDisposed, 1) == 0)
+			/// <summary>
+			/// The value that indicates whether the object is disposed.
+			/// </summary>
+			private int _isDisposed;
+
+			/// <summary>
+			/// Constructs a new disposable with the given action used for disposal.
+			/// </summary>
+			/// <param name="disposalAction">The disposal action.</param>
+			public AnonymousDisposable(Action disposalAction)
 			{
-				this._disposalAction();
+				this._disposalAction = disposalAction;
+			}
+
+			/// <summary>
+			/// Calls the disposal action.
+			/// </summary>
+			public void Dispose()
+			{
+				if (Interlocked.Exchange(ref this._isDisposed, 1) == 0)
+				{
+					this._disposalAction();
+				}
 			}
 		}
 	}

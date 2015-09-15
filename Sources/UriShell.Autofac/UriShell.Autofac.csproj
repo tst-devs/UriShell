@@ -114,7 +114,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutofacIndex.cs" />
     <Compile Include="Shell\Resolution\AutofacResolveSetupFactory.cs" />
     <Compile Include="Shell\AutofacViewModelViewMatcher.cs" />
     <Compile Include="UriShellModule.cs" />

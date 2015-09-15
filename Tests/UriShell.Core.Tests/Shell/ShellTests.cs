@@ -5,15 +5,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using NSubstitute;
 
-using UriShell.Collections;
 using UriShell.Shell.Registration;
 using UriShell.Shell.Resolution;
+using UriShell.Tests;
 
 namespace UriShell.Shell
 {
-	using Tests;
 	using ShellResolveFactory = Func<Uri, object[], IShellResolve>;
-	using UriModuleItemResolverIndex = IIndex<UriModuleItemResolverKey, IUriModuleItemResolver>;
 
 	[TestClass]
 	public class ShellTests
@@ -21,16 +19,9 @@ namespace UriShell.Shell
 		private IUriResolvedObjectHolder _uriResolvedObjectHolder;
 
 		private Shell CreateShell(
-			Func<UriModuleItemResolverIndex> uriModuleItemResolverIndexFactory = null,
 			ShellResolveFactory shellResolveFactory = null)
 		{
-			if (Settings.Instance == null)
-			{
-				Settings.Initialize(b => { b.Scheme = "tst"; });
-			}
-
 			return new Shell(
-				uriModuleItemResolverIndexFactory ?? Substitute.For<Func<UriModuleItemResolverIndex>>(),
 				this._uriResolvedObjectHolder,
 				shellResolveFactory ?? Substitute.For<ShellResolveFactory>());
 		}
@@ -38,10 +29,15 @@ namespace UriShell.Shell
 		[TestInitialize]
 		public void Initialize()
 		{
+			if (Settings.Instance == null)
+			{
+				Settings.Initialize(b => { b.Scheme = "tst"; });
+			}
+
 			this._uriResolvedObjectHolder = Substitute.For<IUriResolvedObjectHolder>();
 		}
 
-		[TestMethod]
+        [TestMethod]
 		public void ResolvesUriUsingShellResolveFactory()
 		{
 			Uri factoryUri = null;
@@ -127,24 +123,20 @@ namespace UriShell.Shell
 		[TestMethod]
 		public void ExposesUriModuleItemResolversInUriResolutionCustomization()
 		{
-			UriModuleItemResolverIndex uriModuleItemResolverIndex = null;
-			var uriModuleItemResolverIndex1 = Substitute.For<UriModuleItemResolverIndex>();
-			var uriModuleItemResolverIndex2 = Substitute.For<UriModuleItemResolverIndex>();
+			var shell = this.CreateShell();
+            var expectedResolver = Substitute.For<IUriModuleItemResolver>();
+            shell.AddUriModuleItemResolver(new UriModuleItemResolverKey("module", "item"), expectedResolver);
 
-			var factory = new Func<UriModuleItemResolverIndex>(() => uriModuleItemResolverIndex);
+            IUriModuleItemResolver actualResolver1 = null;
+            shell.ModuleItemResolvers.TryGetValue(new UriModuleItemResolverKey("othermodule", "otheritem"), out actualResolver1);
+            Assert.IsNull(actualResolver1);
 
-			var shell = this.CreateShell(uriModuleItemResolverIndexFactory: factory);
+            IUriModuleItemResolver actualResolver2 = null;
+            shell.ModuleItemResolvers.TryGetValue(new UriModuleItemResolverKey("module", "item"), out actualResolver2);
+            Assert.AreEqual(expectedResolver, actualResolver2);
+        }
 
-			uriModuleItemResolverIndex = uriModuleItemResolverIndex1;
-			var customizedUriModuleItemResolverIndex1 = shell.ModuleItemResolvers;
-			Assert.AreEqual(customizedUriModuleItemResolverIndex1, uriModuleItemResolverIndex1);
-
-			uriModuleItemResolverIndex = uriModuleItemResolverIndex2;
-			var customizedUriModuleItemResolverIndex2 = shell.ModuleItemResolvers;
-			Assert.AreEqual(customizedUriModuleItemResolverIndex2, uriModuleItemResolverIndex2);
-		}
-
-		[TestMethod]
+        [TestMethod]
 		public void ExposesUriPlacementResolversInUriResolutionCustomization()
 		{
 			var uriPlacementResolver1 = Substitute.For<IUriPlacementResolver>();

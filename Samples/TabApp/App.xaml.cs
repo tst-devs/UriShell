@@ -28,37 +28,44 @@ namespace UriShell.Samples.TabApp
 		{
 			base.OnStartup(e);
 
-			//this.RunUriShellManually();
+		    //this.RunUriShellManually();
 			this.RunUriShellWithDi();
 		}
 
 		public void RunUriShellWithDi()
 		{
-			//Settings.Initialize(b =>
-			//{
-			//	b.Scheme = "tabapp";
-			//});
+			Settings.Initialize(b =>
+			{
+				b.Scheme = "tabapp";
+			});
 
 			var builder = new ContainerBuilder();
+
+			builder.RegisterModule<UriShellModule>();
 
 			builder.RegisterType<MainWindowViewModel>()
 				.As<IUriPlacementResolver>()
 				.As<MainWindowViewModel>();
 			builder.RegisterType<MainWindow>();
 
-			builder.RegisterType<SquareViewModel>();
-			builder.RegisterType<SquareView>();
-			builder.RegisterType<CircleViewModel>();
-			builder.RegisterType<CircleView>();
-			builder
-				.RegisterType<SquareItemResolver>()
-				.Keyed<IUriModuleItemResolver>(new UriModuleItemResolverKey("main", "square"));
-			builder
-				.RegisterType<CircleItemResolver>()
-				.Keyed<IUriModuleItemResolver>(new UriModuleItemResolverKey("main", "circle"));
-			builder.RegisterModule<UriShellModule>();
-
 			this.Container = builder.Build();
+
+			var moduleContainer = this.Container.BeginLifetimeScope(b =>
+			{
+				b.RegisterType<SquareViewModel>();
+				b.RegisterType<SquareView>();
+				b.RegisterType<CircleViewModel>();
+				b.RegisterType<CircleView>();
+			});
+
+            var matcher = moduleContainer.Resolve<AutofacViewModelViewMatcher>();
+            matcher.AddContainer(moduleContainer);
+
+			var shell = moduleContainer.Resolve<IShell>();
+			shell.AddUriModuleItemResolver(new UriModuleItemResolverKey("main", "square"),
+				new SquareItemResolver(moduleContainer.Resolve<Func<SquareViewModel>>()));
+			shell.AddUriModuleItemResolver(new UriModuleItemResolverKey("main", "circle"),
+				new CircleItemResolver(moduleContainer.Resolve<Func<CircleViewModel>>()));
 
 			this.Container.Resolve<MainWindow>().Show();			
 		}
@@ -83,10 +90,15 @@ namespace UriShell.Samples.TabApp
 			resolvers.Add(new UriModuleItemResolverKey("main", "square"), new SquareItemResolver(() => new SquareViewModel(this.Shell)));
 			resolvers.Add(new UriModuleItemResolverKey("main", "circle"), new CircleItemResolver(() => new CircleViewModel(this.Shell)));
 
-			this.Shell = new Shell(
-				() => new DictionaryIndex<UriModuleItemResolverKey, IUriModuleItemResolver>(resolvers),
-				holder,
-				shellResolveFactory);
+			this.Shell = new Shell(holder, shellResolveFactory);
+
+			this.Shell.AddUriModuleItemResolver(
+				new UriModuleItemResolverKey("main", "square"), 
+				new SquareItemResolver(() => new SquareViewModel(this.Shell)));
+
+			this.Shell.AddUriModuleItemResolver(
+				new UriModuleItemResolverKey("main", "circle"), 
+				new CircleItemResolver(() => new CircleViewModel(this.Shell)));
 
 			var viewModel = new MainWindowViewModel(() => new ItemsPlacementConnector(viewModelViewMatcher, connectedDragDrop), this.Shell);
 			var view = new MainWindow(viewModel);

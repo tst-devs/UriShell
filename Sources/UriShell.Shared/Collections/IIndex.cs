@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace UriShell.Collections
+﻿namespace UriShell.Collections
 {
 	/// <summary>
 	/// Provides readonly access to a value by a key.

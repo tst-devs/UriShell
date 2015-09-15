@@ -13,6 +13,12 @@ namespace UriShell.Shell
 			Contract.Requires<ArgumentNullException>(uriPlacementResolver != null);
 		}
 
+		public void AddUriModuleItemResolver(UriModuleItemResolverKey key, IUriModuleItemResolver uriModuleItemResolver)
+		{
+			Contract.Requires<ArgumentNullException>(key != null);
+			Contract.Requires<ArgumentNullException>(uriModuleItemResolver != null);
+		}
+
 		public IShellResolve Resolve(Uri uri, params object[] attachments)
 		{
 			Contract.Requires<ArgumentNullException>(uri != null);

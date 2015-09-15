@@ -41,14 +41,6 @@ namespace UriShell.Autofac
 				.RegisterType<UriShell.Shell.Shell>()
 				.As<IShell>()
 				.As<IUriResolutionCustomization>()
-				.WithParameter(
-					(pi, c) => pi.ParameterType == typeof(Func<UriShellUriModuleItemResolverIndex>),
-					(pi, c) => 
-						{
-							var autofacIndexFactory = c.Resolve<Func<AutofacUriModuleItemResolverIndex>>()();
-							return new Func<UriShellUriModuleItemResolverIndex>(() => new AutofacIndexWrapper<UriModuleItemResolverKey, IUriModuleItemResolver>(autofacIndexFactory));
-							/*UriShellModule.ResolveFactoryIncludingModules<UriModuleItemResolverIndex>(c)*/
-						})
 				//.OnActivated(ShellModule.OnShellActivated)
 				.SingleInstance();
 
@@ -84,6 +76,7 @@ namespace UriShell.Autofac
 			builder
 				.RegisterType<AutofacViewModelViewMatcher>()
 				.As<IViewModelViewMatcher>()
+				.As<AutofacViewModelViewMatcher>()
 				.SingleInstance();
 
 			builder
@@ -116,31 +109,5 @@ namespace UriShell.Autofac
 				e.Instance.AddUriPlacementResolver(placementResolver);
 			}
 		}
-
-		///// <summary>
-		///// Creates the factory of an object of the given type that opens access to registrations 
-		///// of pluggable modules.
-		///// </summary>
-		///// <typeparam name="T">The type of an object created by the factory.</typeparam>
-		///// <param name="coreContainer">The core dependency injection container.</param>
-		///// <returns>The factory of an object of the given type.</returns>
-		//private static Func<T> ResolveFactoryIncludingModules<T>(IComponentContext coreContainer)
-		//{
-		//	var diContainer = coreContainer.Resolve<IComponentContext>(); // Autofac claim.
-
-		//	return () =>
-		//	{
-		//		// The core container doen't have access to registrations of pluggable modules.
-		//		// Hence their components are invisible. 
-		//		// We can reach them only via IModuleLoader.
-		//		var moduleLoader = diContainer.Resolve<IModuleLoader>();
-		//		if (moduleLoader.ModuleContainer != null)
-		//		{
-		//			diContainer = moduleLoader.ModuleContainer;
-		//		}
-
-		//		return diContainer.Resolve<T>();
-		//	};
-		//}
     }
 }

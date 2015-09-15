@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics.Contracts;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 using UriShell.Collections;
@@ -38,26 +39,23 @@ namespace UriShell.Shell
 		/// The list of services for looking for object's placement by a URI.
 		/// </summary>
 		private readonly WeakBucket<IUriPlacementResolver> _uriPlacementResolvers = new WeakBucket<IUriPlacementResolver>();
-		
-		/// <summary>
-		/// The factory of the list of services responsible for creating an object by a URI.
-		/// </summary>
-		private readonly Func<UriModuleItemResolverIndex> _uriModuleItemResolversFactory;
+
+        /// <summary>
+        /// The dictionary of object's resolvers stored by the key.
+        /// </summary>
+		private readonly Dictionary<UriModuleItemResolverKey, IUriModuleItemResolver> _uriModuleItemResolvers = new Dictionary<UriModuleItemResolverKey, IUriModuleItemResolver>();
 
 		/// <summary>
 		/// Initializes a new instance of the class <see cref="Shell"/>.
 		/// </summary>
-		/// <param name="uriModuleItemResolversFactory">The factory of the list of services responsible for creating an object by a URI.</param>
 		/// <param name="uriResolvedObjectHolder">The holder for objects opened by the shell via a URI.</param>
 		/// <param name="shellResolveFactory">The factory of an object responsible for URI's resolution beginning.</param>
 		public Shell(
-			Func<UriModuleItemResolverIndex> uriModuleItemResolversFactory,
 			IUriResolvedObjectHolder uriResolvedObjectHolder,
 			ShellResolveFactory shellResolveFactory)
 		{
 			Contract.Requires<ArgumentNullException>(shellResolveFactory != null);
 			Contract.Requires<ArgumentNullException>(uriResolvedObjectHolder != null);
-			Contract.Requires<ArgumentNullException>(uriModuleItemResolversFactory != null);
 
 			// If user hasn't specified settings, initialize with defaults.
 			if (Settings.Instance == null)
@@ -67,7 +65,6 @@ namespace UriShell.Shell
 
 			this._shellResolveFactory = shellResolveFactory;
 			this._uriResolvedObjectHolder = uriResolvedObjectHolder;
-			this._uriModuleItemResolversFactory = uriModuleItemResolversFactory;
 		}
 
 		/// <summary>
@@ -78,11 +75,9 @@ namespace UriShell.Shell
 		{
 			get
 			{
-				return this._uriModuleItemResolversFactory();
+				return new DictionaryIndex<UriModuleItemResolverKey, IUriModuleItemResolver>(this._uriModuleItemResolvers);
 			}
 		}
-
-		
 
 		/// <summary>
 		/// Gets the list of services for looking for object's placement by a URI.
@@ -103,6 +98,16 @@ namespace UriShell.Shell
 		public void AddUriPlacementResolver(IUriPlacementResolver uriPlacementResolver)
 		{
 			this._uriPlacementResolvers.Add(uriPlacementResolver);
+		}
+
+		/// <summary>
+		/// Adds the given <see cref="IUriModuleItemResolver"/> as an object resolver by the given key.
+		/// </summary>
+		/// <param name="key">Key for access to the <see cref="IUriModuleItemResolver"/> being added.</param>
+		/// <param name="uriModuleItemResolver">The <see cref="IUriModuleItemResolver"/> being added.</param>
+		public void AddUriModuleItemResolver(UriModuleItemResolverKey key, IUriModuleItemResolver uriModuleItemResolver)
+		{
+			this._uriModuleItemResolvers.Add(key, uriModuleItemResolver);
 		}
 
 		/// <summary>
@@ -207,11 +212,5 @@ namespace UriShell.Shell
 
 			return new ShellHyperlink(uri, title, icon);
 		}
-	}
-
-#warning Change to default Uri Provider
-	internal interface ISecurityService
-	{
-
 	}
 }

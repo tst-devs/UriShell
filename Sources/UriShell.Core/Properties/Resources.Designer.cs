@@ -61,7 +61,7 @@ namespace UriShell.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Настройка объекта, полученного через URI &quot;{0}&quot;, уже задана..
+        ///   Looks up a localized string similar to Setup of the object, resolved by  URI &quot;{0}&quot;, has been already done..
         /// </summary>
         internal static string AttemptToOverwriteShellResolveSetupPlayer {
             get {
@@ -79,7 +79,7 @@ namespace UriShell.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Превышено возможное количество открытых URI..
+        ///   Looks up a localized string similar to Exceeded amount of URI, that could be opened..
         /// </summary>
         internal static string NoAvailableUriResolutionId {
             get {
@@ -88,7 +88,7 @@ namespace UriShell.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ошибка при открытии файла &apos;{0}&apos;: {1}.
+        ///   Looks up a localized string similar to Error while opening the file &apos;{0}&apos;: {1}.
         /// </summary>
         internal static string OpenExternalFileError {
             get {
@@ -97,7 +97,7 @@ namespace UriShell.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Открыт URI &quot;{0}&quot;.
+        ///   Looks up a localized string similar to URI &quot;{0}&quot; has been opened..
         /// </summary>
         internal static string ShellResolveOpenComplete {
             get {
@@ -106,7 +106,7 @@ namespace UriShell.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Настройка для объекта, полученного через URI &quot;{0}&quot;, не была вызвана из-за несовместимости типов. Ожидалось {1}, а получено {2}..
+        ///   Looks up a localized string similar to Setup of the object , resolved via URI &quot;{0}&quot;, wasn&apos;t called due to type mismatch. Expected {1}, actual {2}..
         /// </summary>
         internal static string ShellResolveSetupAbortedDueToIncompatibility {
             get {
@@ -115,7 +115,7 @@ namespace UriShell.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Обнаружена попытка задать null в качестве настройки к URI &quot;{0}&quot;..
+        ///   Looks up a localized string similar to Can&apos;t set null as setup action of URI &quot;{0}&quot;..
         /// </summary>
         internal static string ShellResolveSetupPlayerCannotBeNull {
             get {
@@ -142,7 +142,7 @@ namespace UriShell.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Невозможно выполнить действие над {0}, т.к. объект сейчас занят..
+        ///   Looks up a localized string similar to Can&apos;t perform action on {0}, because the object is busy..
         /// </summary>
         internal static string UnableToBeginChangePlacementConnector {
             get {
@@ -151,7 +151,7 @@ namespace UriShell.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Невозможно разрешить URI, т.к. соответствующий {0} не зарегистрирован..
+        ///   Looks up a localized string similar to Can&apos;t resolve URI, because a proper resolver {0} has not been registered..
         /// </summary>
         internal static string UriModuleItemResolverNotFound {
             get {
@@ -160,7 +160,7 @@ namespace UriShell.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Невозможно выполнить размещение объекта, т.к. ни один доступный {0} не принял URI..
+        ///   Looks up a localized string similar to Can&apos;t place a resolved object, because no one available {0} accepted URI..
         /// </summary>
         internal static string UriPlacementNotFound {
             get {
@@ -169,7 +169,7 @@ namespace UriShell.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Нет записи объекта {0} на отсоединение от пользовательского интерфейса..
+        ///   Looks up a localized string similar to Entry for disconnection of the object {0} hasn&apos;t been found..
         /// </summary>
         internal static string UriResolvedNotRegisteredForDisconnect {
             get {
@@ -178,7 +178,7 @@ namespace UriShell.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Объект {0} уже содержится в {1}..
+        ///   Looks up a localized string similar to Object {0} already exists in {1}..
         /// </summary>
         internal static string UriResolvedObjectAlreadyExists {
             get {
@@ -187,7 +187,7 @@ namespace UriShell.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Объект {0} не содержится в {1}..
+        ///   Looks up a localized string similar to Object {0} doesn&apos;t exist {1}..
         /// </summary>
         internal static string UriResolvedObjectDoesntExist {
             get {
@@ -196,7 +196,7 @@ namespace UriShell.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Объект с идентификатором {0} не содержится в {1}..
+        ///   Looks up a localized string similar to Object with ID {0} doesn&apos;t exist in  {1}..
         /// </summary>
         internal static string UriResolvedObjectIdDoesntExist {
             get {

@@ -5,28 +5,31 @@ using System.Text;
 
 namespace UriShell.Disposables
 {
-	/// <summary>
-	/// Represents a disposable that does nothing on disposal.
-	/// </summary>
-	internal sealed class DefaultDisposable : IDisposable
+	partial class Disposable
 	{
 		/// <summary>
-		/// Singleton default disposable.
+		/// Represents a disposable that does nothing on disposal.
 		/// </summary>
-		public static readonly DefaultDisposable Instance = new DefaultDisposable();
-		
-		/// <summary>
-		/// Initializes a new instance of the class <see cref="DefaultDisposable"/>.
-		/// </summary>
-		private DefaultDisposable()
+		private sealed class DefaultDisposable : IDisposable
 		{
-		}
+			/// <summary>
+			/// Singleton default disposable.
+			/// </summary>
+			public static readonly DefaultDisposable Instance = new DefaultDisposable();
 
-		/// <summary>
-		/// Does nothing.
-		/// </summary>
-		public void Dispose()
-		{
+			/// <summary>
+			/// Initializes a new instance of the class <see cref="DefaultDisposable"/>.
+			/// </summary>
+			private DefaultDisposable()
+			{
+			}
+
+			/// <summary>
+			/// Does nothing.
+			/// </summary>
+			public void Dispose()
+			{
+			}
 		}
 	}
 }

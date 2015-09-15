@@ -8,7 +8,7 @@ namespace UriShell.Disposables
 	/// <summary>
 	/// Provides a set of static methods for creating Disposables.
 	/// </summary>
-	internal static class Disposable
+	internal static partial class Disposable
 	{
 		/// <summary>
 		/// Gets the disposable that does nothing when disposed.

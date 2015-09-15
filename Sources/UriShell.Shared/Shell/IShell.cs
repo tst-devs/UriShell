@@ -18,6 +18,13 @@ namespace UriShell.Shell
 		void AddUriPlacementResolver(IUriPlacementResolver uriPlacementResolver);
 
 		/// <summary>
+		/// Adds the given <see cref="IUriModuleItemResolver"/> as an object resolver by the given key.
+		/// </summary>
+		/// <param name="key">Key for access to the <see cref="IUriModuleItemResolver"/> being added.</param>
+		/// <param name="uriModuleItemResolver">The <see cref="IUriModuleItemResolver"/> being added.</param>
+		void AddUriModuleItemResolver(UriModuleItemResolverKey key, IUriModuleItemResolver uriModuleItemResolver);
+
+		/// <summary>
 		/// Starts an opening flow of the given URI.
 		/// </summary>
 		/// <param name="uri">The URI to be opened.</param>
@@ -65,10 +72,10 @@ namespace UriShell.Shell
 		ShellHyperlink TryParseHyperlink(string hyperlink, int ownerId);
 
 		/// <summary>
-		/// Creates a hyperlink for openening of the given <see cref="Uri"/>.
+		/// Creates a hyperlink for opening of the given <see cref="Uri"/>.
 		/// </summary>
 		/// <param name="uri">The URI, for which a hyperlink is created.</param>
-		/// <returns>The hyperlink created for openening of the given <see cref="Uri"/>.</returns>
+		/// <returns>The hyperlink created for opening of the given <see cref="Uri"/>.</returns>
 		[Pure]
 		ShellHyperlink CreateHyperlink(Uri uri);
 	}

@@ -118,43 +118,40 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="UriModuleItemResolverNotFound" xml:space="preserve">
-    <value>Невозможно разрешить URI, т.к. соответствующий {0} не зарегистрирован.</value>
+    <value>Can't resolve URI, because a proper resolver {0} has not been registered.</value>
   </data>
   <data name="UriPlacementNotFound" xml:space="preserve">
-    <value>Невозможно выполнить размещение объекта, т.к. ни один доступный {0} не принял URI.</value>
+    <value>Can't place a resolved object, because no one available {0} accepted URI.</value>
   </data>
   <data name="ShellResolveSetupAbortedDueToIncompatibility" xml:space="preserve">
-    <value>Настройка для объекта, полученного через URI "{0}", не была вызвана из-за несовместимости типов. Ожидалось {1}, а получено {2}.</value>
+    <value>Setup of the object , resolved via URI "{0}", wasn't called due to type mismatch. Expected {1}, actual {2}.</value>
   </data>
   <data name="NoAvailableUriResolutionId" xml:space="preserve">
-    <value>Превышено возможное количество открытых URI.</value>
+    <value>Exceeded amount of URI, that could be opened.</value>
   </data>
   <data name="UriResolvedObjectAlreadyExists" xml:space="preserve">
-    <value>Объект {0} уже содержится в {1}.</value>
+    <value>Object {0} already exists in {1}.</value>
   </data>
   <data name="UriResolvedObjectDoesntExist" xml:space="preserve">
-    <value>Объект {0} не содержится в {1}.</value>
+    <value>Object {0} doesn't exist {1}.</value>
   </data>
   <data name="UriResolvedObjectIdDoesntExist" xml:space="preserve">
-    <value>Объект с идентификатором {0} не содержится в {1}.</value>
+    <value>Object with ID {0} doesn't exist in  {1}.</value>
   </data>
   <data name="AttemptToOverwriteShellResolveSetupPlayer" xml:space="preserve">
-    <value>Настройка объекта, полученного через URI "{0}", уже задана.</value>
+    <value>Setup of the object, resolved by  URI "{0}", has been already done.</value>
   </data>
   <data name="ShellResolveSetupPlayerCannotBeNull" xml:space="preserve">
-    <value>Обнаружена попытка задать null в качестве настройки к URI "{0}".</value>
+    <value>Can't set null as setup action of URI "{0}".</value>
   </data>
   <data name="ShellResolveOpenComplete" xml:space="preserve">
-    <value>Открыт URI "{0}"</value>
+    <value>URI "{0}" has been opened.</value>
   </data>
   <data name="UnableToBeginChangePlacementConnector" xml:space="preserve">
-    <value>Невозможно выполнить действие над {0}, т.к. объект сейчас занят.</value>
-  </data>
-  <data name="OpenExternalFileError" xml:space="preserve">
-    <value>Ошибка при открытии файла '{0}': {1}</value>
+    <value>Can't perform action on {0}, because the object is busy.</value>
   </data>
   <data name="UriResolvedNotRegisteredForDisconnect" xml:space="preserve">
-    <value>Нет записи объекта {0} на отсоединение от пользовательского интерфейса.</value>
+    <value>Entry for disconnection of the object {0} hasn't been found.</value>
   </data>
   <data name="SidebarPlacementConnectorDoesntSupportDragDrop" xml:space="preserve">
     <value>Перетаскивание на поддерживается в {0}.</value>
@@ -164,5 +161,8 @@
   </data>
   <data name="InvalidIconUri" xml:space="preserve">
     <value>Icon URI '{0}' must be absolute.</value>
+  </data>
+  <data name="OpenExternalFileError" xml:space="preserve">
+    <value>Error while opening the file '{0}': {1}</value>
   </data>
 </root>

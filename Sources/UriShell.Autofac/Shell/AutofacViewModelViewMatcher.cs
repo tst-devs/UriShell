@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 
@@ -14,9 +15,14 @@ namespace UriShell.Shell
 	public sealed class AutofacViewModelViewMatcher : IViewModelViewMatcher
 	{
 		/// <summary>
-		/// Autofac dependency injection container.
+		/// Autofac main dependency injection container.
 		/// </summary>
 		private readonly IComponentContext _coreContainer;
+
+        /// <summary>
+        /// Autofac additional dependency injection containers.
+        /// </summary>
+		private readonly List<IComponentContext> _moduleContainers = new List<IComponentContext>();
 
 		/// <summary>
 		/// Initializes a new instance of the class <see cref="AutofacViewModelViewMatcher"/>.
@@ -37,23 +43,26 @@ namespace UriShell.Shell
 		/// otherwise null.</returns>
 		public IViewModelViewMatch Match(object viewModel)
 		{
-			var matchFromCore = AutofacViewModelViewMatcher.Match(viewModel, this._coreContainer);
-			if (matchFromCore != null)
+			var containers = Enumerable.Concat(
+				Enumerable.Repeat(this._coreContainer, 1), 
+				this._moduleContainers);
+
+			foreach (var container in containers)
 			{
-				return matchFromCore;
+				var match = AutofacViewModelViewMatcher.Match(viewModel, container);
+				if (match != null)
+				{
+					return match;
+				}
 			}
 
-#warning Add Module Loader facade or maybe there should be only container handling
-//            var moduleLoader = this._coreContainer.Resolve<IModuleLoader>();
-//            if (moduleLoader == null)
-//            {
-//                return null;
-//            }
-
-            //return ViewModelViewMatcher.Match(viewModel, moduleLoader.ModuleContainer);
-
-            return null;
+			return null;
 		}
+
+        public void AddContainer(IComponentContext container)
+        {
+            this._moduleContainers.Add(container);
+        }
 
 		/// <summary>
 		/// Looks for an object implementing a view for the given view model 
