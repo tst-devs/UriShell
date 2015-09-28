@@ -117,6 +117,7 @@ Global
 		{7B26E956-626E-486E-B0B9-2F64F7665F55}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{7B26E956-626E-486E-B0B9-2F64F7665F55}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{7B26E956-626E-486E-B0B9-2F64F7665F55}.Release|x86.ActiveCfg = Release|Any CPU
+		{7B26E956-626E-486E-B0B9-2F64F7665F55}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

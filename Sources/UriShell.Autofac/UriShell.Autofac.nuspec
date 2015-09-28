@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>UriShell.Autofac</id>
+    <version>1.0.0</version>
+    <title>Injects UriShell objects in the Autofac dependency injection container.</title>
+    <authors>Alex Zhevzhyk, Marat Khasanov</authors>
+    <owners>Alex Zhevzhyk, Marat Khasanov</owners>
+    <licenseUrl></licenseUrl>
+    <projectUrl>https://github.com/tst-devs/UriShell</projectUrl>
+    <iconUrl></iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Provides classes for easier use of UriShell with Autofac dependency injection container.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags></tags>
+  </metadata>
+</package>

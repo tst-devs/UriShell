@@ -17,11 +17,11 @@ namespace UriShell.Collections
 		/// </summary>
 		private readonly Dictionary<TKey, TValue> _source;
 
-		/// <summary>
-		/// Initializes a new instance of the class <see cref="DictionaryIndex"/>.
-		/// </summary>
-		/// <param name="source">The underlying dictionary.</param>
-		public DictionaryIndex(Dictionary<TKey, TValue> source)
+        /// <summary>
+        /// Initializes a new instance of the class <see cref="DictionaryIndex{TKey, TValue}"/>.
+        /// </summary>
+        /// <param name="source">The underlying dictionary.</param>
+        public DictionaryIndex(Dictionary<TKey, TValue> source)
 		{
 			Contract.Requires<ArgumentNullException>(source != null);
 

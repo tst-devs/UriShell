@@ -84,7 +84,7 @@ namespace UriShell.Shell.Resolution
 
 		/// <summary>
 		/// Allows to setup an object resolved from a URI 
-		/// if its type is compatible with <typeparamref name="T"/>.
+		/// if its type is compatible with <typeparamref name="TResolved"/>.
 		/// </summary>
 		/// <typeparam name="TResolved">The object's type expected from a URI.</typeparam>
 		/// <returns>The service for object's setup.</returns>

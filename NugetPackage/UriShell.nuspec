@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>UriShell</id>
+    <version>1.0.0</version>
+    <title>UriShell framework.</title>
+    <authors>Alexander Zhevzhyk, Marat Khasanov</authors>
+    <owners>Alexander Zhevzhyk, Marat Khasanov</owners>
+    <!--<licenseUrl></licenseUrl>-->
+    <projectUrl>https://github.com/tst-devs/UriShell</projectUrl>
+    <!--<iconUrl></iconUrl>-->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A lightweight framework for resolving and placing views in the application by URI.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>.NET, WPF</tags>
+  </metadata>
+  <files>
+    <file src="..\Sources\UriShell.Shared\bin\Release\UriShell.Shared.dll" target="lib" />
+    <file src="..\Sources\UriShell.Shared\bin\Release\UriShell.Shared.xml" target="lib" />
+    <file src="..\Sources\UriShell.Core\bin\Release\UriShell.Core.dll" target="lib" />
+    <file src="..\Sources\UriShell.Core\bin\Release\UriShell.Core.xml" target="lib" />
+    <file src="..\Sources\UriShell.Autofac\bin\Release\UriShell.Autofac.dll" target="lib" />
+    <file src="..\Sources\UriShell.Autofac\bin\Release\UriShell.Autofac.xml" target="lib" />
+  </files>
+</package>

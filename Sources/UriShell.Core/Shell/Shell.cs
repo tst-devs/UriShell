@@ -45,12 +45,17 @@ namespace UriShell.Shell
         /// </summary>
 		private readonly Dictionary<UriModuleItemResolverKey, IUriModuleItemResolver> _uriModuleItemResolvers = new Dictionary<UriModuleItemResolverKey, IUriModuleItemResolver>();
 
-		/// <summary>
-		/// Initializes a new instance of the class <see cref="Shell"/>.
-		/// </summary>
-		/// <param name="uriResolvedObjectHolder">The holder for objects opened by the shell via a URI.</param>
-		/// <param name="shellResolveFactory">The factory of an object responsible for URI's resolution beginning.</param>
-		public Shell(
+        /// <summary>
+        /// Словарь обновленных <see cref="Uri"/> для открытых объектов.
+        /// </summary>
+        private readonly Dictionary<object, Uri> _updatedUris = new Dictionary<object, Uri>();
+
+        /// <summary>
+        /// Initializes a new instance of the class <see cref="Shell"/>.
+        /// </summary>
+        /// <param name="uriResolvedObjectHolder">The holder for objects opened by the shell via a URI.</param>
+        /// <param name="shellResolveFactory">The factory of an object responsible for URI's resolution beginning.</param>
+        public Shell(
 			IUriResolvedObjectHolder uriResolvedObjectHolder,
 			ShellResolveFactory shellResolveFactory)
 		{
@@ -148,7 +153,13 @@ namespace UriShell.Shell
 		/// <returns>The URI of the given opened object.</returns>
 		public Uri GetResolvedUri(object resolved)
 		{
-			return this._uriResolvedObjectHolder.GetMetadata(resolved).Uri;
+            Uri updatedUri;
+            if (this._updatedUris.TryGetValue(resolved, out updatedUri))
+            {
+                return updatedUri;
+            }
+
+            return this._uriResolvedObjectHolder.GetMetadata(resolved).Uri;
 		}
 
 		/// <summary>
@@ -157,7 +168,8 @@ namespace UriShell.Shell
 		/// <param name="resolved">The resolved object to be closed.</param>
 		public void CloseResolved(object resolved)
 		{
-			this._uriResolvedObjectHolder.GetMetadata(resolved).Disposable.Dispose();
+            this._updatedUris.Remove(resolved);
+            this._uriResolvedObjectHolder.GetMetadata(resolved).Disposable.Dispose();
 		}
 
 		/// <summary>
@@ -212,5 +224,15 @@ namespace UriShell.Shell
 
 			return new ShellHyperlink(uri, title, icon);
 		}
-	}
+
+        /// <summary>
+        /// Updates <see cref="Uri"/> of the given resolved object. 
+        /// </summary>
+        /// <param name="resolved">The object, whose <see cref="Uri"/> needs to be updated.</param>
+        /// <param name="newUri">The new <see cref="Uri"/> for the given resolved object.</param>
+        public void UpdateResolvedUri(object resolved, Uri newUri)
+        {
+            this._updatedUris[resolved] = newUri;
+        }
+    }
 }

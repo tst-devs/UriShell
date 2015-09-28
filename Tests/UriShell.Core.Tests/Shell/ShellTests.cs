@@ -278,5 +278,21 @@ namespace UriShell.Shell
 			ExceptionAssert.Throws<ArgumentException>(
 				() => shell.CreateHyperlink(uri));
 		}
-	}
+
+        [TestMethod]
+        public void UpdatesResolvedUri()
+        {
+            var resolved = new object();
+            var metadata = new UriResolvedMetadata(new Uri("tst://tab/module/item"), null);
+
+            this._uriResolvedObjectHolder.Contains(resolved).Returns(true);
+            this._uriResolvedObjectHolder.GetMetadata(resolved).Returns(metadata);
+
+            var shell = this.CreateShell();
+            var newUri = new Uri("tst://tab/module/item?param=1");
+            shell.UpdateResolvedUri(resolved, newUri);
+
+            Assert.AreEqual(newUri, shell.GetResolvedUri(resolved));
+        }
+    }
 }

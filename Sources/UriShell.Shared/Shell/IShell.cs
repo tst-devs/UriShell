@@ -78,5 +78,12 @@ namespace UriShell.Shell
 		/// <returns>The hyperlink created for opening of the given <see cref="Uri"/>.</returns>
 		[Pure]
 		ShellHyperlink CreateHyperlink(Uri uri);
-	}
+
+        /// <summary>
+        /// Updates <see cref="Uri"/> of the given resolved object. 
+        /// </summary>
+        /// <param name="resolved">The object, whose <see cref="Uri"/> needs to be updated.</param>
+        /// <param name="newUri">The new <see cref="Uri"/> for the given resolved object.</param>
+        void UpdateResolvedUri(object resolved, Uri newUri);
+    }
 }

@@ -79,5 +79,13 @@ namespace UriShell.Shell
 			Contract.Ensures(Contract.Result<ShellHyperlink>() != null);
 			return default(ShellHyperlink);
 		}
-	}
+
+        public void UpdateResolvedUri(object resolved, Uri newUri)
+        {
+            Contract.Requires<ArgumentNullException>(resolved != null);
+            Contract.Requires<ArgumentNullException>(newUri != null);
+
+            Contract.Requires<ArgumentException>(this.IsResolvedOpen(resolved));
+        }
+    }
 }
