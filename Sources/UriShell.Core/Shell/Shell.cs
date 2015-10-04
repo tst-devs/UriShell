@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Diagnostics.Contracts;
-using System.Linq;
 using System.Text.RegularExpressions;
 
 using UriShell.Collections;
@@ -13,7 +11,6 @@ using UriShell.Shell.Resolution;
 namespace UriShell.Shell
 {
 	using ShellResolveFactory = Func<Uri, object[], IShellResolve>;
-	using UriModuleItemResolverIndex = IIndex<UriModuleItemResolverKey, IUriModuleItemResolver>;
 
 	/// <summary>
 	/// Implementation of the application shell <see cref="IShell"/>.
@@ -46,7 +43,7 @@ namespace UriShell.Shell
 		private readonly Dictionary<UriModuleItemResolverKey, IUriModuleItemResolver> _uriModuleItemResolvers = new Dictionary<UriModuleItemResolverKey, IUriModuleItemResolver>();
 
         /// <summary>
-        /// Словарь обновленных <see cref="Uri"/> для открытых объектов.
+        /// The dictionary with updated <see cref="Uri"/> for resolved objects.
         /// </summary>
         private readonly Dictionary<object, Uri> _updatedUris = new Dictionary<object, Uri>();
 
