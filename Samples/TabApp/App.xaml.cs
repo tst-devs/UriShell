@@ -24,8 +24,8 @@ namespace UriShell.Samples.TabApp
 		{
 			base.OnStartup(e);
 
-		    //this.RunUriShellManually();
-			this.RunUriShellWithDi();
+		    this.RunUriShellManually();
+			//this.RunUriShellWithDi();
 		}
 
 		public void RunUriShellWithDi()
