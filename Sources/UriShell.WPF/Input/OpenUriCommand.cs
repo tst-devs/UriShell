@@ -10,7 +10,6 @@ namespace UriShell.Input
 	/// <summary>
 	/// Implements the command for the given URI's opening.
 	/// </summary>
-	[Obsolete("ICommand requires the PresentationCore assembly -> It can't be used separately from WPF. ")]
 	public sealed class OpenUriCommand : ICommand
 	{
 		/// <summary>

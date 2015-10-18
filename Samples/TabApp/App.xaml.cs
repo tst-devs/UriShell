@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Reflection;
 using System.Windows;
 
 using Autofac;
 
 using UriShell.Autofac;
-using UriShell.Collections;
 using UriShell.Samples.TabApp.Figures;
 using UriShell.Shell;
 using UriShell.Shell.Resolution;
@@ -20,6 +15,7 @@ using UriShell.Samples.TabApp.UriShellPrerequisites;
 
 namespace UriShell.Samples.TabApp
 {
+	using UriShell.Input;
 	using Shell = UriShell.Shell.Shell;
 
 	public partial class App : Application
@@ -42,6 +38,14 @@ namespace UriShell.Samples.TabApp
 			var builder = new ContainerBuilder();
 
 			builder.RegisterModule<UriShellModule>();
+
+			builder
+				.RegisterType<OpenUriCommand>()
+				.SingleInstance();
+
+			builder
+				.RegisterType<ItemsPlacementConnector>()
+				.As<IItemsPlacementConnector>();
 
 			builder.RegisterType<MainWindowViewModel>()
 				.As<IUriPlacementResolver>()

@@ -37,6 +37,24 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac">
       <HintPath>..\..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
@@ -70,18 +88,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Input\OpenUriCommandTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shell\Connectors\ConnectedDragDropTests.cs" />
-    <Compile Include="Shell\Connectors\ItemsPlacementConnectorTests.cs" />
     <Compile Include="Shell\Resolution\ResolveSetupTests.cs" />
     <Compile Include="Shell\Resolution\ResolveOpenTests.cs" />
     <Compile Include="Shell\Resolution\UriDisconnectTableTests.cs" />
     <Compile Include="Shell\Resolution\UriResolvedMetadataTests.cs" />
     <Compile Include="Shell\ShellTests.cs" />
     <Compile Include="Shell\Resolution\UriResolvedObjectHolderTests.cs" />
-    <Compile Include="Shell\Connectors\SidebarActivityHistoryIdTests.cs" />
-    <Compile Include="Shell\Connectors\SidebarPlacementConnectorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Sources\UriShell.Core\UriShell.Core.csproj">

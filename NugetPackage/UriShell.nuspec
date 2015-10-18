@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>UriShell</id>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <title>UriShell framework.</title>
     <authors>Alexander Zhevzhyk, Marat Khasanov</authors>
     <owners>Alexander Zhevzhyk, Marat Khasanov</owners>
@@ -22,5 +22,7 @@
     <file src="..\Sources\UriShell.Core\bin\Release\UriShell.Core.xml" target="lib" />
     <file src="..\Sources\UriShell.Autofac\bin\Release\UriShell.Autofac.dll" target="lib" />
     <file src="..\Sources\UriShell.Autofac\bin\Release\UriShell.Autofac.xml" target="lib" />
+    <file src="..\Sources\UriShell.WPF\bin\Release\UriShell.WPF.dll" target="lib" />
+    <file src="..\Sources\UriShell.WPF\bin\Release\UriShell.WPF.xml" target="lib" />
   </files>
 </package>

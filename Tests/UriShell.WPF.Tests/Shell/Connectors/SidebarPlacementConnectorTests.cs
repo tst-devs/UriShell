@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
-using System.Reactive.Concurrency;
+//using System.Reactive.Concurrency;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -11,7 +11,7 @@ using NSubstitute;
 
 using UriShell.Shell;
 using UriShell.Shell.Connectors;
-using UriShell.Tests;
+//using UriShell.Tests;
 
 namespace UriShell.Shell.Connectors
 {

@@ -6,7 +6,6 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using NSubstitute;
-using UriShell.Shell.Resolution;
 
 namespace UriShell.Shell.Connectors
 {

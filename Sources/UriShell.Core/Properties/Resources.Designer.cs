@@ -142,15 +142,6 @@ namespace UriShell.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Can&apos;t perform action on {0}, because the object is busy..
-        /// </summary>
-        internal static string UnableToBeginChangePlacementConnector {
-            get {
-                return ResourceManager.GetString("UnableToBeginChangePlacementConnector", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Can&apos;t resolve URI, because a proper resolver {0} has not been registered..
         /// </summary>
         internal static string UriModuleItemResolverNotFound {

@@ -1,13 +1,8 @@
 ﻿using Autofac;
 using Autofac.Core;
-using Autofac.Features.Indexed;
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-using UriShell.Input;
 using UriShell.Shell;
 using UriShell.Shell.Connectors;
 using UriShell.Shell.Registration;
@@ -16,14 +11,10 @@ using UriShell.Shell.Resolution;
 
 namespace UriShell.Autofac
 {
-	using AutofacUriModuleItemResolverIndex = IIndex<UriModuleItemResolverKey, IUriModuleItemResolver>;
-
-	using UriShellUriModuleItemResolverIndex = UriShell.Collections.IIndex<UriModuleItemResolverKey, IUriModuleItemResolver>;
-
 	/// <summary>
-    /// The Autofac module that registers components of the UriShell library.
-    /// </summary>
-    public sealed class UriShellModule : Module
+	/// The Autofac module that registers components of the UriShell library.
+	/// </summary>
+	public sealed class UriShellModule : Module
     {
         /// <summary>
         /// Setup and adds components of the UriShell to the given <see cref="ContainerBuilder"/>.
@@ -31,9 +22,6 @@ namespace UriShell.Autofac
         /// <param name="builder">The target <see cref="ContainerBuilder"/>.</param>
         protected override void Load(ContainerBuilder builder)
         {
-            builder
-                .RegisterType<OpenUriCommand>()
-                .SingleInstance();
 
 #warning OnActivated and inner module resolution? 
 
@@ -78,10 +66,6 @@ namespace UriShell.Autofac
 				.As<IViewModelViewMatcher>()
 				.As<AutofacViewModelViewMatcher>()
 				.SingleInstance();
-
-			builder
-				.RegisterType<ItemsPlacementConnector>()
-				.As<IItemsPlacementConnector>();
 
 #warning Remove? 
 			//builder

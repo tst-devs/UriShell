@@ -117,49 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="UriModuleItemResolverNotFound" xml:space="preserve">
-    <value>Can't resolve URI, because a proper resolver {0} has not been registered.</value>
-  </data>
-  <data name="UriPlacementNotFound" xml:space="preserve">
-    <value>Can't place a resolved object, because no one available {0} accepted URI.</value>
-  </data>
-  <data name="ShellResolveSetupAbortedDueToIncompatibility" xml:space="preserve">
-    <value>Setup of the object , resolved via URI "{0}", wasn't called due to type mismatch. Expected {1}, actual {2}.</value>
-  </data>
-  <data name="NoAvailableUriResolutionId" xml:space="preserve">
-    <value>Exceeded amount of URI, that could be opened.</value>
-  </data>
-  <data name="UriResolvedObjectAlreadyExists" xml:space="preserve">
-    <value>Object {0} already exists in {1}.</value>
-  </data>
-  <data name="UriResolvedObjectDoesntExist" xml:space="preserve">
-    <value>Object {0} doesn't exist {1}.</value>
-  </data>
-  <data name="UriResolvedObjectIdDoesntExist" xml:space="preserve">
-    <value>Object with ID {0} doesn't exist in  {1}.</value>
-  </data>
-  <data name="AttemptToOverwriteShellResolveSetupPlayer" xml:space="preserve">
-    <value>Setup of the object, resolved by  URI "{0}", has been already done.</value>
-  </data>
-  <data name="ShellResolveSetupPlayerCannotBeNull" xml:space="preserve">
-    <value>Can't set null as setup action of URI "{0}".</value>
-  </data>
-  <data name="ShellResolveOpenComplete" xml:space="preserve">
-    <value>URI "{0}" has been opened.</value>
-  </data>
-  <data name="UriResolvedNotRegisteredForDisconnect" xml:space="preserve">
-    <value>Entry for disconnection of the object {0} hasn't been found.</value>
-  </data>
-  <data name="SidebarPlacementConnectorDoesntSupportDragDrop" xml:space="preserve">
-    <value>Перетаскивание на поддерживается в {0}.</value>
-  </data>
-  <data name="SidebarPlacementConnectorDoesntSupportMoveConnected" xml:space="preserve">
-    <value>{0} не поддерживает изменение индекса присоединенного объекта. Подобное действие нецелесообразно для SidebarView.</value>
-  </data>
-  <data name="InvalidIconUri" xml:space="preserve">
-    <value>Icon URI '{0}' must be absolute.</value>
-  </data>
-  <data name="OpenExternalFileError" xml:space="preserve">
-    <value>Error while opening the file '{0}': {1}</value>
+  <data name="UnableToBeginChangePlacementConnector" xml:space="preserve">
+    <value>Can't perform action on {0}, because the object is busy.</value>
   </data>
 </root>

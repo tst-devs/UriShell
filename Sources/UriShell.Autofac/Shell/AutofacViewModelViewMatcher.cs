@@ -59,7 +59,11 @@ namespace UriShell.Shell
 			return null;
 		}
 
-        public void AddContainer(IComponentContext container)
+		/// <summary>
+		/// Remembers the additional DI container, where this matcher will look for views. 
+		/// </summary>
+		/// <param name="container">The additional DI container, where this matcher will look for views. </param>
+		public void AddContainer(IComponentContext container)
         {
             this._moduleContainers.Add(container);
         }
