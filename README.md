@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/o0e1foptl96w9uob?svg=true)](https://ci.appveyor.com/project/a-vzhik/urishell)
+
 # UriShell
 
 UriShell is a lightweight, .NET library for resolving and placing UI elements by its URI. 
