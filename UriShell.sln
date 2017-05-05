@@ -39,8 +39,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UriShell.WPF", "Sources\Uri
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UriShell.WPF.Tests", "Tests\UriShell.WPF.Tests\UriShell.WPF.Tests.csproj", "{703E3CC9-B987-40C7-B39C-7EDAD0623723}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TabApp.Forms", "Samples\TabApp.Forms\TabApp.Forms.csproj", "{125F8E61-D11E-4B52-953F-63597A57A6DC}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -157,18 +155,6 @@ Global
 		{703E3CC9-B987-40C7-B39C-7EDAD0623723}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{703E3CC9-B987-40C7-B39C-7EDAD0623723}.Release|x86.ActiveCfg = Release|Any CPU
 		{703E3CC9-B987-40C7-B39C-7EDAD0623723}.Release|x86.Build.0 = Release|Any CPU
-		{125F8E61-D11E-4B52-953F-63597A57A6DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{125F8E61-D11E-4B52-953F-63597A57A6DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{125F8E61-D11E-4B52-953F-63597A57A6DC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{125F8E61-D11E-4B52-953F-63597A57A6DC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{125F8E61-D11E-4B52-953F-63597A57A6DC}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{125F8E61-D11E-4B52-953F-63597A57A6DC}.Debug|x86.Build.0 = Debug|Any CPU
-		{125F8E61-D11E-4B52-953F-63597A57A6DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{125F8E61-D11E-4B52-953F-63597A57A6DC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{125F8E61-D11E-4B52-953F-63597A57A6DC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{125F8E61-D11E-4B52-953F-63597A57A6DC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{125F8E61-D11E-4B52-953F-63597A57A6DC}.Release|x86.ActiveCfg = Release|Any CPU
-		{125F8E61-D11E-4B52-953F-63597A57A6DC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -183,6 +169,5 @@ Global
 		{7B26E956-626E-486E-B0B9-2F64F7665F55} = {60C00BF6-D80E-4A1D-AD1D-0E01EF5B2293}
 		{7BF67CCA-B341-4F43-B158-76FA5163880E} = {60C00BF6-D80E-4A1D-AD1D-0E01EF5B2293}
 		{703E3CC9-B987-40C7-B39C-7EDAD0623723} = {5CAF58F7-B7BC-4299-9261-130C244B5165}
-		{125F8E61-D11E-4B52-953F-63597A57A6DC} = {BEDC66BE-1145-4EBA-B5F5-8E0306C1E2BD}
 	EndGlobalSection
 EndGlobal
