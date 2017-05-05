@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UriShell.WPF", "Sources\Uri
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UriShell.WPF.Tests", "Tests\UriShell.WPF.Tests\UriShell.WPF.Tests.csproj", "{703E3CC9-B987-40C7-B39C-7EDAD0623723}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TabApp.Forms", "Samples\TabApp.Forms\TabApp.Forms.csproj", "{125F8E61-D11E-4B52-953F-63597A57A6DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
